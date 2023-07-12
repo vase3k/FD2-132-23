@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.03 ANKETA</title>
+</head>
+
+<body>
+    <script>
+        let lastName = prompt('enter your last name', 'vinogradov');
+        if (lastName === "") { while (lastName === "")
+        lastName = prompt('enter your last name', 'vinogradov')};
+
+        let firstName = prompt('enter your first name', 'vasiliy');
+        if (firstName === "") { while (firstName === "")
+        firstName = prompt('enter your first name', 'vasiliy')};
+
+        let middleName = prompt('enter your middle name', 'viktorovich');
+        if (middleName === "") { while (middleName === "")
+        middleName = prompt('enter your middle name', 'viktorovich')};
+
+        let age = parseInt(prompt('enter your age in years', '35'));
+
+        sex = confirm('are you a man?') ? sex = 'man' : sex = 'woman';
+        const ageDays = age * 365;
+        const age25 = age + 5;
+        const pension = sex ? 
+        age <= 63 ? 'non' : 'yes' : 
+        age <= 57 ? 'non' : 'yes'
+
+        alert(
+            `
+ваше ФИО: ${lastName} ${firstName} ${middleName}
+ваш возраст в годах: ${age}
+ваш возраст в днях: ${ageDays}
+через 5 лет вам будет: ${age25}
+ваш пол: мужской ${sex}
+вы на пенсии: ${pension}
+            `
+        );
+    </script>
+</body>
+
+</html>
