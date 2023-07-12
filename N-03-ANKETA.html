@@ -10,20 +10,22 @@
 <body>
     <script>
         let lastName = prompt('enter your last name', 'vinogradov');
-        if (lastName === "") { while (lastName === "")
+        if (lastName === "" || !isNaN(parseInt(lastName))) { while (lastName === "" || !isNaN(parseInt(lastName)))
         lastName = prompt('enter your last name', 'vinogradov')};
 
         let firstName = prompt('enter your first name', 'vasiliy');
-        if (firstName === "") { while (firstName === "")
+        if (firstName === "" || !isNaN(parseInt(firstName))) { while (firstName === "" || !isNaN(parseInt(firstName)))
         firstName = prompt('enter your first name', 'vasiliy')};
 
         let middleName = prompt('enter your middle name', 'viktorovich');
-        if (middleName === "") { while (middleName === "")
+        if (middleName === "" || !isNaN(parseInt(middleName))) { while (middleName === "" || !isNaN(parseInt(middleName)))
         middleName = prompt('enter your middle name', 'viktorovich')};
 
         let age = parseInt(prompt('enter your age in years', '35'));
+        if (isNaN(age)) {while (isNaN(age))
+        age = parseInt(prompt('enter age'))};
 
-        sex = confirm('are you a man?') ? sex = 'man' : sex = 'woman';
+        sex = confirm('are you a man?') ? sex = 'мужской' : sex = 'женский';
         const ageDays = age * 365;
         const age25 = age + 5;
         const pension = sex ? 
@@ -32,12 +34,12 @@
 
         alert(
             `
-ваше ФИО: ${lastName} ${firstName} ${middleName}
-ваш возраст в годах: ${age}
-ваш возраст в днях: ${ageDays}
-через 5 лет вам будет: ${age25}
-ваш пол: мужской ${sex}
-вы на пенсии: ${pension}
+ваше ФИО: ${lastName} ${firstName} ${middleName}.
+ваш возраст : ${age} лет.
+ваш возраст : ${ageDays} дней.
+через 5 лет вам будет: ${age25}.
+ваш пол: ${sex}.
+вы на пенсии: ${pension}.
             `
         );
     </script>
