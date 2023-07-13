@@ -9,28 +9,28 @@
 
 <body>
     <script>
-        let lastName = prompt('enter your last name', 'vinogradov');
+        let lastName = prompt('Введите вашу фамилию', 'Виноградов');
         if (lastName === "" || !isNaN(parseInt(lastName))) { while (lastName === "" || !isNaN(parseInt(lastName)))
-        lastName = prompt('enter your last name', 'vinogradov')};
+        lastName = prompt('В первый раз ввели цифры, не правильно, надо фамилию', 'Виноградов')};
 
-        let firstName = prompt('enter your first name', 'vasiliy');
+        let firstName = prompt('Введите ваше имя', 'Василий');
         if (firstName === "" || !isNaN(parseInt(firstName))) { while (firstName === "" || !isNaN(parseInt(firstName)))
-        firstName = prompt('enter your first name', 'vasiliy')};
+        firstName = prompt('имя буквами', 'Василий')};
 
-        let middleName = prompt('enter your middle name', 'viktorovich');
+        let middleName = prompt('Введите ваше отчество', 'Викторович');
         if (middleName === "" || !isNaN(parseInt(middleName))) { while (middleName === "" || !isNaN(parseInt(middleName)))
-        middleName = prompt('enter your middle name', 'viktorovich')};
+        middleName = prompt('не цифры', 'Викторович')};
 
-        let age = parseInt(prompt('enter your age in years', '35'));
+        let age = parseInt(prompt('Введите ваш возраст', '35'));
         if (isNaN(age)) {while (isNaN(age))
-        age = parseInt(prompt('enter age'))};
+        age = parseInt(prompt('не буквами а цифрами'))};
 
-        sex = confirm('are you a man?') ? sex = 'мужской' : sex = 'женский';
+        sex = confirm('Ты мужик?') ? sex = 'мужской' : sex = 'женский';
         const ageDays = age * 365;
         const age25 = age + 5;
         const pension = sex ? 
-        age <= 63 ? 'non' : 'yes' : 
-        age <= 57 ? 'non' : 'yes'
+        age <= 63 ? 'надо пахать, ты ещё не на пенсии' : 'да здравствует пенсия' : 
+        age <= 57 ? 'иди пахать, пенсия ещё далеко' : 'да здравствует пенсия';
 
         alert(
             `
@@ -39,7 +39,7 @@
 ваш возраст : ${ageDays} дней.
 через 5 лет вам будет: ${age25}.
 ваш пол: ${sex}.
-вы на пенсии: ${pension}.
+${pension}.
             `
         );
     </script>
