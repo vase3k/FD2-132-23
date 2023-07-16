@@ -10,19 +10,22 @@
 <body>
     <script>
         let lastName = prompt('Введите вашу фамилию', 'Виноградов');
-        if (lastName === "" || !isNaN(parseInt(lastName))) { while (lastName === "" || !isNaN(parseInt(lastName)))
+        if (lastName === "" || !isNaN(parseInt(lastName)) || lastName.length >= 30) 
+        { while (lastName === "" || !isNaN(parseInt(lastName))  || lastName.length >= 30)
         lastName = prompt('В первый раз ввели цифры, не правильно, надо фамилию', 'Виноградов')};
 
         let firstName = prompt('Введите ваше имя', 'Василий');
-        if (firstName === "" || !isNaN(parseInt(firstName))) { while (firstName === "" || !isNaN(parseInt(firstName)))
+        if (firstName === "" || !isNaN(parseInt(firstName)) || firstName.length >= 20) 
+        { while (firstName === "" || !isNaN(parseInt(firstName)) || firstName.length >= 20)
         firstName = prompt('имя буквами', 'Василий')};
 
         let middleName = prompt('Введите ваше отчество', 'Викторович');
-        if (middleName === "" || !isNaN(parseInt(middleName))) { while (middleName === "" || !isNaN(parseInt(middleName)))
+        if (middleName === "" || !isNaN(parseInt(middleName)) || middleName.length >= 20) 
+        { while (middleName === "" || !isNaN(parseInt(middleName)) || middleName.length >= 20)
         middleName = prompt('не цифры', 'Викторович')};
 
         let age = parseInt(prompt('Введите ваш возраст', '35'));
-        if (isNaN(age)) {while (isNaN(age))
+        if (isNaN(age) || age > 100) {while (isNaN(age) || age > 100)
         age = parseInt(prompt('не буквами а цифрами'))};
 
         sex = confirm('Ты мужик?') ? sex = 'мужской' : sex = 'женский';
