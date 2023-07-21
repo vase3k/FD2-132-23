@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The calculator</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template: repeat(5, 100px) / repeat(3, 100px);
+            grid-gap: 20px;
+            border-radius: 20px;
+            max-width: fit-content;
+            background-color: beige;
+            padding: 20px;
+        }
+
+        .container input {
+            border-radius: 20px;
+            border: 5px solid green;
+            font: 900 30px sans-serif;
+            cursor: pointer;
+        }
+
+        input:hover {
+            scale: 110%;
+            opacity: .5;
+        }
+
+        .last {
+            grid-column: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="button" value="1" onclick="getNumber(1)">
+        <input type="button" value="2" onclick="getNumber(2)">
+        <input type="button" value="3" onclick="getNumber(3)">
+        <input type="button" value="4" onclick="getNumber(4)">
+        <input type="button" value="5" onclick="getNumber(5)">
+        <input type="button" value="6" onclick="getNumber(6)">
+        <input type="button" value="7" onclick="getNumber(7)">
+        <input type="button" value="8" onclick="getNumber(8)">
+        <input type="button" value="9" onclick="getNumber(9)">
+        <input type="button" value="+" onclick="getSign('+')">
+        <input type="button" value="-" onclick="getSign('-')">
+        <input type="button" value="*" onclick="getSign('*')">
+        <input type="button" value="/" onclick="getSign('/')">
+        <input type="button" class="last" value="=" onclick="getResult()">
+    </div>
+
+    <script>
+        let num1 = null;
+        let oper;
+        let num2 = null;
+
+        function getNumber(number) {
+            if (num1 === null) {
+                num1 = number;
+            }
+            else {
+                num2 = number;
+            };
+        };
+        function getSign(sign) {
+            oper = sign;
+        };
+
+        function getResult() {
+            switch (oper) {
+                case '+': console.log(num1 + num2); break;
+                case '-': console.log(num1 - num2); break;
+                case '*': console.log(num1 * num2); break;
+                case '/': console.log(num1 / num2); break;
+            };
+        }
+
+    </script>
+</body>
+
+</html>
