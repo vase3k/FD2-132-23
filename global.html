@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global</title>
+    <style>
+        .wrap {
+            display: grid;
+            grid-template-columns: 200px 200px;
+            grid-auto-rows: 100px;
+            grid-gap: 20px;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: cornflowerblue;
+            max-width: fit-content;
+        }
+
+        .wrap h1 {
+            grid-column: 1 / span 2;
+            font-size: 50px;
+            margin: 0;
+            font-weight: 900;
+            font-family: monospace;
+            text-align: center;
+            align-self: center;
+        }
+
+        input {
+            width: 200px;
+            height: 100px;
+            font-size: 40px;
+            font-family: monospace;
+            font-weight: 900;
+            border-radius: 20px;
+        }
+
+        input:hover {
+            scale: 105%;
+            transition: all 0.2s ease-in;
+            background-color: blue;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <h1>The diapason</h1>
+        <input type="button" value="+1" onclick="counterPlus()">
+        <input type="button" value="-1" onclick="counterMinus()">
+        <input type="button" value="+10" onclick="plus10()">
+        <input type="button" value="-10" onclick="minus10()">
+    </div>
+
+
+
+    <script>
+        let counter = null;
+        let counterMax = 0;
+
+        function plus10() {
+            counterMax += 10;
+            console.log(counterMax)
+        };
+
+        function minus10() {
+            counterMax -= 10;
+            console.log(counterMax)
+        };
+
+        function counterPlus() {
+            if (counter >= counterMax) {
+                return;
+            }
+            else {
+                counter++
+                console.log(counter)
+            }
+        };
+
+        function counterMinus() {
+            if (counter <= -counterMax) {
+                return
+            }
+            else {
+                counter--
+                console.log(counter)
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
