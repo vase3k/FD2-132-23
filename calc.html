@@ -65,6 +65,7 @@
             else {
                 num2 = number;
             };
+
         };
         function getSign(sign) {
             oper = sign;
@@ -77,8 +78,11 @@
                 case '*': console.log(num1 * num2); break;
                 case '/': console.log(num1 / num2); break;
             };
-        }
-
+            function reset() {
+                num1 = null;
+            }; 
+        reset();
+        };
     </script>
 </body>
 
