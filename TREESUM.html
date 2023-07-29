@@ -54,7 +54,28 @@
             }
             return sum;
         };
-        
+
+        function sumArray2(govno) {
+            let sum = 0;
+            govno.forEach((element) => {
+                if (Array.isArray(element)) {
+                    sum += sumArray(element);
+                } else {
+                    sum += element;
+                }
+            });
+            return sum;
+        }
+
+        function sumArray3(arr) {
+            let sum = 0;
+            arr.forEach((element) => {
+                sum += Array.isArray(element) ? sumArray(element) : element; //тоже самое что и if если элемент являеться цифрой то + false если массив то + true
+            });
+            return sum;
+        }
+
+
         sumArray(arr2); //просто запуск, аргумент являеться массивом
         sumArray(arr);
 
@@ -66,6 +87,14 @@
         console.log('------------')
         console.log(sumArrr(arr));
         console.log(sumArrr(arr2));
+        console.log('------------')
+        console.log(sumArray2(arr));
+        console.log(sumArray2(arr2));
+        console.log('------------')
+        console.log(sumArray3(arr));
+        console.log(sumArray3(arr2));
+
+
 
     </script>
 </body>
