@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class</title>
+</head>
+<body>
+    <script>
+
+        /* es5 */
+        function Car(color, model, marka) {
+            this.color = color;
+            this.model = model;
+            this.marka = marka;
+
+            this.run = function () {
+                console.log(`${this.marka} is run`)
+            }
+        }
+
+        const bmw = new Car('red', 'X5', 'BMW');
+        const mers = new Car('black', 'E-class', 'Mercedes');
+
+        // es6
+        class User {
+            constructor(name, age, gender) {
+                this.name = name;
+                this.age = age;
+                this.gender = gender;
+               
+            }
+
+            #test = () => {
+                console.log('animate run')
+            };
+
+            run = () => {
+                this.#test()
+            }
+        }
+
+        const user1 = new User('Ivan', 25, 'M');
+
+        function ldsvgdfu(){
+            
+        }
+    </script>
+</body>
+</html>
