@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2+</title>
+</head>
+<body>
+
+    <script>
+        const str = `    ${prompt('enter something')}       `;
+
+        const trimStart = (govno) => {
+
+            for (let i = 0; govno[i] === ' '; i++) {
+                console.log('$' + govno.slice(i + 1));
+                govno2 = i; //замыкаем переменную индекса
+            };
+
+            govno = '$' + govno.slice(govno2 + 1); //переназначаем что знак долара остался
+
+            for (let i = govno.length-1; govno[i] === ' '; i--) { 
+                console.log(govno.slice(0,i) + '$'); //обрезаем с начала массива до его конца
+            };
+
+        };
+
+        trimStart(str);
+    </script>
+</body>
+</html>
