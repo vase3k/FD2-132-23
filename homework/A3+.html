@@ -11,8 +11,10 @@
 
         const poly = (govno) => {
 
-            govno = govno.toLowerCase().trim().split(',').join('').split('.').join('').split('!').join('').split('?').join('');
+            govno = govno.toLowerCase().trim().split(',').join('')
+            .split('.').join('').split('!').join('').split('?').join('').split('-').join('');
             govno2 = govno;
+            answer = '';
 
             for (let i = 0; i < govno.length; i++) {
                 if (govno[i] === ' ') {
@@ -30,7 +32,8 @@
                     answer = 'является палиндромом'
                 }
                 else {
-                    return answer = `${govno2.trim()} - не является палиндромом`
+                    return answer = `${govno2.trim()} - не является палиндромом`;
+                    break;
                 }
             }
 
