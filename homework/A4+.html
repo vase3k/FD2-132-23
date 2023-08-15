@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A4+</title>
+</head>
+
+<body>
+    <script>
+
+        const str = 'О, духи, от уборки микробу-то и худо';
+        let govno2;
+
+        const poly = (govno) => {
+            govno2 = govno;
+            govno = govno.toLowerCase().trim().split(',').join('').split('.').join('')
+                .split('!').join('').split('?').join('').split(' ').join('').split('ё').join('').split('-').join('');
+            return govno;
+        };
+
+        const test4 = (govno) => {
+
+            if (govno.length <= 1) {
+                return `${govno2} - являеться палиндромом`;
+            }
+            if (govno[0] === govno[govno.length - 1]) {
+                return test4(govno.slice(1, govno.length - 1));
+            } else {
+                return `${govno2} - не является палиндромом`;
+            }
+        };
+
+        console.log(test4(poly(str)));
+
+    </script>
+</body>
+
+</html>
