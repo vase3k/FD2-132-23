@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B1+</title>
+</head>
+<body>
+    <script>
+        const year = prompt ('enter year');
+        let date = new Date(year,0,1);
+        console.log(date)
+
+        function getCentury(govno) {
+        return Math.ceil(govno.getFullYear() / 100);
+        }
+
+        console.log(getCentury(date));
+        
+    </script>
+</body>
+</html>
