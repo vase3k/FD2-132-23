@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disemvowel Trolls</title>
+</head>
+<body>
+    <script>
+        const govno = 'This website is for losers LOL!';
+        const vowelsArray =  ['a', 'e', 'i', 'o', 'u'];
+
+        function disemvowel(str) {
+            
+            let str2 = '';
+            vowelsArray2 = vowelsArray.map(vowel => vowel.toUpperCase());
+            for(v of str) {
+                if (vowelsArray.includes(v) || vowelsArray2.includes(v)){
+                } else {
+                    str2 +=v;
+                }
+
+            }
+            str = str2;
+            console.log(str);
+        return str;
+        }
+
+        disemvowel(govno);
+
+    </script>
+</body>
+</html>
