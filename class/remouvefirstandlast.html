@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove First and Last Character Part Two</title>
+</head>
+<body>
+     <script>
+         const str = "A1,B2,b4,d4,g6";
+
+         function array(string) {
+             let str2;
+            
+            string = string.split(',');
+
+            if (string.length < 3) {
+                return null;
+            }
+
+            console.log(string);
+            string.shift();
+            string.pop();
+            str2 = string.join();
+            console.log(str2)
+            str2 = str2.split(',').join(' ');
+            console.log(str2)
+            return str2;
+            
+            
+        }   
+        array(str);
+
+
+     </script>
+</body>
+</html>
