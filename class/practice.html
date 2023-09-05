@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+</head>
+
+<body>
+    
+    <script>
+/* 
+        function Wrapper(prefix, postfix) {
+
+            this.prefix = prefix;
+            this.postfix = postfix;
+
+            this.wrap = function (texts) {
+                let s = "";
+                for (let i = 0; i < texts.length; i++)
+                    s += this.prefix + texts[i] + this.postfix;
+                return s;
+            }
+
+        }
+
+        const divWrapper = new Wrapper("{", "}");
+
+        console.log(divWrapper.wrap(["hello", "goodbye"]));
+
+        function Govno(pre, post) {
+            this.pre = pre;
+            this.post = post;
+
+            this.gav = function (array) {
+                let s = "";
+                for (let i = 0; i < array.length;i++)
+                s += this.pre + array[i] + this.post;
+            return s;
+            }
+        }
+
+        const eblo = new Govno ('<','>');
+        console.log(eblo.gav(['sads','gfdrf','sjhdfkjsdh']))
+
+
+        function Govno (pre, post) {
+            this.pre = pre;
+            this.post = post;
+            this.gav = function(arr) {
+                let accum = '';
+                for (let i = 0; i < arr.length;i++) 
+                accum += this.pre + arr[i] + this.post;
+            return accum;
+            }
+        }
+
+        const bmw = new Govno ('>','<');
+        console.log(bmw.gav(['asds','sdsa']));
+
+         */
+/* 
+        function Cars (model, type, year) {
+            let self = this;
+
+            self.model = model;
+            self.type = type;
+            self.year = year;
+
+            self.run = function (speed) {
+                console.log (`${self.model} of year ${self.year} of type ${self.type} can run at ${speed} km per hour`)
+            }
+        }
+
+        const audi = new Cars('audi','sedan',2006);
+        const mers = new Cars('mercedes','sedan',2007);
+       
+        audi.run(300);
+        mers.run(200);
+ */
+
+/*     
+    function Wrapper(prefix, postfix) {
+
+        this.prefix = prefix;
+        this.postfix = postfix;
+
+        this.wrap = function (texts) {
+            let s = "";
+            texts.forEach(v => {s += this.prefix + v + this.postfix})
+            return s;
+        }
+
+    }
+
+    const divWrapper = new Wrapper("{", "}");
+    console.log(divWrapper.wrap(["hello", "goodbye"]));
+ */
+/* 
+        function Cars(model, year) {
+            this.model = model;
+            this.year = year;
+
+            this.wrap = text => {
+                let s = "";
+                text.forEach(v => { s += this.model + v + this.year })
+                return s;
+            }
+        }
+
+
+
+        const bmw = new Cars('bmw', 2006);
+        const audi = new Cars('audi', 2007);
+
+        Cars.run = {
+            run: run => {
+                console.log(bmw.year)
+                console.log(audi.year)
+            }
+        }
+
+
+
+        console.log(Cars.run.run());
+ */
+/* 
+    function Wrapper(prefix, postfix) {
+
+        this.prefix = prefix;
+        this.postfix = postfix;
+
+        this.wrap = function (texts) {
+            let s = "";
+            texts.forEach((v) => { s += this.prefix + v + this.postfix })
+            // функции-стрелки НЕ имеют (НЕ получают) своего this
+            // они видят this той области видимости, в которой описаны
+            return s;
+        }
+
+    }
+
+    const divWrapper = new Wrapper("{", "}");
+    console.log(divWrapper.wrap(["hello", "goodbye"]));
+ */
+/* 
+ function Animal() {
+    this.eyes=2; // пусть у каждого животного 2 глаза
+}
+
+// методы всегда добавляем в прототип
+Animal.prototype.showEyes=function() {
+    console.log('eyes: '+this.eyes);
+}
+
+Animal.prototype.setLegs=function(legs) {
+    this.legs=legs;
+}
+
+Animal.prototype.showLegs=function() {
+    console.log('legs: '+this.legs);
+}
+
+function Tiger() {
+    Animal.call(this); // явно вызываем конструктор класса-предка
+
+    this.setLegs(4); // плюс к тому что есть у животного, у тигра 4 ноги...
+
+    this.roar=function() { // ...и тигр умеет рычать
+        console.log('я реву!');
+    }
+}
+
+Tiger.prototype=
+    Object.create(Animal.prototype); // тигр - это животное, наследуемся
+Tiger.prototype.constructor=Tiger; // рекомендуется
+
+const tigerJohn=new Tiger;
+console.log(tigerJohn);
+
+
+    function Cars() {
+        this.wheels = 4;
+    }
+
+    Cars.prototype.countWheels = countWheels => {
+        console.log(this.wheels);
+    }
+
+    Cars.prototype.setColor = color => {
+        this.color = color;
+    }
+
+    Cars.prototype.showColor = showColor => {
+        console.log(this.color);
+    }
+
+    function Jeep() {
+        Cars.call(this);
+
+        this.setColor('red');
+
+        this.travel=travel => {
+            console.log('travel')
+        }
+    }
+
+    Jeep.prototype=Object.create(Cars.prototype);
+    Jeep.prototype.constructor=Jeep;
+
+    const GrandSherooke = new Jeep;
+    console.log(GrandSherooke)
+  */
+/* 
+  const car = {
+    num : '12345a',
+    speed : 20,
+    beep : function() {console.log(this.num);},
+    go : function() {console.log(this.speed=70);},
+    run : run => {console.log(this.num + this.speed);}
+  };
+
+  car.beep();
+  car.go();
+  car.run();
+ */
+/* 
+ function Car() {
+  this.num = '2345a';
+  this.speed = 0;
+  this.beep = function() { alert(this.num); };
+  this.go = function() { this.speed=60; };
+}
+
+const car=new Car;
+
+car.beep();
+ */
+
+    </script>
+
+</body>
+
+</html>

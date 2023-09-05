@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A3+</title>
+</head>
+<body>
+    <script>
+        str = prompt ('Ведите палиндром')
+
+        const poly = (govno) => {
+
+            govno = govno.toLowerCase().trim().split(',').join('')
+            .split('.').join('').split('!').join('').split('?').join('').split('-').join('');
+            govno2 = govno;
+            answer = '';
+
+            for (let i = 0; i < govno.length; i++) {
+                if (govno[i] === ' ') {
+                    govno = govno.replace(govno[i], '');
+                    i--;
+                }
+                if (govno[i].charCodeAt() === "ё".charCodeAt()) {
+                    govno = govno.replace(govno[i], 'e');
+                    i--;
+                }
+            }
+
+            for (let i = 0; i < govno.length; i++) {
+                if (govno[i] === govno[govno.length - 1 - i]) {
+                    answer = 'является палиндромом'
+                }
+                else {
+                    return answer = `${govno2.trim()} - не является палиндромом`;
+                    break;
+                }
+            }
+
+            return ` ${govno2.trim()} - ${answer}`
+        }
+
+        console.log(poly(str));
+        alert(poly(str));
+    </script>
+</body>
+</html>
