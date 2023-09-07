@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.15d Проблема this внутри обработчика в функции-конструкторе — демо и решение</title>
+</head>
+<body>
+    <img id='Butt1'><br/>
+    <img id='Butt2'><br/>
+    <img id='Butt3'>
+
+<script>
+
+    function Button(elemId) {
+        const self = this; // сохраняем ссылку на this в любой переменной, обычно self
+
+        self.normalFN = 'http://fe.it-academy.by/Examples/butt_n.gif';
+        self.hoverFN = 'http://fe.it-academy.by/Examples/butt_h.gif';
+        self.pressedFN = 'http://fe.it-academy.by/Examples/butt_p.gif';
+
+
+        // запоминаем, с каким IMG будем работать
+        self.elem = document.getElementById(elemId);
+
+        self.elem.onmouseover = buttHover;
+        self.elem.onmousedown = buttPressed;
+        self.elem.onmouseup = buttHover;
+        self.elem.onmouseout = buttNormal;
+
+        function buttNormal() {
+            self.elem.src = self.normalFN;
+        }
+
+        function buttHover() {
+            // this.elem.src=hoverFN; - не сработает - this здесь это <img>
+            console.log(' this = ' + this);
+            console.log(' self = ' + self);
+            self.elem.src = self.hoverFN; // вместо this используем его копию - self
+        }
+
+        function buttPressed() {
+            self.elem.src = self.pressedFN;
+        }
+
+        buttNormal(); // переключаем кнопку в стартовое состояние - обычное
+
+    }
+
+    const butt1 = new Button('Butt1');
+    const butt2 = new Button('Butt2');
+    const butt3 = new Button('Butt3');
+
+</script>
+</body>
+</html>

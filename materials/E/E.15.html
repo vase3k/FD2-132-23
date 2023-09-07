@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.15a Установка обработчиков событий через атрибуты HTML</title>
+</head>
+<img>
+
+<img id=Butt onmouseover='buttHover(this)' onmousedown='buttPressed(this)' onmouseup='buttHover(this)'
+    onmouseout='buttNormal(this)'>
+
+<script>
+
+    const normalFN = 'http://fe.it-academy.by/Examples/butt_n.gif';
+    const hoverFN = 'http://fe.it-academy.by/Examples/butt_h.gif';
+    const pressedFN = 'http://fe.it-academy.by/Examples/butt_p.gif';
+
+    function buttHover(elem) {
+        // Обработчик события - код "buttHover(this)",
+        // внутри этого кода this - это картинка.
+        // А эта функция может найти картинку через getElementById,
+        // или же мы можем передать ей this из кода обработчика, как сейчас
+        elem.src = hoverFN;
+    }
+
+    function buttNormal(elem) {
+        elem.src = normalFN;
+    }
+
+    function buttPressed(elem) {
+        elem.src = pressedFN;
+    }
+
+    buttNormal(document.getElementById('Butt'));
+
+</script>
+    
+</body>
+</html>

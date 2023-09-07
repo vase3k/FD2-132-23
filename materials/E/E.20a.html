@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.20a Объект события в случае установки обработчика через addEventListener или свойство элемента</title>
+</head>
+<body>
+    <div id='IBox' style='background: yellow; width: 200px; height: 200px'></div>
+    координаты клика: <span id='IInfo'></span>
+    
+    <script>
+
+        const boxObj = document.getElementById('IBox');
+        boxObj.addEventListener("click", boxClicked, false);
+        // или boxObj.onclick=boxClicked;
+
+        function boxClicked(eo) {
+            console.log('eo = ' + eo);
+            console.log('window.event = ' + window.event);
+            // все браузеры, кроме старых IE,
+            // передают объект события как аргумент обработчику события
+            // т.е. он передан обработчику под именем eo
+            // а старые IE хранят объект события в window.event
+            // многие современные браузеры делают и то и другое
+            eo = eo || window.event;
+            // теперь eo - объект события в любом браузере
+
+            // найдём положение самого жёлтого квадрата
+            // относительно страницы
+            const boxPos = getElementPos(boxObj);
+
+            // найдём координаты клика относительно жёлтого квадрата
+            const clickX = Math.round(eo.pageX - boxPos.left);
+            const clickY = Math.round(eo.pageY - boxPos.top);
+            const infoObj = document.getElementById('IInfo');
+            infoObj.innerHTML = "x=" + clickX + " y=" + clickY;
+        }
+
+        function getElementPos(elem) {
+            const bbox = elem.getBoundingClientRect();
+            return {
+                left: bbox.left + window.pageXOffset,
+                top: bbox.top + window.pageYOffset
+            };
+        }
+
+    </script>
+</body>
+</html>

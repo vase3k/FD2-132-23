@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.17a Предзагрузка изображений — зачем?</title>
+</head>
+<body>
+
+    <img id='Butt'
+    onmouseover='buttHover()' onmouseout='buttNormal()'
+    onmousedown='buttPressed()' onmouseup='buttHover()'>
+
+<script>
+
+    const normalFN =
+        'TestSlowImage.php?n=butt_n.gif&s=1000&rand=' + Math.random();
+    const hoverFN =
+        'TestSlowImage.php?n=butt_h.gif&s=1000&rand=' + Math.random();
+    const pressedFN =
+        'TestSlowImage.php?n=butt_p.gif&s=1000&rand=' + Math.random();
+
+    function buttHover() {
+        document.getElementById('Butt').src = hoverFN;
+    }
+
+    function buttNormal() {
+        document.getElementById('Butt').src = normalFN;
+    }
+
+    function buttPressed() {
+        document.getElementById('Butt').src = pressedFN;
+    }
+
+    buttNormal();
+
+</script>
+</body>
+</html>
