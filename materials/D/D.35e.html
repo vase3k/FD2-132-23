@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D.35e Изменение HTML-содержимого через innerHTML+= (проблема решена)</title>
+  </head>
+  <body>
+    Ваше имя: <input type="text" value="Иванов" style="width: 180px" /><br />
+    Ваше сообщение:<br />
+    <textarea style="width: 180px; height: 100px">
+Однажды в студёную зимнюю пору</textarea
+    >
+    <div id="IFooter"></div>
+
+    <input type="button" value="добавить разметку" onclick="addMarkup()" />
+
+    <script>
+      function addMarkup() {
+        const footerElem = document.getElementById("IFooter");
+        footerElem.innerHTML = "Ах, как вы хорошо пишете!";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D.35a Изменение HTML-содержимого элементов</title>
+  </head>
+  <body>
+    <div style="border: solid red 1px; margin-bottom: 5px">
+      <p>
+        Моллюски &mdash; главным образом свободноживущие организмы, однако есть
+        некоторое количество паразитических форм.
+      </p>
+      <p>
+        Моллюски очень разнообразны не только по размеру, но и анатомическому
+        строению и поведению.
+      </p>
+      <p>
+        Головоногие моллюски, такие как <b id="Calmar">кальмары</b>,
+        <b>каракатицы</b> и <b>осьминоги</b>, занимают одно из первых мест среди
+        беспозвоночных по степени развития нервной системы.
+      </p>
+    </div>
+    <div id="Block2" style="border: solid red 1px; margin-bottom: 5px">
+      <p>Около 80% видов моллюсков относятся к классу <b>брюхоногих</b>.</p>
+      <p>
+        Большинство моллюсков могут передвигаться с помощью <b>ноги</b>. У
+        головоногих моллюсков нога трансформирована в щупальца.
+      </p>
+      <p>
+        Одна из характерных особенностей моллюсков &mdash;
+        <b>минерализированная раковина</b>, форма и строение которой меняется от
+        класса к классу. У большинства головоногих раковина отсутствует.
+      </p>
+      <p>
+        Характерным для моллюсков является особый ротовой орган &mdash;
+        <b>радула</b>.
+      </p>
+    </div>
+
+    <input type="button" value="изменить кальмаров" onclick="changeCalmar()" />
+    <input
+      type="button"
+      value="изменить весь второй блок"
+      onclick="changeBlock2()"
+    />
+
+    <script>
+      "use strict";
+
+      function changeCalmar() {
+        var calmarElem = document.getElementById("Calmar");
+        console.log("старое HTML-содержимое: " + calmarElem.innerHTML);
+        calmarElem.innerHTML = "взрослые кальмары <i>(и кальмарята)</i>";
+      }
+
+      function changeBlock2() {
+        var block2Elem = document.getElementById("Block2");
+        console.log("старое HTML-содержимое: " + block2Elem.innerHTML);
+        block2Elem.innerHTML = "УДАЛЕНО ЦЕНЗУРОЙ";
+      }
+    </script>
+  </body>
+</html>

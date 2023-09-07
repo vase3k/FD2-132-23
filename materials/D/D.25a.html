@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D.25a Полезная функция получения координат элемента</title>
+  </head>
+  <body>
+    <script>
+      // получение координат элемента относительно верхнего левого угла страницы
+      function getElementPos(elem) {
+        const bbox = elem.getBoundingClientRect();
+        return {
+          left: bbox.left + window.pageXOffset,
+          top: bbox.top + window.pageYOffset,
+        };
+      }
+
+      // то же, кроссбраузерный вариант (в т.ч. для IE8-)
+      function getElementPos(elem) {
+        var bbox = elem.getBoundingClientRect();
+
+        var body = document.body;
+        var docEl = document.documentElement;
+
+        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+        var scrollLeft =
+          window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+        var clientTop = docEl.clientTop || body.clientTop || 0;
+        var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+        var top = bbox.top + scrollTop - clientTop;
+        var left = bbox.left + scrollLeft - clientLeft;
+
+        return {
+          left: left,
+          top: top,
+        };
+      }
+    </script>
+  </body>
+</html>

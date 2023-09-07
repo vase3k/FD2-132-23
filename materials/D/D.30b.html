@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D.30b Значения DOM-свойств и HTML-атрибутов могут отличаться</title>
+</head>
+<body>
+    <img src='Examples/fountain.jpg' id=AA>
+
+<script>
+
+    const elem=document.getElementById('AA');
+    console.log( 'DOM-свойство src = ' + elem.src );
+    console.log( 'HTML-атрибут src = ' +
+        elem.getAttribute('src') );
+  
+</script>
+</body>
+</html>

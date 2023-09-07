@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D.35d Изменение HTML-содержимого через innerHTML+= (проблема потери введённого содержимого)</title>
+  </head>
+  <body>
+    <div id="ICont">
+      Ваше имя: <input type="text" value="Иванов" style="width: 180px" /><br />
+      Ваше сообщение:<br />
+      <textarea style="width: 180px; height: 100px">
+    Однажды в студёную зимнюю пору</textarea
+      >
+    </div>
+
+    <input type="button" value="добавить разметку" onclick="addMarkup()" />
+
+    <script>
+      function addMarkup() {
+        const contElem = document.getElementById("ICont");
+        console.log("старое HTML-содержимое: " + contElem.innerHTML);
+        contElem.innerHTML += "<br />Ах, как вы хорошо пишете!";
+      }
+    </script>
+  </body>
+</html>

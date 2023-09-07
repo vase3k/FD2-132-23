@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D.30a Работа с DOM-свойствами и HTML-атрибутами</title>
+  </head>
+  <body>
+    <p>первый абзац</p>
+    <img id="IPict" src="http://fe.it-academy.by/Examples/Hilu200.jpg" />
+    <p>второй абзац</p>
+
+    <input
+      type="button"
+      value="сменить картинку 1"
+      onclick="changePicture1()"
+    />
+    <input
+      type="button"
+      value="сменить картинку 2"
+      onclick="changePicture2()"
+    />
+
+    <script>
+      function changePicture1() {
+        const elem = document.getElementById("IPict");
+        elem.src = "http://fe.it-academy.by/Examples/Peacock3.jpg";
+      }
+
+      function changePicture2() {
+        const elem = document.getElementById("IPict");
+        elem.setAttribute("src", "http://fe.it-academy.by/Examples/pelican2.jpg");
+      }
+    </script>
+  </body>
+</html>

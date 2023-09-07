@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D.25b Работа с положением и размером элементов</title>
+  </head>
+  <body>
+    <div
+      id="RED"
+      style="
+        position: absolute;
+        left: 100px;
+        top: 250px;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      "
+    ></div>
+    <div
+      id="GREEN"
+      style="
+        position: absolute;
+        left: 30px;
+        top: 200px;
+        width: 50px;
+        height: 50px;
+        background-color: green;
+      "
+    ></div>
+
+    <input type="button" value="слева" onclick="toLeft()" />
+    <input type="button" value="справа" onclick="toRight()" />
+    <input type="button" value="сверху" onclick="toTop()" />
+    <input type="button" value="снизу" onclick="toBottom()" />
+
+    <script>
+      function toLeft() {
+        const green = document.getElementById("GREEN");
+        const red = document.getElementById("RED");
+        green.style.left = red.offsetLeft - green.offsetWidth + "px";
+        green.style.top =
+          red.offsetTop + red.offsetHeight / 2 - green.offsetHeight / 2 + "px";
+      }
+
+      function toRight() {
+        const green = document.getElementById("GREEN");
+        const red = document.getElementById("RED");
+        green.style.left = red.offsetLeft + red.offsetWidth + "px";
+        green.style.top =
+          red.offsetTop + red.offsetHeight / 2 - green.offsetHeight / 2 + "px";
+      }
+
+      function toTop() {
+        const green = document.getElementById("GREEN");
+        const red = document.getElementById("RED");
+        green.style.top = red.offsetTop - green.offsetHeight + "px";
+        green.style.left =
+          red.offsetLeft + red.offsetWidth / 2 - green.offsetWidth / 2 + "px";
+      }
+
+      function toBottom() {
+        const green = document.getElementById("GREEN");
+        const red = document.getElementById("RED");
+        green.style.top = red.offsetTop + red.offsetHeight + "px";
+        green.style.left =
+          red.offsetLeft + red.offsetWidth / 2 - green.offsetWidth / 2 + "px";
+      }
+    </script>
+  </body>
+</html>

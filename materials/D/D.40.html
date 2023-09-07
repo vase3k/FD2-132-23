@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      D.40 Пример работы с элементами формы, пример позиционирования
+    </title>
+  </head>
+  <body>
+    <div
+      id="RED"
+      style="
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 150px;
+        top: 400px;
+        background-color: red;
+        border-radius: 50%;
+      "
+    ></div>
+    <div
+      id="GREEN"
+      style="
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: green;
+        border-radius: 50%;
+      "
+    ></div>
+
+    <form name="FPos">
+      Расстояние (радиус):
+      <input type="text" name="Radius" value="100" /><br />
+      Угол (в градусах):
+      <input type="text" name="Angle" value="30" /><br />
+      <input type="button" value="позиционировать" onclick="pos()" />
+    </form>
+
+    <script>
+      function pos() {
+        const red = document.getElementById("RED");
+        const green = document.getElementById("GREEN");
+
+        const form = document.forms.FPos;
+        const radius = parseFloat(form.elements.Radius.value);
+        const angle = (parseFloat(form.elements.Angle.value) / 180) * Math.PI;
+
+        const redCenterX = red.offsetLeft + red.offsetWidth / 2;
+        const redCenterY = red.offsetTop + red.offsetHeight / 2;
+
+        const greenCenterX = redCenterX + radius * Math.sin(angle);
+        const greenCenterY = redCenterY - radius * Math.cos(angle);
+
+        green.style.left =
+          Math.round(greenCenterX - green.offsetWidth / 2) + "px";
+        green.style.top =
+          Math.round(greenCenterY - green.offsetHeight / 2) + "px";
+      }
+
+      pos();
+    </script>
+  </body>
+</html>
