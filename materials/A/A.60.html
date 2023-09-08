@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A.60 Области видимости и замыкания</title>
+  </head>
+  <body>
+    <script>
+      var FFref = null;
+
+      function F() {
+        var A = 5;
+
+        function FF() {
+          console.log("замкнутая переменная A=" + A);
+        }
+
+        FFref = FF;
+      }
+
+      F();
+
+      FFref();
+
+      //второй пример
+
+      var FFref = null;
+
+      function F() {
+        var A = 5;
+        console.log("локальная для F переменная A=" + A);
+
+        function FF() {
+          var B = 20;
+          console.log("локальная для FF переменная B=" + B);
+          console.log("замкнутая переменная A=" + A);
+        }
+
+        FF();
+
+        FFref = FF;
+
+        A++;
+        console.log("локальная для F переменная A=" + A);
+      }
+
+      F();
+
+      FFref();
+    </script>
+  </body>
+</html>

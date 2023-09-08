@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.43a Значения параметров вызова функции по умолчанию — ES5</title>
+</head>
+<body>
+    <script>
+
+        function alarmClockMessage(mess) {
+            mess=mess || 'Подъём!'; //если mess false то будет присвоенно значение 'подьём!'
+            console.log( 'будильник сработал, сообщение: ' + mess );
+        }
+    
+        alarmClockMessage('Пора на работу!');
+        alarmClockMessage( );
+        alarmClockMessage("");
+    
+    </script>
+</body>
+</html>

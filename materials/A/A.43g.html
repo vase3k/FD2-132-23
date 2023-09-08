@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.43g Подъём описаний и переменные типа функция</title>
+</head>
+<body>
+    <script>
+
+        // переменные, объявленные через "var имя=function", создаются со значением undefined
+        // сразу при создании их области видимости
+        // а оператор var просто присваивает переменной значение-функцию
+    
+        // здесь переменная уже объявлена (создана), но значение ей ещё не присвоено
+        console.log('Переменная ff равна '+ff);
+    
+        var ff=function(x) {
+            console.log(x);
+        };
+    
+        // здесь переменной уже присвоено значение
+        console.log('Переменная ff равна '+ff);
+        // и её можно вызвать
+        ff(555);
+    
+    </script>
+</body>
+</html>
