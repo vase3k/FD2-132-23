@@ -65,6 +65,7 @@
         { Brand: "lexus", body: "sedan", model: "ES", year: 2016, price: 200000 },
     ]
 
+
     const render = (items) => {
         const html = items.reduce(function (acc, item) {
             return acc += `
@@ -84,16 +85,17 @@
         app.innerHTML = html;
     }
 
-
     const filterApply = (items) => {
-        document.getElementById("filter_value").addEventListener("change", function () {
-            let filterValue = this.value;
-            console.log(filterValue)
+            let filterValue = document.getElementById('filter_value').value;
             let filteredItems = items.filter(item => item.price > filterValue);
-            console.log(filteredItems);
             render(filteredItems);
-        });
-    }
+        };
+    
+    document.addEventListener('change', () => {
+         const filter1 = document.getElementById('filter_value').value;
+         filter.value = filter1 + " $";
+    })
+
 </script>
 </body>
 
