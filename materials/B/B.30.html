@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.30 Полезные функции, связанные с Math</title>
+</head>
+<body>
+    <script>
+
+    // округление до произвольного модуля
+function roundMod(n,m) {
+    return Math.round(n/m)*m;
+}
+
+console.log(roundMod(20,9));
+
+
+// получение целого случайного числа в заданном диапазоне
+function randomDiap(n,m) {
+    return Math.floor(Math.random()*(m-n+1))+n;
+}
+randomDiap(10,20);
+
+    </script>
+
+</body>
+</html>

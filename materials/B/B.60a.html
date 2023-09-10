@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.60a Зачем нужны классы? (три подхода к созданию объектов)</title>
+  </head>
+  <body>
+    <script>
+      //создание отдельных хэшей
+      const car1 = {
+        model: "Mercedes",
+        number: "1111-AAA",
+        price: 10000,
+        show: function () {
+          alert(this.model + " / " + this.number + " / " + this.price);
+        },
+      };
+
+      const car2 = {
+        model: "BMW",
+        number: "222-BBB",
+        price: 9000,
+        show: function () {
+          alert(this.model + " / " + this.number + " / " + this.price);
+        },
+      };
+
+      const car3 = {
+        model: "Skoda",
+        number: "333-CCC",
+        price: 4000,
+        show: function () {
+          alert(this.model + " / " + this.number + " / " + this.price);
+        },
+      };
+
+      car1.show();
+      car2.show();
+      car3.show();
+
+      //описание функции-инициализатора хэшей
+      function fillCar(car, _model, _number, _price) {
+        car.model = _model;
+        car.number = _number;
+        car.price = _price;
+        car.show = function () {
+          alert(this.model + " / " + this.number + " / " + this.price);
+        };
+      }
+
+      const car11 = {};
+      fillCar(car11, "Mercedes", "1111-AAA", 10000);
+
+      const car22 = {};
+      fillCar(car22, "BMW", "222-BBB", 9000);
+
+      const car33 = {};
+      fillCar(car33, "Skoda", "333-CCC", 4000);
+
+      car1.show();
+      car2.show();
+      car3.show();
+
+      //описание класса
+      function Car(_model, _number, _price) {
+        this.model = _model;
+        this.number = _number;
+        this.price = _price;
+        this.show = function () {
+          alert(this.model + " / " + this.number + " / " + this.price);
+        };
+      }
+
+      const car111 = new Car("Mercedes", "1111-AAA", 10000);
+      const car222 = new Car("BMW", "222-BBB", 9000);
+      const car333 = new Car("Skoda", "333-CCC", 4000);
+
+      car1.show();
+      car2.show();
+      car3.show();
+    </script>
+  </body>
+</html>

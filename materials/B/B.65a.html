@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.65a Работа с массивом внутри метода — простой пример</title>
+  </head>
+  <body>
+    <script>
+      function Wrapper(prefix, postfix) {
+        this.prefix = prefix;
+        this.postfix = postfix;
+
+        this.wrap = function (texts) {
+          let s = "";
+          for (let i = 0; i < texts.length; i++)
+            s += this.prefix + texts[i] + this.postfix;
+          return s;
+        };
+      }
+
+      const divWrapper = new Wrapper("{", "}");
+      console.log(divWrapper.wrap(["hello", "goodbye"]));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      B.65c Работа с массивом внутри метода — решение проблемы forEach через
+      self
+    </title>
+  </head>
+  <body>
+    <script>
+      function Wrapper(prefix, postfix) {
+        let self = this;
+
+        self.prefix = prefix;
+        self.postfix = postfix;
+
+        self.wrap = function (texts) {
+          let s = "";
+          texts.forEach(function (v) {
+            s += self.prefix + v + self.postfix;
+          });
+          return s;
+        };
+      }
+
+      const divWrapper = new Wrapper("{", "}");
+      console.log(divWrapper.wrap(["hello", "goodbye"]));
+    </script>
+  </body>
+</html>
