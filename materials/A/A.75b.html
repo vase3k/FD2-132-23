@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.75b Сравнение массивов и хэшей</title>
+</head>
+<body>
+    <script>
+
+        "use strict";
+    
+        const a=[2,3,5];
+        const a2=[2,3,5];
+        console.log( a==a2 ); // сравниваются ссылки на массивы, а не элементы массивов
+    
+        const h={a:5,b:6};
+        const h2={a:5,b:6};
+        console.log( h==h2 ); // сравниваются ссылки на хэши, а не ключи/элементы хэшей
+    
+        const z=[ ];
+        console.log( z==[ ] ); // [ ] - это литерал НОВОГО массива, только что созданного! ссылка
+        console.log( [ ]==[ ] ); // на него не может быть равна чему-либо уже существующему!
+    
+        const k={ };
+        console.log( k=={ } ); // { } - это литерал НОВОГО хэша, только что созданного! ссылка
+        console.log( { }=={ } ); // на него не может быть равна чему-либо уже существующему!
+    
+    </script>
+</body>
+</html>

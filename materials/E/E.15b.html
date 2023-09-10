@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.15b Установка обработчиков событий через свойства элементов</title>
+    <style>
+        img {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <img id='Butt1'><br />
+    <img id='Butt2'><br />
+    <img id='Butt3'><br />
+
+    <script>
+
+        const normalFN = 'http://fe.it-academy.by/Examples/butt_n.gif';
+        const hoverFN = 'http://fe.it-academy.by/Examples/butt_h.gif';
+        const pressedFN = 'http://fe.it-academy.by/Examples/butt_p.gif';
+
+        const buttObj1 = document.getElementById('Butt1');
+        buttObj1.onmouseover = buttHover;
+        buttObj1.onmousedown = buttPressed;
+        buttObj1.onmouseup = buttHover;
+        buttObj1.onmouseout = buttNormal;
+        buttObj1.src = normalFN;
+
+        const buttObj2 = document.getElementById('Butt2');
+        buttObj2.onmouseover = buttHover;
+        buttObj2.onmousedown = buttPressed;
+        buttObj2.onmouseup = buttHover;
+        buttObj2.onmouseout = buttNormal;
+        buttObj2.src = normalFN;
+
+        const buttObj3 = document.getElementById('Butt3');
+        buttObj3.onmouseover = buttHover;
+        buttObj3.onmousedown = buttPressed;
+        buttObj3.onmouseup = buttHover;
+        buttObj3.onmouseout = buttNormal;
+        buttObj3.src = normalFN;
+
+        function buttHover() {
+            this.src = hoverFN; // this - объект, у которого произошло событие
+        }
+
+        function buttNormal() {
+            this.src = normalFN;
+        }
+
+        function buttPressed() {
+            this.src = pressedFN;
+        }
+
+    </script>
+
+</body>
+</html>

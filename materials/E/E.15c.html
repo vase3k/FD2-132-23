@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.15c Установка обработчиков событий через свойства элементов инлайн-функциями</title>
+</head>
+<body>
+
+    <img id='Butt'>
+
+<script>
+
+    const normalFN = 'http://fe.it-academy.by/Examples/butt_n.gif';
+    const hoverFN = 'http://fe.it-academy.by/Examples/butt_h.gif';
+    const pressedFN = 'http://fe.it-academy.by/Examples/butt_p.gif';
+
+    /*     const buttObj=document.getElementById('Butt');
+        buttObj.onmouseover=function() { this.src=hoverFN; }
+        buttObj.onmousedown=function () { this.src=pressedFN; }
+        buttObj.onmouseup=buttObj.onmouseover;
+        buttObj.onmouseout=function () { this.src=normalFN; }
+        buttObj.src=normalFN; */
+
+    const buttObj = document.getElementById('Butt');
+    buttObj.onmouseover = () => buttObj.src = hoverFN;
+    buttObj.onmousedown = () => buttObj.src = pressedFN;
+    buttObj.onmouseup = buttObj.onmouseover;
+    buttObj.onmouseout = () => buttObj.src = normalFN;
+    buttObj.src = normalFN;
+
+
+
+
+</script>
+</body>
+</html>

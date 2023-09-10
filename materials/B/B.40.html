@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.40 Пример цикла от буквы до буквы</title>
+</head>
+<body>
+    <script>
+
+        // пусть нам нужно в консоль вывести 10 букв, начиная от D
+    
+        // получим Unicode-код буквы D
+        const DCode='A'.charCodeAt(); // это 68
+    
+        for ( let i=0; i<26; i++ ) {
+            const c=String.fromCharCode(DCode+i); // строим букву по коду
+            console.log( c );
+        }
+    
+    </script>
+</body>
+</html>

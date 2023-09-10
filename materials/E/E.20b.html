@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.20b Объект события в случае установки обработчика через атрибут HTML — в переменной event</title>
+</head>
+<body>
+    <div id='IBox' style='background: yellow; width: 200px; height: 200px' onclick="boxClicked(event)">
+    </div>
+    координаты клика: <span id='IInfo'></span>
+
+<script>
+
+    const boxObj = document.getElementById('IBox');
+
+    function boxClicked(eo) {
+        console.log('eo = ' + eo);
+        console.log('window.event = ' + window.event);
+        eo = eo || window.event;
+
+        // найдём положение самого жёлтого квадрата
+        // относительно страницы
+        const boxPos = getElementPos(boxObj);
+
+        // найдём координаты клика относительно жёлтого квадрата
+        const clickX = Math.round(eo.pageX - boxPos.left);
+        const clickY = Math.round(eo.pageY - boxPos.top);
+        const infoObj = document.getElementById('IInfo');
+        infoObj.innerHTML = "x=" + clickX + " y=" + clickY;
+    }
+
+    function getElementPos(elem) {
+        const bbox = elem.getBoundingClientRect();
+        return {
+            left: bbox.left + window.pageXOffset,
+            top: bbox.top + window.pageYOffset
+        };
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      B.60e Цепочки методов — вот зачем (один объект + много действий над ним)
+    </title>
+  </head>
+  <body>
+    <script>
+      function Car() {
+        const self = this;
+
+        self.num = null;
+        self.color = null;
+
+        self.setNum = function (_num) {
+          self.num = _num;
+          return self;
+        };
+        self.setColor = function (_color) {
+          self.color = _color;
+          return self;
+        };
+        self.beep = function () {
+          console.log("Beeeep!");
+          return self;
+        };
+        self.show = function () {
+          console.log("num=" + self.num + " color=" + self.color);
+          return self;
+        };
+      }
+
+      const сar1 = new Car();
+      сar1.setNum("AAA111").setColor("чёрный").beep().show();
+    </script>
+  </body>
+</html>

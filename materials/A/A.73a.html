@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.73a Хэш как память (как запомнить что что-то уже случалось)</title>
+</head>
+<body>
+    <script>
+
+        const values=[55,77,55,66,77];
+        let used={}; // ключ хэша - число, которое уже встречалось
+        for ( let i=0; i<values.length; i++ ) {
+            const value=values[i]; // очередное значение
+            if ( value in used ) // встречалось ли оно?
+                continue; // если да - всё, берём следующее
+            used[value]=true; // если нет - запоминаем, что это значение уже встречалось
+            console.log(value); // выводим его в консоль
+        }
+    
+    </script>
+    
+</body>
+</html>

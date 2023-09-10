@@ -59,20 +59,23 @@
 
     <div id="app"></div>
 
-    <script>
 
-        const Cars = [
-            { Brand: "bmw", body: "sedan", model: "x5", year: 2016, price: 120000 },
-            { Brand: "audi", body: "coupe", model: "A5", year: 2014, price: 90000 },
-            { Brand: "mercedes", body: "electric", model: "EQC", year: 2015, price: 40000 },
-            { Brand: "mercedes", body: "hybrid", model: "E", year: 2023, price: 60000 },
-            { Brand: "audi", body: "coupe", model: "A4", year: 2015, price: 50000 },
-            { Brand: "lexus", body: "sedan", model: "ES", year: 2016, price: 200000 },
-        ]
+<script>
+    
+    const Cars = [
+        { Brand: "bmw", body: "sedan", model: "x5", year: 2016, price: 200000 },
+        { Brand: "audi", body: "coupe", model: "A5", year: 2014, price: 180000 },
+        { Brand: "mercedes", body: "electric", model: "EQC", year: 2015, price: 160000 },
+        { Brand: "mercedes", body: "hybrid", model: "E", year: 2023, price: 120000 },
+        { Brand: "audi", body: "coupe", model: "A4", year: 2015, price: 100000 },
+        { Brand: "lexus", body: "sedan", model: "ES", year: 2016, price: 80000 },
+    ]
 
-        const render = (items) => {
-            const html = items.reduce(function (acc, item) {
-                return acc += `
+
+    const render = (items) => {
+        const html = items.reduce(function (acc, item) {
+            return acc += `
+
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">${item.Brand}</h5>
@@ -90,16 +93,19 @@
         }
 
 
-        const filterApply = (items) => {
-            document.getElementById("filter_value").addEventListener("change", function () {
-                let filterValue = this.value;
-                console.log(filterValue)
-                let filteredItems = items.filter(item => item.price > filterValue);
-                console.log(filteredItems);
-                render(filteredItems);
-            });
-        }
-    </script>
+    const filterApply = (items) => {
+            let filterValue = document.getElementById('filter_value').value;
+            let filteredItems = items.filter(item => item.price > filterValue);
+            render(filteredItems);
+        };
+    
+    document.addEventListener('change', () => {
+         const filter1 = document.getElementById('filter_value').value;
+         filter.value = filter1 + " $";
+    })
+
+</script>
+
 </body>
 
 </html>

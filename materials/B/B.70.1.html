@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.70 Приватные свойства в ES6-классах</title>
+  </head>
+  <body>
+    <a
+      href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Classes/Private_class_fields"
+      >Приватные поля класса</a
+    >
+    <script>
+      class ClassWithPrivateField {
+        #privateField;
+      }
+
+      class ClassWithPrivateMethod {
+        /*  */
+        #privateMethod() {
+          return "hello world";
+        }
+      }
+
+      class ClassWithPrivateStaticField {
+        static #PRIVATE_STATIC_FIELD;
+      }
+    </script>
+  </body>
+</html>

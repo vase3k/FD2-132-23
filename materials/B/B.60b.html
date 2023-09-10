@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.60b Функция для получения реального имени класса объекта</title>
+  </head>
+  <body>
+    <script>
+      function getClassName(obj) {
+        if (obj.constructor && obj.constructor.name)
+          return obj.constructor.name;
+        const c = Object.prototype.toString.apply(obj);
+        return c.substring(8, c.length - 1);
+      }
+
+      class User {
+        constructor(name, age, fname) {
+          this.name = name;
+          this.age = age;
+          this.fname = fname;
+        }
+
+        run = () => {
+          console.log(this.name);
+        };
+      }
+
+      const Ivan = new User("ivan", 25, "drago");
+      console.log(getClassName(Ivan));
+    </script>
+  </body>
+</html>

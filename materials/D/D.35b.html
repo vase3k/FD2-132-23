@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      D.35b Изменение HTML-содержимого через innerHTML+= (проблема
+      автовалидации)
+    </title>
+  </head>
+  <body>
+    <style>
+      #ICont ul {
+        border: solid red 1px;
+      }
+    </style>
+
+    <div id="ICont"></div>
+
+    <input type="button" value="добавить список" onclick="addList()" />
+
+    <script>
+      function addList() {
+        const list = ["красный", "жёлтый", "зелёный"];
+
+        const contElem = document.getElementById("ICont");
+
+        contElem.innerHTML += "<ul>";
+        console.log(contElem.innerHTML);
+
+        for (let i = 0; i < list.length; i++)
+          contElem.innerHTML += "<li>" + list[i] + "</li>";
+        console.log(contElem.innerHTML);
+
+        contElem.innerHTML += "</ul>";
+        console.log(contElem.innerHTML);
+      }
+    </script>
+  </body>
+</html>

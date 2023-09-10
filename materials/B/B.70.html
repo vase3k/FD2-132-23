@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Статический метод, метод прототипа и метод экземпляра класса</title>
+  </head>
+  <body>
+    <div class="content" tabindex="0" style="color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+        <div class="ac-container ac-adaptiveCard">
+            <div class="ac-textBlock">
+                <p>Статический метод, метод прототипа и метод экземпляра класса в JavaScript имеют различия в использовании и функциональности.</p>
+                <p><strong>Статический метод</strong>:</p>
+                <ul>
+                    <li>Статические методы принадлежат классу, а не экземпляру класса.</li>
+                    <li>Они вызываются через имя класса, а не через имя объекта.</li>
+                    <li>Обычно статические методы используются для реализации функций, которые будут принадлежать классу в целом, но не какому-либо его конкретному объекту.</li>
+                </ul>
+                <p><strong>Метод прототипа</strong>:</p>
+                <ul>
+                    <li>Методы прототипа принадлежат экземпляру класса, а не самому классу.</li>
+                    <li>Они вызываются через имя объекта, а не через имя класса.</li>
+                    <li>Методы прототипа обычно используются для реализации функций, которые будут применяться к каждому отдельному объекту класса.</li>
+                    <li>Все экземпляры класса делят один и тот же метод прототипа, что делает его более эффективным с точки зрения использования памяти.</li>
+                </ul>
+                <p><strong>Метод экземпляра класса</strong>:</p>
+                <ul>
+                    <li>Методы экземпляра класса принадлежат конкретному экземпляру класса.</li>
+                    <li>Они также вызываются через имя объекта.</li>
+                    <li>Методы экземпляра класса обычно используются для реализации функций, которые специфичны для конкретного экземпляра класса.</li>
+                    <li>Каждый экземпляр класса имеет свою собственную копию метода экземпляра класса.</li>
+                </ul>
+    <script>
+      class MyClass {
+        static staticMethod() {
+          return "Статический метод";
+        }
+        prototypeMethod() {
+          return "Метод прототипа";
+        }
+      }
+
+      MyClass.prototype.prototypeMethod = function () {
+        return "Метод прототипа";
+      };
+
+      console.log(MyClass.staticMethod()); // 'Статический метод'
+
+      let instance = new MyClass();
+      console.log(instance.prototypeMethod()); // 'Метод прототипа'
+
+    </script>
+  </body>
+</html>

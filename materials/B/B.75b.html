@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.75b Русскоязычное форматирование даты и времени (метод)</title>
+  </head>
+  <body>
+    <script>
+      // форматирует переданную дату-время в формате дд.мм.гггг чч:мм:сс
+      function formatDateTime() {
+        const year = this.getFullYear();
+        const month = this.getMonth() + 1;
+        const day = this.getDate();
+        const hours = this.getHours();
+        const minutes = this.getMinutes();
+        const seconds = this.getSeconds();
+        return (
+          str0l(day, 2) +
+          "." +
+          str0l(month, 2) +
+          "." +
+          year +
+          " " +
+          str0l(hours, 2) +
+          ":" +
+          str0l(minutes, 2) +
+          ":" +
+          str0l(seconds, 2)
+        );
+      }
+
+      // дополняет строку Val слева нулями до длины Len
+      function str0l(val, len) {
+        let strVal = val.toString();
+        while (strVal.length < len) strVal = "0" + strVal;
+        return strVal;
+      }
+
+      const currTime1 = new Date();
+
+      // описываем новый метод для класса Date
+      Date.prototype.formatRus = formatDateTime;
+
+      const currTime2 = new Date();
+
+      // метод можно вызывать даже для объектов, созданных до описания метода!
+      console.log(currTime1.formatRus());
+      console.log(currTime2.formatRus());
+    </script>
+  </body>
+</html>

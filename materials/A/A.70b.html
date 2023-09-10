@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.70b Элементы массива могут иметь сложный тип</title>
+</head>
+<body>
+    <script>
+
+        let myBoard=[
+            ['x','x','x','x','x','x','x','x'],
+            ['x','x','x','x','x','x','x','x'],
+            ['x','x','x','x','x','x','x','x'],
+            ['x','x','x','x','x','x','x','x'],
+            ['x','x','x','x','x','x','x','x'],
+            ['x','x','x','x','x','x','x','x'],
+            ['x','x','x','x','x','x','x','x'],
+            ['x','x','x','x','x','x','x','x'],
+        ];
+    
+        function showBoard(board) {
+            console.log(' ---------------');
+            for ( let row=0; row<board.length; row++ ) {
+                let rowStr=(row+1)+") ";
+                for ( let col=0; col<board[row].length; col++ )
+                    rowStr+=board[row][col]+" ";
+                console.log(rowStr);
+                
+            }
+            console.log(' ---------------');
+        }
+    
+        showBoard(myBoard);
+    
+        myBoard[1][3]='Q';
+    
+        showBoard(myBoard);
+    
+    </script>
+</body>
+</html>

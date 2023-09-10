@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D.20b Получение фактических стилевых свойств элемента</title>
+</head>
+<body>
+    <style>
+        #RED
+        {
+            background-color: red;
+        }
+    </style>
+    
+    <div id='RED' style='width: 20em; height: 20mm'></div>
+    
+    <script>
+    
+        const elem=document.getElementById('RED');
+        const styles=window.getComputedStyle(elem);
+        console.log(styles);
+    
+    </script>
+</body>
+</html>

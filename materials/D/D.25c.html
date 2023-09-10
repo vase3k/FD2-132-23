@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D.25c Разница в масштабировании отдельных элементов</title>
+</head>
+<body>
+    <div id='IDiv' style='width: 94px; border: solid red 1px'>
+        Однажды в студёную зимнюю пору
+        </div>
+        
+        <br /><input type=button value='измерить высоту' onclick='measureHeight()'>
+        
+        <script>
+        
+            function measureHeight() {
+                const divElem=document.getElementById('IDiv');
+                console.log("высота div = "+divElem.offsetHeight);
+            }
+        
+        </script>
+</body>
+</html>

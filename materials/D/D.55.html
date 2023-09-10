@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      D.55 Авто-создание браузером глобальных переменных по id DOM-элементов
+      (устаревшее поведение)
+    </title>
+  </head>
+  <body>
+    <div id="XXX">привет!</div>
+    <input type="button" value="внести изменение" onclick="f()" />
+
+    <script>
+      function f() {
+        console.log(XXX);
+        XXX.innerHTML = "пока!";
+      }
+    </script>
+  </body>
+</html>

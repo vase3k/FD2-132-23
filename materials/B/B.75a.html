@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.75a Работа прототипов</title>
+</head>
+<body>
+    <script>
+        var humanProto = {
+            eyes : 2,
+            showEyes :function() {
+                console.log(this.eyes);
+            }
+        };
+
+        function Man () {
+        }
+
+        Man.prototype = humanProto;
+
+        var proffessor = new Man;
+        var pirate = new Man;
+
+        proffessor.eyes= 4;
+        pirate.eyes = 1;
+
+        proffessor.showEyes();
+        pirate.showEyes();
+        humanProto.showEyes();
+    </script>
+</body>
+</html>

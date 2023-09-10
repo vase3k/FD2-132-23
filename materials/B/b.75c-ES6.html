@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Начиная с ES6, для классов, описанных ключевым словом class, доступен новый синтаксис наследования классов.</title>
+</head>
+<body>
+    <script>
+        class Animal {
+            constructor () {
+                this.eyes=2;
+            }
+
+            showEyes() {
+                console.log('eyes: ' +this.eyes);
+            }
+
+            setLegs(legs) {
+                this.legs=legs;
+            }
+
+            showLegs() {
+                console.log('legs: ' +this.legs);
+            }
+        }
+
+        class Tiger extends Animal {
+            constructor() {
+                super();
+                this.setLegs(4);
+            }
+
+            roar() {
+                console.log('я реву!');
+            }
+        }
+
+        class ButterFly extends Animal {
+            constructor() {
+                super();
+                this.setLegs(6);
+            }
+
+            fly() {
+                console.log('я летаю');
+            }
+        }
+
+        const tigerJohn = new Tiger;
+        const tigerPatrick = new Tiger;
+        const butterflyLise = new ButterFly;
+
+    </script>
+</body>
+</html>

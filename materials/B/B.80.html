@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.80 Сравнение хэша и объекта класса</title>
+  </head>
+  <body>
+    <script>
+      const car = {
+        num: "2345a",
+        speed: 0,
+        beep: function () {
+          alert(this.num);
+        },
+        go: function () {
+          this.speed = 60;
+        },
+      };
+
+      car.beep();
+    /* 
+    подходит в случае, если:
+    описание объекта короткое
+    и такой объект создаётся только в одном месте кода
+    и нет необходимости в приватных свойствах или методах (у хэша все свойства и методы публичные)
+    */
+
+      function Car() {
+        this.num = "2345a";
+        this.speed = 0;
+        this.beep = function () {
+          alert(this.num);
+        };
+        this.go = function () {
+          this.speed = 60;
+        };
+      }
+
+      const car1 = new Car();
+
+      car.beep();
+    /* 
+    необходимо в случае, если:
+    описание объекта (класса) длинное;
+    или нужно создавать такие объекты в нескольких местах кода
+    или нужны приватные свойства или методы
+    */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.43b Значения параметров вызова функции по умолчанию — ES6</title>
+</head>
+<body>
+    <script>
+
+        function alarmClockMessage(mess="Подъём!") {
+            console.log( 'будильник сработал, сообщение: ' + mess );
+        }
+    
+        alarmClockMessage('Пора на работу!');
+        alarmClockMessage( );
+        alarmClockMessage(""); // сработает не так как в случае с ES5
+    
+    </script>
+</body>
+</html>

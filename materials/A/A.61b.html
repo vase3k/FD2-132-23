@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.61b Изоляция области видимости описаний — решение (IIFE, паттерн «модуль»)</title>
+</head>
+<body>
+    <script>
+
+        (function() {
+        
+            var a=5;
+        
+            function f(b) {
+                console.log( "a="+a + " b="+b );
+            }
+        
+            f(7);
+        
+        })( );
+        
+        </script>
+</body>
+</html>

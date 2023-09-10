@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.17b Предзагрузка изображений — решение</title>
+</head>
+<body>
+    <img id='Butt' 
+        onmouseover='buttHover()' 
+        onmouseout='buttNormal()' 
+        onmousedown='buttPressed()'
+        onmouseup='buttHover()'>
+
+    <script>
+
+        const preloadedImagesH = {}; // ключ - имя предзагруженного изображения
+        function preloadImage(fn) {
+            // если такое изображение уже предзагружалось - ничего не делаем
+            if (fn in preloadedImagesH)
+                return;
+            // предзагружаем - создаём невидимое изображение
+            const img = new Image();
+            img.src = fn; // загрузка начинается
+            // запоминаем, что изображение уже предзагружалось
+            preloadedImagesH[fn] = true;
+        }
+
+        const normalFN =
+            'TestSlowImage.php?n=butt_n.gif&s=1000&rand=' + Math.random();
+        const hoverFN =
+            'TestSlowImage.php?n=butt_h.gif&s=1000&rand=' + Math.random();
+        const pressedFN =
+            'TestSlowImage.php?n=butt_p.gif&s=1000&rand=' + Math.random();
+
+        preloadImage(normalFN);
+        preloadImage(hoverFN);
+        preloadImage(pressedFN);
+
+        function buttHover() {
+            document.getElementById('Butt').src = hoverFN;
+        }
+
+        function buttNormal() {
+            document.getElementById('Butt').src = normalFN;
+        }
+
+        function buttPressed() {
+            document.getElementById('Butt').src = pressedFN;
+        }
+
+        buttNormal();
+
+    </script>
+</body>
+</html>

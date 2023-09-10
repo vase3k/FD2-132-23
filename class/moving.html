@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 sep 2023</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="sqr"></div>
+    <script>
+
+        const div = document.getElementById('sqr');
+        let x = 0;
+        let y = 0;
+
+        window.addEventListener('keydown',(e) => {
+            switch (e.keyCode) {
+                case 38: console.log(e.keyCode, 'top')
+                y -= 10
+                console.log(y);
+                div.style.top = y + 'px';
+                if (y <= 10) {
+                    y += 10;
+                }
+                ;break;
+                case 39: console.log(e.keyCode, 'right')
+                x += 10;
+                console.log(x);
+                div.style.left = x + 'px';
+                if(x >= 100) {
+                    x -= 10;
+                };
+                ;break;
+                case 37: console.log(e.keyCode, 'left')
+                x -= 10;
+                console.log(x);
+                div.style.left = x + 'px';
+                if(x <= 10) {
+                    x+=10;
+                };
+                ;break;
+                case 40: console.log(e.keyCode, 'bottom')
+                y += 10;
+                console.log(y);
+                div.style.top = y + "px";
+                if(y>= 100) {
+                    y-=10;
+                }
+                ;break;
+            }
+        });
+        
+    </script>
+</body>
+</html>

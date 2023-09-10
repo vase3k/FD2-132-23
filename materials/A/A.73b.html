@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.73b Хэш как набор опций (аргументы функции)</title>
+</head>
+<body>
+    <script>
+
+        function message(txt,options) {
+            options=options || {};
+            let header=options.header || 'ВНИМАНИЕ!';
+            let count=options.count || 1;
+    
+            console.log( header );
+            for ( let i=1; i<=count; i++ )
+                console.log( i+" "+txt );
+        }
+    
+        message( 'Доброе утро!', { header:'ИНФОРМАЦИЯ', count:3 } );
+        message( 'Добрый день!!', { header:'ИНФОРМАЦИЯ' } );
+        message( 'Добрый вечер!', { count:2 } );
+        message( 'Здравствуйте!', { } );
+        message( 'До свидания!' );
+    
+    </script>
+    
+</body>
+</html>

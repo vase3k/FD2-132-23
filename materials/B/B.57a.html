@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.57a Тесты — зачем?</title>
+  </head>
+  <body>
+    <input type="button" value="корни" onclick="ttt()" />
+
+    <script>
+      // находим корни квадратного уравнения
+      function ttt() {
+        const a = Number(prompt("Введите a"));
+        const b = Number(prompt("Введите b"));
+        const c = Number(prompt("Введите c"));
+
+        const d = b * b - 4 * a * c; // дискриминант
+        console.log("дискриминант = " + d);
+
+        if (d < 0) alert("корней нет!");
+        else if (d == 0) {
+          const x = -b / (2 * a);
+          alert("один корень: " + x);
+        } else {
+          const x1 = (-b + Math.sqrt(d)) / (2 * a);
+          const x2 = (-b - Math.sqrt(d)) / (2 * a);
+          alert("два корня: " + x1 + " и " + x2);
+        }
+      }
+    </script>
+  </body>
+</html>
