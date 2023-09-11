@@ -11,28 +11,55 @@
     <script>
 
         const str = 'О, духи, от уборки микробу-то и худо';
-        let govno2;
+        let stringy = "";
 
-        const poly = (govno) => {
-            govno2 = govno;
-            govno = govno.toLowerCase().trim().split(',').join('').split('.').join('')
-                .split('!').join('').split('?').join('').split(' ').join('').split('ё').join('').split('-').join('');
-            return govno;
-        };
+        function change(char) {
+            const dict = {
+                "ё": "е",
+                "ъ": "ь",
+                " ": "",
+                ",": "",
+                ".": "",
+                "!": "",
+                ":": "",
+                ";": "",
+                "'": "",
+                "-": "",
+                "(": "",
+                ")": ""
+            };
+
+            if (char in dict) {
+                return dict[char];
+            }
+            return char
+        }
+
+        const string = str;
+        console.log(str);
+        const splited = string.split("");
+        console.log(splited);
+
+        for (let x of splited) {
+            stringy += change(x)
+        }
+
+        console.log(stringy);
 
         const test4 = (govno) => {
+            govno = govno.toLowerCase();
 
             if (govno.length <= 1) {
-                return `${govno2} - являеться палиндромом`;
+                return `${str} - являеться палиндромом`;
             }
             if (govno[0] === govno[govno.length - 1]) {
                 return test4(govno.slice(1, govno.length - 1));
             } else {
-                return `${govno2} - не является палиндромом`;
+                return `${str} - не является палиндромом`;
             }
         };
 
-        console.log(test4(poly(str)));
+        console.log(test4(stringy));
 
     </script>
 </body>
