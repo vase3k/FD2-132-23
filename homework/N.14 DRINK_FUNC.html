@@ -59,13 +59,11 @@
         this.key = key;
         this.value = value;
         let private = {};
-        let keys = [];
 
         HashStorageFunc.prototype.addValue = function (key, value) {
           key = prompt("введите имя напитка");
-          /* percent = prompt('enter if alchohol yes or non'); */
-          percent = confirm("есть ли в нём алкаголь") ? "da" : "net";
-          recipe = prompt("рецепт приготовления");
+          let percent = confirm("есть ли в нём алкаголь") ? "da" : "net";
+          let recipe = prompt("рецепт приготовления");
           private[key] = { percent: percent, recipe: recipe };
           return console.log(private);
         };
@@ -87,12 +85,12 @@
         };
 
         HashStorageFunc.prototype.getKeys = function () {
-          keys = [];
-          for (x in private) {
+          const keys = [];
+          for (let x in private) {
             keys.push(x);
           }
           let acc = "";
-          for (x in keys) {
+          for (let x in keys) {
             acc += `напиток ${parseInt(x) + 1} ${keys[x]} \n`;
           }
           return alert(acc);
@@ -100,7 +98,6 @@
       }
 
       const drinkStorage = new HashStorageFunc();
-      
     </script>
   </body>
 </html>
