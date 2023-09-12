@@ -47,13 +47,14 @@
         console.log(stringy);
 
         const test4 = (govno) => {
-            govno = govno.toLowerCase();
+            let acc = '';
+            acc = govno.toLowerCase();
 
-            if (govno.length <= 1) {
+            if (acc.length <= 1) {
                 return `${str} - являеться палиндромом`;
             }
-            if (govno[0] === govno[govno.length - 1]) {
-                return test4(govno.slice(1, govno.length - 1));
+            if (acc[0] === acc[acc.length - 1]) {
+                return test4(acc.slice(1, acc.length - 1));
             } else {
                 return `${str} - не является палиндромом`;
             }
