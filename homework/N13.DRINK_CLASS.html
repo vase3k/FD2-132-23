@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DRINKS_HASH_FUNC</title>
+    <style>
+      input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 100%;
+        margin-bottom: 10px;
+        line-height: 50px;
+        font-size: 30px;
+        background-color: beige;
+      }
+      .container {
+        max-width: 500px;
+      }
+      input:active {
+        position: relative;
+        top: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input
+        type="button"
+        value="ввод информации о напитке"
+        id=""
+        onclick="drinkStorage.addValue()"
+      />
+      <input
+        type="button"
+        value="получение информации о напитке"
+        id=""
+        onclick="drinkStorage.getValue()"
+      />
+      <input
+        type="button"
+        value="удаление информации о напитке"
+        id=""
+        onclick="drinkStorage.deleteValue()"
+      />
+      <input
+        type="button"
+        value="перечень всех напитков"
+        id=""
+        onclick="drinkStorage.getKeys()"
+      />
+    </div>
+
+    <script>
+      function HashStorageFunc(key, value) {
+        this.key = key;
+        this.value = value;
+        let private = {};
+        let keys = [];
+
+        HashStorageFunc.prototype.addValue = function (key, value) {
+          key = prompt("введите имя напитка");
+          /* percent = prompt('enter if alchohol yes or non'); */
+          percent = confirm("есть ли в нём алкаголь") ? "da" : "net";
+          recipe = prompt("рецепт приготовления");
+          private[key] = { percent: percent, recipe: recipe };
+          return console.log(private);
+        };
+
+        HashStorageFunc.prototype.getValue = function (key) {
+          key = prompt("какой напиток найти?");
+          key in private
+            ? console.log(private[key])
+            : console.log(`${key} not found`);
+        };
+
+        HashStorageFunc.prototype.deleteValue = function (key) {
+          key = prompt("какой напиток удалить?");
+          if (key in private) {
+            delete private[key];
+            return !(key in private) && alert(`${key} удалён`);
+          }
+          return key in private || alert(`${key} не найден`);
+        };
+
+        HashStorageFunc.prototype.getKeys = function () {
+          keys = [];
+          for (x in private) {
+            keys.push(x);
+          }
+          let acc = "";
+          for (x in keys) {
+            acc += `напиток ${parseInt(x) + 1} ${keys[x]} \n`;
+          }
+          return alert(acc);
+        };
+      }
+
+      const drinkStorage = new HashStorageFunc();
+      
+    </script>
+  </body>
+</html>
