@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DRINKS_HASH_CLASS</title>
+    <style>
+      input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 100%;
+        margin-bottom: 10px;
+        line-height: 50px;
+        font-size: 30px;
+        background-color: beige;
+      }
+      .container {
+        max-width: 500px;
+      }
+      input:active {
+        position: relative;
+        top: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input
+        type="button"
+        value="ввод информации о напитке"
+        id=""
+        onclick="drinkStorage.addValue()"
+      />
+      <input
+        type="button"
+        value="получение информации о напитке"
+        id=""
+        onclick="drinkStorage.getValue()"
+      />
+      <input
+        type="button"
+        value="удаление информации о напитке"
+        id=""
+        onclick="drinkStorage.deleteValue()"
+      />
+      <input
+        type="button"
+        value="перечень всех напитков"
+        id=""
+        onclick="drinkStorage.getKeys()"
+      />
+    </div>
+
+    <script>
+      class HashStorageClass {
+        constructor(key, value) {
+          this.key = key;
+          this.value = value;
+          this.private = {};
+        }
+
+        addValue = (key, value) => {
+          key = prompt("введите имя напитка");
+          const percent = confirm("есть ли в нём алкаголь") ? "da" : "net";
+          const recipe = prompt("рецепт приготовления");
+          this.private[key] = { percent: percent, recipe: recipe };
+          return console.log(this.private);
+        };
+
+        getValue = (key) => {
+          key = prompt("какой напиток найти?");
+          key in this.private
+            ? console.log(this.private[key])
+            : console.log(`${key} not found`);
+        };
+
+        deleteValue = (key) => {
+          key = prompt("какой напиток удалить?");
+          if (key in this.private) {
+            delete this.private[key];
+            return !(key in this.private) && alert(`${key} удалён`);
+          }
+          return key in this.private || alert(`${key} не найден`);
+        };
+
+        getKeys = () => {
+          const keys = [];
+          for (let x in this.private) {
+            keys.push(x);
+          }
+          let acc = "";
+          for (let x in keys) {
+            acc += `напиток ${parseInt(x) + 1} ${keys[x]} \n`;
+          }
+          return alert(acc);
+        };
+      }
+
+      const drinkStorage = new HashStorageClass();
+    </script>
+  </body>
+</html>
