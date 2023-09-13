@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B4+</title>
+  </head>
+  <body>
+    <script>
+      const buildwrapper = (tag) =>
+        (wrap = (text) => {
+          const symbols = {
+            ">": "&gt;",
+            "<": "&lt;",
+            '"': "&quot;",
+            "'": "&apos;",
+            "&": "&amp;",
+          };
+
+          let text2 = "";
+          for (char of text)
+            char in symbols ? (text2 += symbols[char]) : (text2 += char);
+
+          return `<${tag}>${text2}</${tag}>`;
+        });
+
+      const wrapH1 = buildwrapper("H1");
+      const wrapP = buildwrapper("P");
+
+      console.log(wrapH1("стихи"));
+      console.log(wrapP("Однажды в студёную зимнюю пору"));
+      console.log(buildwrapper("P")("стихи"));
+      console.log(buildwrapper("H1")("Однажды в студёную зимнюю пору"));
+      console.log(wrapP("Вкусные M&M's"));
+    </script>
+  </body>
+</html>
