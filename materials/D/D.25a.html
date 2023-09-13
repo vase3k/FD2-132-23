@@ -5,19 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>D.25a Полезная функция получения координат элемента</title>
   </head>
+  <style>
+ div {
+    width: 400px;
+    height: 200px;
+    padding: 20px;
+    margin: 50px auto;
+    background: purple;
+  }
+
+  </style>
+ 
   <body>
+    <div></div>
+    
     <script>
       // получение координат элемента относительно верхнего левого угла страницы
       function getElementPos(elem) {
+        elem = document.querySelector('div');
         const bbox = elem.getBoundingClientRect();
         return {
           left: bbox.left + window.pageXOffset,
           top: bbox.top + window.pageYOffset,
+          bottom: bbox.bottom + window.pageYOffset,
+          right: bbox.right + window.pageXOffset,
         };
       }
 
+      console.log(getElementPos());
+
       // то же, кроссбраузерный вариант (в т.ч. для IE8-)
-      function getElementPos(elem) {
+      
+     /*  function getElementPos(elem) {
         var bbox = elem.getBoundingClientRect();
 
         var body = document.body;
@@ -37,7 +56,7 @@
           left: left,
           top: top,
         };
-      }
+      } */
     </script>
   </body>
 </html>
