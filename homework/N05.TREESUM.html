@@ -1,102 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TREESUM</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
+      let arr = [
+        5,
+        7, //из задания сумма 50.
+        [4, [2], 8, [1, 3], 2],
+        [9, []],
+        1,
+        8,
+      ];
 
-        let arr = [5, 7, //из задания сумма 50.
-            [4, [2], 8, [1, 3], 2],
-            [9, []],
-            1, 8
-        ];
+      let arr2 = [
+        1,
+        2,
+        3,
+        [1, 2, 3],
+        [1, 3, 4, 5, 6, [3, 4, 5, 6, 7], [3, 3, 4, 5, 6, 7, 8]],
+      ];
 
-        let arr2 = [1, 2, 3, [1, 2, 3], [1, 3, 4, 5, 6, [3, 4, 5, 6, 7], [3, 3, 4, 5, 6, 7, 8]]];
-
-
-        function sumArray(govno) { //своя переменная Говно внутри функции
-            let sum = 0;
-            for (let i = 0; i < govno.length; i++) {
-                if (typeof (govno[i]) === 'object') { //если обьект а не цифра
-                    sum += sumArray(govno[i]);//вместо числа, указан собсвенно сам масив второго уровня, потом вернёться и продолжит счётчик первого уровня
-                } else {
-                    sum += govno[i]; //продолжаем счётчик первого уровня
-                }
-            }
-            return sum; //остановка и результат в память, при первом запуске в никуда.
+      function sumArray(govno) {
+        //своя переменная Говно внутри функции
+        let sum = 0;
+        for (let i = 0; i < govno.length; i++) {
+          if (typeof govno[i] === "object") {
+            //если обьект а не цифра
+            sum += sumArray(govno[i]); //вместо числа, указан собсвенно сам масив второго уровня, потом вернёться и продолжит счётчик первого уровня
+          } else {
+            sum += govno[i]; //продолжаем счётчик первого уровня
+          }
         }
+        return sum; //остановка и результат в память, при первом запуске в никуда.
+      }
 
-        (sumArr = govno => {
-            let sum = 0;
-            for (let i = 0; i < govno.length; i++) {
-                if (typeof (govno[i]) === 'object') {
-                    sum += sumArr(govno[i]);
-                } else {
-                    sum += govno[i];
-                }
-            }
-            return sum;
+      sumArr = (govno) => {
+        let sum = 0;
+        for (let i = 0; i < govno.length; i++) {
+          if (typeof govno[i] === "object") {
+            sum += sumArr(govno[i]);
+          } else {
+            sum += govno[i];
+          }
+        }
+        return sum;
+      };
+
+      const sumArrr = (govno) => {
+        let sum = 0;
+        for (let i = 0; i < govno.length; i++) {
+          if (typeof govno[i] === "object") {
+            sum += sumArrr(govno[i]);
+          } else {
+            sum += govno[i];
+          }
+        }
+        return sum;
+      };
+
+      function sumArray2(govno) {
+        let sum = 0;
+        govno.forEach((element) => {
+          if (Array.isArray(element)) {
+            sum += sumArray(element);
+          } else {
+            sum += element;
+          }
         });
+        return sum;
+      }
 
-        const sumArrr = govno => {
-            let sum = 0;
-            for (let i = 0; i < govno.length; i++) {
-                if (typeof (govno[i]) === 'object') {
-                    sum += sumArrr(govno[i]);
-                } else {
-                    sum += govno[i];
-                }
-            }
-            return sum;
-        };
+      function sumArray3(arr) {
+        let sum = 0;
+        arr.forEach((element) => {
+          sum += Array.isArray(element) ? sumArray(element) : element; //тоже самое что и if если элемент являеться цифрой то + false если массив то + true
+        });
+        return sum;
+      }
 
-        function sumArray2(govno) {
-            let sum = 0;
-            govno.forEach((element) => {
-                if (Array.isArray(element)) {
-                    sum += sumArray(element);
-                } else {
-                    sum += element;
-                }
-            });
-            return sum;
-        }
+      sumArray(arr2); //просто запуск, аргумент являеться массивом
+      sumArray(arr);
 
-        function sumArray3(arr) {
-            let sum = 0;
-            arr.forEach((element) => {
-                sum += Array.isArray(element) ? sumArray(element) : element; //тоже самое что и if если элемент являеться цифрой то + false если массив то + true
-            });
-            return sum;
-        }
-
-
-        sumArray(arr2); //просто запуск, аргумент являеться массивом
-        sumArray(arr);
-
-        console.log(sumArray(arr)); //ещё один запуск
-        console.log(sumArray(arr2));
-        console.log('------------')
-        console.log(sumArr(arr));
-        console.log(sumArr(arr2));
-        console.log('------------')
-        console.log(sumArrr(arr));
-        console.log(sumArrr(arr2));
-        console.log('------------')
-        console.log(sumArray2(arr));
-        console.log(sumArray2(arr2));
-        console.log('------------')
-        console.log(sumArray3(arr));
-        console.log(sumArray3(arr2));
-
-
-
+      console.log(sumArray(arr)); //ещё один запуск
+      console.log(sumArray(arr2));
+      console.log("------------");
+      console.log(sumArr(arr));
+      console.log(sumArr(arr2));
+      console.log("------------");
+      console.log(sumArrr(arr));
+      console.log(sumArrr(arr2));
+      console.log("------------");
+      console.log(sumArray2(arr));
+      console.log(sumArray2(arr2));
+      console.log("------------");
+      console.log(sumArray3(arr));
+      console.log(sumArray3(arr2));
     </script>
-</body>
-
+  </body>
 </html>

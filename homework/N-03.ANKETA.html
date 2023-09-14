@@ -1,42 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>N.03 ANKETA</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
-        let lastName = prompt('Введите вашу фамилию', 'Виноградов');
-        if (lastName === "" || !isNaN(parseInt(lastName)) || lastName.length >= 30) 
-        { while (lastName === "" || !isNaN(parseInt(lastName))  || lastName.length >= 30)
-        lastName = prompt('В первый раз ввели цифры, не правильно, надо фамилию', 'Виноградов')};
+      let lastName = prompt("Введите вашу фамилию", "Виноградов");
+      if (
+        lastName === "" ||
+        !isNaN(parseInt(lastName)) ||
+        lastName.length >= 30
+      ) {
+        while (
+          lastName === "" ||
+          !isNaN(parseInt(lastName)) ||
+          lastName.length >= 30
+        )
+          lastName = prompt(
+            "В первый раз ввели цифры, не правильно, надо фамилию",
+            "Виноградов"
+          );
+      }
 
-        let firstName = prompt('Введите ваше имя', 'Василий');
-        if (firstName === "" || !isNaN(parseInt(firstName)) || firstName.length >= 20) 
-        { while (firstName === "" || !isNaN(parseInt(firstName)) || firstName.length >= 20)
-        firstName = prompt('имя буквами', 'Василий')};
+      let firstName = prompt("Введите ваше имя", "Василий");
+      if (
+        firstName === "" ||
+        !isNaN(parseInt(firstName)) ||
+        firstName.length >= 20
+      ) {
+        while (
+          firstName === "" ||
+          !isNaN(parseInt(firstName)) ||
+          firstName.length >= 20
+        )
+          firstName = prompt("имя буквами", "Василий");
+      }
 
-        let middleName = prompt('Введите ваше отчество', 'Викторович');
-        if (middleName === "" || !isNaN(parseInt(middleName)) || middleName.length >= 20) 
-        { while (middleName === "" || !isNaN(parseInt(middleName)) || middleName.length >= 20)
-        middleName = prompt('не цифры', 'Викторович')};
+      let middleName = prompt("Введите ваше отчество", "Викторович");
+      if (
+        middleName === "" ||
+        !isNaN(parseInt(middleName)) ||
+        middleName.length >= 20
+      ) {
+        while (
+          middleName === "" ||
+          !isNaN(parseInt(middleName)) ||
+          middleName.length >= 20
+        )
+          middleName = prompt("не цифры", "Викторович");
+      }
 
-        let age = parseInt(prompt('Введите ваш возраст', '35'));
-        if (isNaN(age) || age > 100) {while (isNaN(age) || age > 100)
-        age = parseInt(prompt('не буквами а цифрами'))};
+      let age = parseInt(prompt("Введите ваш возраст", "35"));
+      if (isNaN(age) || age > 100) {
+        while (isNaN(age) || age > 100)
+          age = parseInt(prompt("не буквами а цифрами"));
+      }
 
-        sex = confirm('Ты мужик?') ? sex = 'мужской' : sex = 'женский';
-        const ageDays = age * 365;
-        const age25 = age + 5;
-        const pension = sex ? 
-        age <= 63 ? 'надо пахать, ты ещё не на пенсии' : 'да здравствует пенсия' : 
-        age <= 57 ? 'иди пахать, пенсия ещё далеко' : 'да здравствует пенсия';
+      sex = confirm("Ты мужик?") ? (sex = "мужской") : (sex = "женский");
+      const ageDays = age * 365;
+      const age25 = age + 5;
+      const pension = sex
+        ? age <= 63
+          ? "надо пахать, ты ещё не на пенсии"
+          : "да здравствует пенсия"
+        : age <= 57
+        ? "иди пахать, пенсия ещё далеко"
+        : "да здравствует пенсия";
 
-        alert(
-            `
+      alert(
+        `
 ваше ФИО: ${lastName} ${firstName} ${middleName}.
 ваш возраст : ${age} лет.
 ваш возраст : ${ageDays} дней.
@@ -44,8 +79,7 @@
 ваш пол: ${sex}.
 ${pension}.
             `
-        );
+      );
     </script>
-</body>
-
+  </body>
 </html>

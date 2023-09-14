@@ -1,68 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A4+</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
+      const str = "О, духи, от уборки микробу-то и худо";
+      let stringy = "";
 
-        const str = 'О, духи, от уборки микробу-то и худо';
-        let stringy = "";
-
-        function change(char) {
-            const dict = {
-                "ё": "е",
-                "ъ": "ь",
-                " ": "",
-                ",": "",
-                ".": "",
-                "!": "",
-                ":": "",
-                ";": "",
-                "'": "",
-                "-": "",
-                "(": "",
-                ")": ""
-            };
-
-            if (char in dict) {
-                return dict[char];
-            }
-            return char
-        }
-
-        const string = str;
-        console.log(str);
-        const splited = string.split("");
-        console.log(splited);
-
-        for (let x of splited) {
-            stringy += change(x)
-        }
-
-        console.log(stringy);
-
-        const test4 = (govno) => {
-            let acc = '';
-            acc = govno.toLowerCase();
-
-            if (acc.length <= 1) {
-                return `${str} - являеться палиндромом`;
-            }
-            if (acc[0] === acc[acc.length - 1]) {
-                return test4(acc.slice(1, acc.length - 1));
-            } else {
-                return `${str} - не является палиндромом`;
-            }
+      function change(char) {
+        const dict = {
+          ё: "е",
+          ъ: "ь",
+          " ": "",
+          ",": "",
+          ".": "",
+          "!": "",
+          ":": "",
+          ";": "",
+          "'": "",
+          "-": "",
+          "(": "",
+          ")": "",
         };
 
-        console.log(test4(stringy));
+        if (char in dict) {
+          return dict[char];
+        }
+        return char;
+      }
 
+      const string = str;
+      console.log(str);
+      const splited = string.split("");
+      console.log(splited);
+
+      for (let x of splited) {
+        stringy += change(x);
+      }
+
+      console.log(stringy);
+
+      const test4 = (govno) => {
+        let acc = "";
+        acc = govno.toLowerCase();
+
+        if (acc.length <= 1) {
+          return `${str} - являеться палиндромом`;
+        }
+        if (acc[0] === acc[acc.length - 1]) {
+          return test4(acc.slice(1, acc.length - 1));
+        } else {
+          return `${str} - не является палиндромом`;
+        }
+      };
+
+      console.log(test4(stringy));
     </script>
-</body>
-
+  </body>
 </html>

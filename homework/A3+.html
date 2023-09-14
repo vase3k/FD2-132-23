@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A3+</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
-        str = prompt('Ведите палиндром', 'О, духи, от уборки микробу-то и худо')
+      str = prompt("Ведите палиндром", "О, духи, от уборки микробу-то и худо");
 
-        let stringy = "";
-        function change(char) {
-            const dict = {
-                "ё": "е",
-                "ъ": "ь",
-                " ": "",
-                ",": "",
-                ".": "",
-                "!": "",
-                ":": "",
-                ";": "",
-                "'": "",
-                "-": "",
-                "(": "",
-                ")": ""
-            };
+      let stringy = "";
+      function change(char) {
+        const dict = {
+          ё: "е",
+          ъ: "ь",
+          " ": "",
+          ",": "",
+          ".": "",
+          "!": "",
+          ":": "",
+          ";": "",
+          "'": "",
+          "-": "",
+          "(": "",
+          ")": "",
+        };
 
-            if (char in dict) {
-                return dict[char];
-            }
-            return char
+        if (char in dict) {
+          return dict[char];
+        }
+        return char;
+      }
+
+      const string = str;
+      const splited = string.split("");
+
+      for (let x of splited) {
+        stringy += change(x);
+      }
+
+      const poly = (govno) => {
+        govno = govno.toLowerCase();
+        for (let i = 0; i < govno.length; i++) {
+          if (govno[i] === govno[govno.length - 1 - i]) {
+            answer = "является палиндромом";
+          } else {
+            return (answer = `${str.trim()} - не является палиндромом`);
+            break;
+          }
         }
 
-        const string = str;
-        const splited = string.split("");
+        return ` ${str.trim()} - ${answer}`;
+      };
 
-        for (let x of splited) {
-            stringy += change(x)
-        }
-
-        const poly = (govno) => {
-            govno = govno.toLowerCase();
-            for (let i = 0; i < govno.length; i++) {
-                if (govno[i] === govno[govno.length - 1 - i]) {
-                    answer = 'является палиндромом'
-                }
-                else {
-                    return answer = `${str.trim()} - не является палиндромом`;
-                    break;
-                }
-            }
-
-            return ` ${str.trim()} - ${answer}`
-        }
-
-        alert(poly(stringy));
+      alert(poly(stringy));
     </script>
-</body>
-
+  </body>
 </html>

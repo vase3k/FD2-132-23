@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VOWELS</title>
-</head>
-<body>
-    <Script>
-
-        const glas = ['а', 'о', 'у', 'и', 'ы', 'э', 'е', 'ё', 'ю', 'я'];
-        let counter = 0;
-        const text = prompt('введите какую нибуть фигню');
-        for (let i = 0; i < text.length; i++) {
-            const letter = text[i];
-            if (glas.includes(letter)) {
-                counter += 1;
-            }
+  </head>
+  <body>
+    <script>
+      const glas = ["а", "о", "у", "и", "ы", "э", "е", "ё", "ю", "я"];
+      let counter = 0;
+      const text = prompt("введите какую нибуть фигню");
+      for (let i = 0; i < text.length; i++) {
+        const letter = text[i];
+        if (glas.includes(letter)) {
+          counter += 1;
         }
+      }
 
-        console.log(`количество глассный букв в слове ${text} ровно ${counter}`);
-
-
-    </Script>
-</body>
+      console.log(`количество глассный букв в слове ${text} ровно ${counter}`);
+    </script>
+  </body>
 </html>
