@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>B5+</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <script>
+      const buildwrapper = (tag) =>
+        (wrap = (text, attribute) => {
+          const symbols = {
+            ">": "&gt;",
+            "<": "&lt;",
+            '"': "&quot;",
+            "'": "&apos;",
+            "&": "&amp;",
+          };
+
+          let text2 = "";
+          for (char of text)
+            char in symbols ? (text2 += symbols[char]) : (text2 += char);
+
+          text3 = "";
+          text3 += `<${tag} `;
+
+          const counterKeys = [];
+
+          for (let att in attribute) {
+            counterKeys.push(att);
+          }
+
+          for (let att in attribute) {
+            let acc = "";
+            for (char of attribute[att]) {
+              char in symbols
+                ? (acc += symbols[char]) && (attribute[att] = acc)
+                : (acc += char) && (attribute[att] = acc);
+            }
+
+            if (counterKeys.length <= 1) {
+              text3 += `${att}='${attribute[att]}'`;
+            } else {
+              counterKeys.pop();
+              text3 += `${att}='${attribute[att]}' `;
+            }
+          }
+          text3 += `>${text2}</${tag}>`;
+
+          return text3;
+        });
+
+      const wrapH1 = buildwrapper("H1");
+      const wrapP = buildwrapper("P");
+
+      // в консоль выводится строка "<H1 align='center' title='M&amp;M&apos;s'>СТИХИ</H1>"
+
+      console.log(wrapP("Однажды в студёную зимнюю пору", { lang: "ru" }));
+      console.log(wrapH1("СТИХИ", { align: "center", title: "M&M's" }));
+      console.log(
+        buildwrapper("P")("СТИХИ", { align: "center", title: "M&M's" })
+      );
+      console.log(
+        buildwrapper("X7")("BMW", { engine: "V18 bi-<turbo>", HP: "2050&HP" })
+      );
+    </script>
+  </body>
 </html>
