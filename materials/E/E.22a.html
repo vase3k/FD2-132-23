@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      E.22a События мыши — пример определения координат мыши на экране
+    </title>
+  </head>
+  <body>
+    <img src="http://fe.it-academy.by/Examples/SG1998.jpg" height="448" />
+    <br />
+    <div
+      id="MARKER"
+      style="width: 30px; height: 30px; background-color: green"
+    ></div>
+
+    <script>
+      "use strict";
+
+      document.body.addEventListener("click", clickedHandler, false);
+
+      function clickedHandler(eo) {
+        eo = eo || window.event;
+        const markerObj = document.getElementById("MARKER");
+        markerObj.style.position = "absolute";
+        markerObj.style.left = eo.pageX + "px";
+        markerObj.style.top = eo.pageY + "px";
+      }
+    </script>
+  </body>
+</html>

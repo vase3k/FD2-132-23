@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.22d События mouseover/mouseout</title>
+  </head>
+  <body>
+    <div id="IYellow" style="background: yellow; padding: 50px">
+      <div
+        id="IRed1"
+        style="background: red; width: 100px; height: 100px"
+      ></div>
+      <br /><br />
+      <div
+        id="IRed2"
+        style="background: red; width: 100px; height: 100px"
+      ></div>
+    </div>
+
+    <script>
+      var divElem = document.getElementById("IYellow");
+      divElem.addEventListener("mouseover", mouseOver, false);
+      divElem.addEventListener("mouseout", mouseOut, false);
+
+      function mouseOver(eo) {
+        eo = eo || window.event;
+        console.log(
+          "mouseover - мышь теперь над самим элементом " + eo.target.id
+        );
+      }
+
+      function mouseOut(eo) {
+        eo = eo || window.event;
+        console.log(
+          "mouseout - мышь теперь НЕ над самим элементом " + eo.target.id
+        );
+      }
+    </script>
+  </body>
+</html>

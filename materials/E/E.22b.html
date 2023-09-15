@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.22b События мыши — тест работы</title>
+    <style></style>
+  </head>
+  <body>
+    <h3>Тест работы mouse-событий</h3>
+
+    <div id="ILog" style="white-space: pre; font-size: 10px"></div>
+
+    <div style="position: fixed; left: 13em; top: 40px">
+      <input
+        type="button"
+        onclick="document.getElementById('ILog').innerHTML=''"
+        value="Очистить"
+      />&nbsp;&nbsp;&nbsp; <input type="checkbox" id="IEnableLogMouseMove" />лог
+      mousemove
+    </div>
+
+    <textarea
+      id="IPlot"
+      style="
+        width: 400px;
+        height: 266px;
+        position: fixed;
+        left: 13em;
+        top: 70px;
+        background: url(http://fe.it-academy.by/Examples/fountain.jpg);
+      "
+    >
+    </textarea>
+
+    <script>
+      var logEl = document.getElementById("ILog");
+
+      var imgEl = document.getElementById("IPlot");
+      imgEl.addEventListener("mousedown", plotMouseDown, false);
+      imgEl.addEventListener("mouseup", plotMouseUp, false);
+      imgEl.addEventListener("click", plotMouseClick, false);
+      imgEl.addEventListener("mousemove", plotMouseMove, false);
+      imgEl.addEventListener("mouseover", plotMouseOver, false);
+      imgEl.addEventListener("mouseout", plotMouseOut, false);
+      imgEl.addEventListener("focus", plotFocus, false);
+      imgEl.addEventListener("blur", plotBlur, false);
+
+      // обработчик вызывается при нажатии кнопки мыши над картинкой
+      function plotMouseDown(ev) {
+        logEl.innerHTML +=
+          "<b style='color: magenta'>событие mousedown</b> X=" +
+          ev.screenX +
+          " Y=" +
+          ev.screenY +
+          "<br>";
+      }
+
+      // обработчик вызывается при отпускании кнопки мыши над картинкой
+      function plotMouseUp(ev) {
+        logEl.innerHTML +=
+          "<b style='color: magenta'>событие mouseup</b> X=" +
+          ev.screenX +
+          " Y=" +
+          ev.screenY +
+          "<br>";
+      }
+
+      // обработчик вызывается при клике по картинке
+      function plotMouseClick(ev) {
+        logEl.innerHTML +=
+          "<b style='color: magenta'>событие click</b> X=" +
+          ev.screenX +
+          " Y=" +
+          ev.screenY +
+          "<br>";
+      }
+
+      // обработчик вызывается при движении мыши над картинкой (независимо от нажатия)
+      function plotMouseMove(ev) {
+        if (document.getElementById("IEnableLogMouseMove").checked)
+          logEl.innerHTML +=
+            "<b style='color: magenta'>событие mousemove</b> X=" +
+            ev.screenX +
+            " Y=" +
+            ev.screenY +
+            "<br>";
+      }
+
+      // обработчик вызывается при входе мыши в область картинки
+      function plotMouseOver(ev) {
+        logEl.innerHTML +=
+          "<b style='color: magenta'>событие mouseover</b><br>";
+      }
+
+      // обработчик вызывается при выходе мыши из области картинки
+      function plotMouseOut(ev) {
+        logEl.innerHTML += "<b style='color: magenta'>событие mouseout</b><br>";
+      }
+
+      // обработчик вызывается при получении картинкой фокуса
+      function plotFocus(ev) {
+        logEl.innerHTML += "<b style='color: magenta'>событие focus</b><br>";
+      }
+
+      // обработчик вызывается при потере картинкой фокуса
+      function plotBlur(ev) {
+        logEl.innerHTML += "<b style='color: magenta'>событие blur</b><br>";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.22f Модальное окно</title>
+  </head>
+  <body>
+    <style>
+      .SModalGlass {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.05);
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .SModalWindow {
+        padding: 0 20px 20px 20px;
+        background-color: lightgray;
+        width: 300px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+
+    <div id="IMyModal" class="SModalGlass" onclick="modalGlassClick()">
+      <div class="SModalWindow" onclick="modalWindowClick(event)">
+        <h1 style="text-align: center">СТИХИ</h1>
+        <p>Однажды в студёную зимнюю пору я из лесу вышел был сильный мороз</p>
+        <input type="button" value="согласен" onclick="closeModal()" />
+      </div>
+    </div>
+
+    <input type="button" value="открыть модальное окно" onclick="openModal()" />
+
+    <script>
+      function openModal() {
+        document.getElementById("IMyModal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("IMyModal").style.display = "none";
+      }
+
+      function modalGlassClick() {
+        console.log("modal glass click");
+      }
+
+      function modalWindowClick(eo) {
+        eo.stopPropagation();
+        console.log("modal window click");
+      }
+    </script>
+  </body>
+</html>

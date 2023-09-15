@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.22e Работа стилевого свойства pointer-events</title>
+  </head>
+  <body>
+    <div class="SDiv SDivGreen" onclick="alert('ЗЕЛЁНЫЙ')"></div>
+    <div class="SDiv SDivYellow" onclick="alert('ЖЁЛТЫЙ')"></div>
+    <div class="SDiv SDivRed" onclick="alert('КРАСНЫЙ')"></div>
+
+    <style>
+      .SDiv {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+      }
+      .SDivGreen {
+        background: green;
+        left: 10px;
+        top: 250px;
+      }
+      .SDivYellow {
+        background: yellow;
+        left: 80px;
+        top: 200px;
+      }
+      .SDivRed {
+        background: red;
+        left: 150px;
+        top: 250px;
+        pointer-events: none;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.22c События mouseenter/mouseleave</title>
+  </head>
+  <body>
+    <div id="IYellow" style="background: yellow; padding: 50px">
+      <div style="background: red; width: 100px; height: 100px"></div>
+      <br /><br />
+      <div style="background: red; width: 100px; height: 100px" id="IRed"></div>
+    </div>
+
+    <script>
+      const yellowElem = document.getElementById("IYellow");
+      yellowElem.addEventListener("mouseenter", yellowMouseEnter, false);
+      yellowElem.addEventListener("mouseleave", yellowMouseLeave, false);
+
+      const redElem = document.getElementById("IRed");
+      redElem.addEventListener("mouseenter", redMouseEnter, false);
+      redElem.addEventListener("mouseleave", redMouseLeave, false);
+
+      function yellowMouseEnter(eo) {
+        eo = eo || window.event;
+        console.log(
+          "mouseenter - мышь теперь над желтым элементом ИЛИ его дочерним элементом"
+        );
+      }
+
+      function yellowMouseLeave(eo) {
+        eo = eo || window.event;
+        console.log(
+          "mouseleave - мышь теперь не над желтым элементом и не над его дочерним элементом"
+        );
+      }
+
+      function redMouseEnter(eo) {
+        eo = eo || window.event;
+        console.log(
+          "mouseenter - мышь теперь над красным элементом (или его дочерним элементом)"
+        );
+      }
+
+      function redMouseLeave(eo) {
+        eo = eo || window.event;
+        console.log(
+          "mouseleave - мышь теперь не над красным элементом (и не над его дочерним элементом)"
+        );
+      }
+    </script>
+  </body>
+</html>
