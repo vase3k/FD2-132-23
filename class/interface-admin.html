@@ -58,7 +58,7 @@
       };
 
       const addtext = () => {
-        textArea.innerHTML += `<${tag}><${textToEnter}</${tag}>`;
+        textArea.innerHTML += `<${tag}>${textToEnter}</${tag}>`;
       }
 
       textEnter.addEventListener('input', addvalue, true);
