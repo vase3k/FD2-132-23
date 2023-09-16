@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>interface admin</title>
+    <style>
+      form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      div {
+        height: 200px;
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <hr />
+      <input type="text" value="text to enter" id="text1" name="textEnter"/>
+      <input type="button" value="hello" id="hello2" name="textHello"/>
+      <input type="button" value="lorem" id="lorem3" name="textLorem"/>
+      <input type="button" value="P" id="addP" name="tagP"/>
+      <input type="button" value="H1" id="addH1" name="tagH1"/>
+      <input type="text" value="bmw" id="li1" name="addLi1"/>
+      <input type="text" value="audi" id="li2" name="addLi2"/>
+      <input type="text" value="mercedes" id="li3" name="addLi3"/>
+      <input type="button" value="create" id="create1" name="create" />
+
+    <div id="textArea"></div>
+    
+    <script>
+
+      const textEnter = document.getElementById('text1');
+      const textHello = document.getElementById('hello2');
+      const textLorem = document.getElementById('lorem3');      
+      const tagP = document.getElementById('addP');      
+      const tagH1 = document.getElementById('addH1');    
+      const li1 = document.getElementById('li1');    
+      const li2 = document.getElementById('li2');    
+      const li3 = document.getElementById('li3');
+      const create = document.getElementById('create1');
+      const textArea = document.getElementById('textArea');    
+
+      let tag;
+      let textToEnter;
+      
+      const wrapText = (event) => {
+        let tag2 = event.target.value;
+        tag = tag2;
+        console.log(tag);
+      };
+
+      const addvalue = (event) => {
+        let textToEnter2 = event.target.value;
+        textToEnter = textToEnter2;
+        console.log(textToEnter);
+      };
+
+      const addtext = () => {
+        textArea.innerHTML += `<${tag}><${textToEnter}</${tag}>`;
+      }
+
+      textEnter.addEventListener('input', addvalue, true);
+      textHello.addEventListener('click', addvalue, true);
+      textLorem.addEventListener('click', addvalue, true);
+      tagP.addEventListener('click', wrapText, true);
+      tagH1.addEventListener('click', wrapText, true);
+      create.addEventListener('click', addtext, true);
+
+    </script>
+  </body>
+</html>
