@@ -8,20 +8,21 @@
   <body>
     <style>
       .SModalGlass {
-        display: none;
         background-color: rgba(0, 0, 0, 0.05);
-        position: fixed;
+        position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
+        width: 0%;
         height: 100%;
+        transition: 0.5s ease-in;
+        overflow-x: hidden;
       }
 
       .SModalWindow {
         padding: 0 20px 20px 20px;
         background-color: lightgray;
         width: 300px;
-        position: fixed;
+        position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
@@ -29,7 +30,7 @@
     </style>
 
     <div id="IMyModal" class="SModalGlass" onclick="modalGlassClick()">
-      <div class="SModalWindow" onclick="modalWindowClick(event)">
+      <div class="SModalWindow">
         <h1 style="text-align: center">СТИХИ</h1>
         <p>Однажды в студёную зимнюю пору я из лесу вышел был сильный мороз</p>
         <input type="button" value="согласен" onclick="closeModal()" />
@@ -40,21 +41,14 @@
 
     <script>
       function openModal() {
-        document.getElementById("IMyModal").style.display = "block";
+        document.getElementById("IMyModal").style.width = 100 + '%';
+
       }
 
       function closeModal() {
-        document.getElementById("IMyModal").style.display = "none";
+        document.getElementById("IMyModal").style.width = 0 + '%';
       }
 
-      function modalGlassClick() {
-        console.log("modal glass click");
-      }
-
-      function modalWindowClick(eo) {
-        eo.stopPropagation();
-        console.log("modal window click");
-      }
     </script>
   </body>
 </html>
