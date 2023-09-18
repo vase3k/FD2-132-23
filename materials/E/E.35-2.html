@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.35 Touch-события</title>
+  </head>
+  <body>
+    <h3>Пример обработки мультитача</h3>
+
+    <style></style>
+
+    <script>
+      "use strict";
+
+      const fieldEl = window; // ловим тачи по всему экрану (document.body не сработает)
+      // обработчики тач-событий пассивны по умолчанию,
+      // надо явно указать что они не пассивны,
+      // иначе не получится вызвать preventDefault,
+      // а значит, отменить обычные жесты освежения страницы, прокрутки страницы, зумирования
+      fieldEl.addEventListener("touchstart", fieldTouchStart, {
+        passive: false,
+      });
+      fieldEl.addEventListener("touchmove", fieldTouchMove, { passive: false });
+      fieldEl.addEventListener("touchend", fieldTouchEnd, { passive: false });
+      fieldEl.addEventListener("touchcancel", fieldTouchCancel, {
+        passive: false,
+      });
+
+      // здесь будут все существующие на экране мячи
+      // ключ - id касания
+      // значение - ссылка на DOM-элемент с мячом
+      let balls = {};
+
+      // обработчик вызывается, когда палец касается поля
+      function fieldTouchStart(eo) {
+        eo.preventDefault();
+
+        // находим НОВОЕ касание - оно в changedTouches (их может быть и несколько)
+        for (let t = 0; t < eo.changedTouches.length; t++) {
+          const touchInfo = eo.changedTouches[t];
+          // по каждому НОВОМУ касанию создаём DOM-элемент с мячом
+          const ballElem = document.createElement("div");
+          ballElem.style.width = "150px";
+          ballElem.style.height = "150px";
+          ballElem.style.background = 'url("http://fe.it-academy.by/Examples/ball6.png")';
+          ballElem.style.position = "absolute";
+          // мяч располагается так, чтобы его центр попал под палец
+          ballElem.style.left = touchInfo.pageX - 75 + "px";
+          ballElem.style.top = touchInfo.pageY - 75 + "px";
+          document.body.appendChild(ballElem);
+          // вносим информацию о созданном мяче в хэш мячей
+          balls[touchInfo.identifier] = ballElem;
+        }
+      }
+
+      // обработчик вызывается, когда палец уходит с мяча
+      function fieldTouchEnd(eo) {
+        eo.preventDefault();
+
+        // находим ОТПУЩЕННОЕ касание - оно в changedTouches (их может быть и несколько)
+        for (let t = 0; t < eo.changedTouches.length; t++) {
+          const touchInfo = eo.changedTouches[t];
+          // получаем соответствующий DOM-элемент
+          const ballElem = balls[touchInfo.identifier];
+          // удаляем его с экрана
+          document.body.removeChild(ballElem);
+          // удаляем информацию об уничтоженном мяче из хэша мячей
+          delete balls[touchInfo.identifier];
+        }
+      }
+
+      // обработчик вызывается, когда палец, прикасаясь к мячу, движется
+      function fieldTouchMove(eo) {
+        eo.preventDefault();
+
+        // находим ПЕРЕМЕЩЁННОЕ касание - оно в changedTouches (их может быть и несколько)
+        for (let t = 0; t < eo.changedTouches.length; t++) {
+          const touchInfo = eo.changedTouches[t];
+          // получаем соответствующий DOM-элемент
+          const ballElem = balls[touchInfo.identifier];
+          // перемещаем мяч так, чтобы его центр попал под палец
+          ballElem.style.left = touchInfo.pageX - 75 + "px";
+          ballElem.style.top = touchInfo.pageY - 75 + "px";
+        }
+      }
+
+      // обработчик вызывается, когда что-либо прерывает касание
+      // (пришёл звонок, изменилась ориентация экрана...)
+      // надо удалить все мячи
+      function fieldTouchCancel(eo) {
+        for (let touchId in balls) {
+          const ballElem = balls[touchId];
+          document.body.removeChild(ballElem);
+        }
+        balls = {};
+
+        alert("all touches cancelled!");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.40 Отладка touch-событий и обнаружение жестов</title>
+  </head>
+  <body>
+    <div
+      id="IContainer"
+      style="
+        position: relative;
+        margin: 50px;
+        outline: solid blue 1px;
+        width: 700px;
+        height: 1000px;
+      "
+    >
+      <img id="IBall" src="http://fe.it-academy.by/Examples/ball6.png" />
+      <img
+        id="ITiger"
+        src="http://fe.it-academy.by/Examples/tiger_big.png"
+        width="510"
+      />
+    </div>
+
+    <script>
+      var Toucher_Info = {
+        ImagesH: {}, // все редактируемые изображения
+
+        ContainerElem: null, // контейнер для всех трансформируемых элементов
+        ContainerPosH: null, // его положение на странице
+
+        TransformPostfix: "", // использовать нулевой хак
+
+        MouseDebug: false, // для отладки тачей мышью
+      };
+
+      function Toucher_Init(_ContainerElem, _TransformPostfix) {
+        Toucher_Info.ContainerElem = _ContainerElem;
+        Toucher_Info.ContainerPosH = Toucher_GetElementPos(_ContainerElem);
+        Toucher_Info.TransformPostfix = _TransformPostfix;
+
+        _ContainerElem.addEventListener(
+          "touchcancel",
+          Toucher_TouchCancel,
+          false
+        );
+      }
+
+      // возвращает положение элемента относительно окна браузера
+      function Toucher_GetElementPos(El) {
+        var X = 0;
+        var Y = 0;
+        while (El) {
+          X += El.offsetLeft;
+          Y += El.offsetTop;
+          El = El.offsetParent;
+        }
+        return { left: X, top: Y };
+      }
+
+      // преобразует страничные координаты (например pageX,pageY из объекта события)
+      // в координаты внутри контейнера
+      function Toucher_PageToContainer(PagePointH) {
+        return {
+          X: PagePointH.X - Toucher_Info.ContainerPosH.left,
+          Y: PagePointH.Y - Toucher_Info.ContainerPosH.top,
+        };
+      }
+
+      // класс, содержащий состояние картинки
+      function Toucher_State(_X, _Y, _Scale, _Rotate) {
+        this.X = _X || 0; // положение левого верхнего угла картинки относительно контейнера
+        this.Y = _Y || 0;
+        this.Scale = _Scale || 1; // масштаб отображения относительно левого верхнего угла картинки
+        this.Rotate = _Rotate || 0; // угол поворота в градусах по часовой стрелке относительно левого верхнего угла картинки
+      }
+
+      // применяет к указанному элементу указанное состояние
+      function Toucher_ApplyState(EL, State) {
+        EL.style.transform =
+          "translateX(" +
+          State.X +
+          "px) " +
+          "translateY(" +
+          State.Y +
+          "px) " +
+          "scale(" +
+          State.Scale +
+          ") " +
+          "rotate(" +
+          State.Rotate +
+          "deg) " +
+          Toucher_Info.TransformPostfix;
+      }
+
+      // рассчитывает расстояние между точками
+      // XDiff - разница между координатами X точек
+      // YDiff - разница между координатами Y точек
+      function Toucher_PointsDistance(XDiff, YDiff) {
+        return Math.sqrt(XDiff * XDiff + YDiff * YDiff);
+      }
+
+      // преобразует координаты внутри объекта
+      // в координаты внутри контейнера, с учётом преобразования объекта
+      function Toucher_ElemToContainer(ElemPointH, State) {
+        var ShiftX = ElemPointH.X;
+        var ShiftY = ElemPointH.Y;
+        // пока не добавляем смещение - так удобнее поворачивать и масштабировать
+
+        // добавляем угол - поворачиваем точку ShiftX,ShiftY
+        // относительно левого верхнего угла картинки (точки 0,0) на угол Rotate
+        var Length = Toucher_PointsDistance(ShiftX, ShiftY);
+        var CurrAngle = Math.atan2(ShiftY, ShiftX); // atan2 возвращает угол в радианах
+        var NewAngle = CurrAngle + (State.Rotate / 180) * Math.PI; // в Rotate угол хранится в градусах, переводим в радианы
+        ShiftX = Math.cos(NewAngle) * Length;
+        ShiftY = Math.sin(NewAngle) * Length;
+
+        // добавляем масштаб - умножаем смещение на Scale
+        ShiftX *= State.Scale;
+        ShiftY *= State.Scale;
+
+        // добавляем перемещение
+        ShiftX += State.X;
+        ShiftY += State.Y;
+
+        return { X: ShiftX, Y: ShiftY };
+      }
+
+      // преобразует координаты внутри контейнера
+      // в координаты внутри объекта, с учётом преобразования объекта
+      function Toucher_ContainerToElem(ContainerPointH, State) {
+        // отматываем перемещение - вычитаем X,Y
+        var ShiftX = ContainerPointH.X - State.X;
+        var ShiftY = ContainerPointH.Y - State.Y;
+        // ShiftX, ShiftY - это уже координаты относительно левого верхнего угла изображения
+        // поэтому дальнейшие поворот и масштаб считать легче
+
+        // отматываем угол - поворачиваем точку ShiftX,ShiftY на угол -Rotate
+        // (относительно точки 0,0)
+        var Length = Toucher_PointsDistance(ShiftX, ShiftY);
+        var CurrAngle = Math.atan2(ShiftY, ShiftX);
+        var NewAngle = CurrAngle - (State.Rotate / 180) * Math.PI;
+        ShiftX = Math.cos(NewAngle) * Length;
+        ShiftY = Math.sin(NewAngle) * Length;
+
+        // отматываем масштаб - делим смещение на Scale
+        ShiftX /= State.Scale;
+        ShiftY /= State.Scale;
+
+        return { X: ShiftX, Y: ShiftY };
+      }
+
+      function Toucher_AddImage(ImageName, Elem, State) {
+        var ImageH = { Elem: Elem, State: State };
+
+        Toucher_Start(Elem);
+        Toucher_ApplyState(Elem, State);
+
+        ImageH.CurrTouchesCount = 0; // количество текущих касаний к картинке
+        ImageH.CurrTouchesH = {}; // хэш с текущими касаниями, ключ - ид касания, значение - хэш с координатами X,Y внутри контейнера
+        ImageH.StartTouchesH = {}; // хэш с состояниями касаний на момент начала жеста, ключ - ид касания, значение - хэш с координатами X,Y внутри контейнера
+        ImageH.StartState = null; // состояние на момент начала жеста
+
+        // когда возникнет событие, нам надо быстро узнать, на каком редактируемом
+        // изображении из списка оно произошло; чтобы не перебирать все,
+        // прост сохраним имя изображения в самом элементе
+        Elem.__ImageName = ImageName;
+
+        Toucher_Info.ImagesH[ImageName] = ImageH;
+      }
+
+      function Toucher_FindEventElem(E) {
+        var Elem = E.target;
+        // событие может принять не само изображение, а его дочерний элемент
+        // поднимемся выше
+        while (Elem && !Elem.__ImageName) Elem = Elem.parentNode;
+        return Elem;
+      }
+
+      // устанавливает для указанного элемента возможность трансформации пальцами
+      function Toucher_Start(EL) {
+        EL.style.position = "absolute";
+        EL.style.transformOrigin = "left top";
+        if (Toucher_Info.MouseDebug) {
+          EL.addEventListener("mousedown", Toucher_Test_MouseDown, false);
+          EL.addEventListener("mouseup", Toucher_Test_MouseUp, false);
+        }
+        EL.addEventListener("touchstart", Toucher_TouchStart, false);
+        EL.addEventListener("touchend", Toucher_TouchEnd, false);
+      }
+
+      // отменяет для указанного элемента возможность трансформации пальцами
+      function Toucher_Stop(EL) {
+        if (Toucher_Info.MouseDebug) {
+          EL.removeEventListener("mousedown", Toucher_Test_MouseDown, false);
+          EL.removeEventListener("mouseup", Toucher_Test_MouseUp, false);
+        }
+        EL.removeEventListener("touchstart", Toucher_TouchStart, false);
+        EL.removeEventListener("touchend", Toucher_TouchEnd, false);
+        EL.removeEventListener("touchmove", Toucher_TouchMove, false);
+      }
+
+      // добавляет касание
+      // вызывается и при touchstart, и при отладке тачей мышью при добавлении
+      // отладочной точки касания
+      function Toucher_AddTouch(ImageName, TouchId, ContainerPointH) {
+        var ImageH = Toucher_Info.ImagesH[ImageName];
+        if (!ImageH.CurrTouchesH[TouchId])
+          // на всякий случай проверяем, нет ли такого касания уже,
+          ImageH.CurrTouchesCount++; // т.к. важно не сбиться с количеством касаний
+        ImageH.CurrTouchesH[TouchId] = {
+          X: ContainerPointH.X,
+          Y: ContainerPointH.Y,
+        };
+        // каждый раз, когда количество касаний меняется, предполагаем
+        // что начинается новый жест, поэтому запоминаем стартовое
+        // состояние всех касаний в StartTouchesH и состояние в StartState
+        Toucher_FixTouches(ImageName);
+      }
+
+      // удаляет касание
+      // вызывается и при touchend, и при отладке тачей мышью при удалении
+      // отладочной точки касания
+      function Toucher_RemoveTouch(ImageName, TouchId) {
+        var ImageH = Toucher_Info.ImagesH[ImageName];
+        if (ImageH.CurrTouchesH[TouchId])
+          // на всякий случай проверяем, а вдруг такого касания нету,
+          ImageH.CurrTouchesCount--; // т.к. важно не сбиться с количеством касаний
+        delete ImageH.CurrTouchesH[TouchId];
+        // каждый раз, когда количество касаний меняется, предполагаем
+        // что начинается новый жест, поэтому запоминаем стартовое
+        // состояние всех касаний в StartTouchesH
+        Toucher_FixTouches(ImageName);
+      }
+
+      // когда начинается новый жест,
+      // запоминаем стартовые координаты всех касаний в StartTouchesH,
+      // чтобы можно было сравнивать текущее и стартовое положение
+      // касаний и точнее определять произошедшие изменения;
+      // также запоминаем само состояние
+      function Toucher_FixTouches(ImageName) {
+        var ImageH = Toucher_Info.ImagesH[ImageName];
+        ImageH.StartTouchesH = {};
+        for (var TouchId in ImageH.CurrTouchesH) {
+          var CurrTouchH = ImageH.CurrTouchesH[TouchId];
+          ImageH.StartTouchesH[TouchId] = { X: CurrTouchH.X, Y: CurrTouchH.Y }; // нам нужна копия, а не ссылка
+        }
+        // нам нужна копия состояния, а не ссылка
+        ImageH.StartState = new Toucher_State(
+          ImageH.State.X,
+          ImageH.State.Y,
+          ImageH.State.Scale,
+          ImageH.State.Rotate
+        );
+      }
+
+      // перемещает касание
+      // вызывается и при touchmove, и при отладке тачей мышью при перетаскивании
+      // отладочной точки касания
+      function Toucher_ShiftTouch(ImageName, TouchId, ContainerPointH) {
+        var ImageH = Toucher_Info.ImagesH[ImageName];
+
+        var TouchH = ImageH.CurrTouchesH[TouchId];
+        TouchH.X = ContainerPointH.X;
+        TouchH.Y = ContainerPointH.Y;
+
+        switch (ImageH.CurrTouchesCount) {
+          case 1: // перемещение единственной точки касания - просто перемещение объекта
+            Toucher_ProcessTransform1(ImageH);
+            break;
+          case 2: // перемещение одной из двух точек касания - масштаб+поворот+перемещение
+            Toucher_ProcessTransform2(ImageH);
+            break;
+        }
+        // внесены необходимые изменения в состояние картинки, применим
+        Toucher_ApplyState(ImageH.Elem, ImageH.State);
+
+        // отладочные точки касания, если они и есть, двигать НЕ НАДО,
+        // т.к. их положение внутри картинки должно остаться прежним,
+        // а если мы правильно посчитали новое состояние картинки -
+        // то и положение внутри контейнера будет правильным
+        // (та картинка что мы тягаем станет под мышь, вторая - если есть - останется
+        // визуально на прежнем месте)
+      }
+
+      // обсчитывает изменение трансформации при управлении одним касанием
+      function Toucher_ProcessTransform1(ImageH) {
+        // найдём ид касания
+        var TouchId = null;
+        for (var _TouchId in ImageH.CurrTouchesH) TouchId = _TouchId;
+
+        // найдём сами координаты касания, стартовые на момент жеста и текущие
+        var StartTouch = ImageH.StartTouchesH[TouchId];
+        var CurrTouch = ImageH.CurrTouchesH[TouchId];
+
+        // разница между текущими и стартовыми координатами касания
+        // и есть разнице между смещением в стартовом состоянии и в текущем
+        ImageH.State.X = ImageH.StartState.X - StartTouch.X + CurrTouch.X;
+        ImageH.State.Y = ImageH.StartState.Y - StartTouch.Y + CurrTouch.Y;
+      }
+
+      // обсчитывает изменение трансформации при управлении двумя касаниями
+      function Toucher_ProcessTransform2(ImageH) {
+        // найдём иды касаний
+        var TouchId1 = null;
+        var TouchId2 = null;
+        for (var _TouchId in ImageH.CurrTouchesH)
+          if (!TouchId1) TouchId1 = _TouchId;
+          else TouchId2 = _TouchId;
+
+        // найдём сами координаты касаний
+        var StartTouch1 = ImageH.StartTouchesH[TouchId1];
+        var StartTouch2 = ImageH.StartTouchesH[TouchId2];
+        var CurrTouch1 = ImageH.CurrTouchesH[TouchId1];
+        var CurrTouch2 = ImageH.CurrTouchesH[TouchId2];
+
+        // считаем, насколько изменилось расстояние между точками касания
+        // от момента начала жеста - настолько же изменился и масштаб в состоянии
+        var StartLength = Toucher_PointsDistance(
+          StartTouch1.X - StartTouch2.X,
+          StartTouch1.Y - StartTouch2.Y
+        );
+        var CurrLength = Toucher_PointsDistance(
+          CurrTouch1.X - CurrTouch2.X,
+          CurrTouch1.Y - CurrTouch2.Y
+        );
+        ImageH.State.Scale =
+          (ImageH.StartState.Scale / StartLength) * CurrLength;
+
+        // считаем, насколько изменился угол между точками касания
+        // от момента начала жеста - настолько же изменился и угол в состоянии
+        var StartAngle = Math.atan2(
+          StartTouch1.Y - StartTouch2.Y,
+          StartTouch1.X - StartTouch2.X
+        );
+        var CurrAngle = Math.atan2(
+          CurrTouch1.Y - CurrTouch2.Y,
+          CurrTouch1.X - CurrTouch2.X
+        );
+        ImageH.State.Rotate =
+          ImageH.StartState.Rotate + ((CurrAngle - StartAngle) / Math.PI) * 180;
+
+        // надо сместить состояние
+        // вообще, все точки касания за время жеста должны остаться:
+        //  - точно на своих местах в координатах внутри изображения
+        //  - точно на своих местах в координатах внутри контейнера
+        // поэтому, берём любое касание,
+        // преобразуем его координаты из контейнерных во внутренние по старому состоянию,
+        // а потом обратно в контейнерные по текущему состоянию;
+        // если бы в состоянии было правильное смещение, мы бы получили
+        // текущие контейнерные координаты,
+        // но мы получим несколько другие координаты,
+        // разница и покажет, насколько в текущем состоянии надо изменить смещение
+        var ContCoordsOld = StartTouch1;
+        var ElemCoords = Toucher_ContainerToElem(
+          ContCoordsOld,
+          ImageH.StartState
+        );
+        var ContCoordsNew = Toucher_ElemToContainer(ElemCoords, ImageH.State);
+        ImageH.State.X += -ContCoordsNew.X + CurrTouch1.X;
+        ImageH.State.Y += -ContCoordsNew.Y + CurrTouch1.Y;
+      }
+
+      function Toucher_TouchStart(E) {
+        // найдём редактируемое изображение
+        var Elem = Toucher_FindEventElem(E);
+        var ImageName = Elem.__ImageName;
+        var ImageH = Toucher_Info.ImagesH[ImageName];
+
+        var OldTouchesCount = ImageH.CurrTouchesCount; // запомним, сколько было касаний до сих пор
+
+        // добавляем собственно касание - тем же путём что и при отладке мышью
+        for (var I = 0; I < E.changedTouches.length; I++) {
+          var TouchInfo = E.changedTouches[I];
+          var ContainerPointH = Toucher_PageToContainer({
+            X: TouchInfo.pageX,
+            Y: TouchInfo.pageY,
+          });
+          Toucher_AddTouch(ImageName, TouchInfo.identifier, ContainerPointH);
+        }
+
+        // если касаний не было, а сейчас добавились, пора обрабатывать touchmove
+        // постоянно его не обрабатываем - часто срабатывающие обработчики
+        // типа mousemove, touchmove лучше ставить только когда они нужны
+        if (!OldTouchesCount && ImageH.CurrTouchesCount)
+          Elem.addEventListener("touchmove", Toucher_TouchMove, false);
+
+        E.preventDefault();
+      }
+
+      function Toucher_TouchEnd(E) {
+        // найдём редактируемое изображение
+        var Elem = Toucher_FindEventElem(E);
+        var ImageName = Elem.__ImageName;
+        var ImageH = Toucher_Info.ImagesH[ImageName];
+
+        var OldTouchesCount = ImageH.CurrTouchesCount; // запомним, сколько было касаний до сих пор
+
+        // удаляем собственно касание - тем же путём что и при отладке мышью
+        for (var I = 0; I < E.changedTouches.length; I++) {
+          var TouchInfo = E.changedTouches[I];
+          Toucher_RemoveTouch(ImageName, TouchInfo.identifier);
+        }
+
+        // если касания были, а сейчас уже нет, хватит обрабатывать touchmove
+        if (OldTouchesCount && !ImageH.CurrTouchesCount)
+          Elem.removeEventListener("touchmove", Toucher_TouchMove, false);
+
+        E.preventDefault();
+      }
+
+      function Toucher_TouchMove(E) {
+        // найдём редактируемое изображение
+        var Elem = Toucher_FindEventElem(E);
+        var ImageName = Elem.__ImageName;
+
+        // перемещаем собственно касание - тем же путём что и при отладке мышью
+        for (var I = 0; I < E.changedTouches.length; I++) {
+          var TouchInfo = E.changedTouches[I];
+          var ContainerPointH = Toucher_PageToContainer({
+            X: TouchInfo.pageX,
+            Y: TouchInfo.pageY,
+          });
+          Toucher_ShiftTouch(ImageName, TouchInfo.identifier, ContainerPointH);
+        }
+
+        E.preventDefault();
+      }
+
+      function Toucher_TouchCancel(E) {
+        // что-то пошло не так - изменилась ориентация экрана или пришёл звонок
+        // надо удалить все касания по всем картинкам
+        // т.к. мы по ним уже touchend не получим
+
+        for (var ImageName in Toucher_Info.ImagesH) {
+          var ImageH = Toucher_Info.ImagesH[ImageName];
+          ImageH.CurrTouchesH = {}; // явно очищаем текущие касания
+          ImageH.CurrTouchesCount = 0; // и обнуляем счётчик текущих касаний
+
+          ImageH.StartTouchesH = {}; // а вот этого можно и не делать,
+          ImageH.StartState = null; // всё равно при начале жеста они перезапишутся
+        }
+
+        // отладочные точки касания не удаляем для простоты, это непринципиально
+      }
+    </script>
+
+    <script>
+      Toucher_Init(document.getElementById("IContainer"), "translateZ(0)");
+
+      Toucher_AddImage(
+        "ball",
+        document.getElementById("IBall"),
+        new Toucher_State(100, 100, 1.5)
+      );
+
+      Toucher_AddImage(
+        "tiger",
+        document.getElementById("ITiger"),
+        new Toucher_State(300, 500, 0.7, 25)
+      );
+    </script>
+  </body>
+</html>

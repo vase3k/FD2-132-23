@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.30a События drag&drop</title>
+  </head>
+  <body>
+    <div
+      style="border: solid red 1px; width: 120px; height: 120px"
+      ondrop="divDrop(event)"
+      ondragover="divDragOver(event)"
+    ></div>
+
+    <br />
+
+    <div
+      style="border: solid blue 1px; width: 120px; height: 120px"
+      ondrop="divDrop(event)"
+      ondragover="divDragOver(event)"
+    ></div>
+
+    <br /><br />
+
+    <img id="BALL" src="Examples/ball3.png" />
+
+    <script>
+      function divDragOver(eo) {
+        eo = eo || window.event;
+        // по-умолчанию ронять элементы в div запрещено, отменяем:
+        eo.preventDefault();
+      }
+
+      function divDrop(eo) {
+        // мячик уронен
+        eo = eo || window.event;
+        eo.preventDefault();
+        // что уронено? this не пойдёт, drop - это событие div-а!
+        const dragElem = document.getElementById("BALL");
+        // куда уронено?
+        // eo.target не пойдёт - это не всегда div, например если мячик в div-е чуть
+        // сдвинуть и уронить НА САМОГО СЕБЯ - то eo.target будет сам мячик
+        // eo.currentTarget - всегда тот элемент, у которого вызван обработчик события
+        eo.currentTarget.appendChild(dragElem);
+      }
+    </script>
+  </body>
+</html>

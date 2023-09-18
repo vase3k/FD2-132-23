@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.30c Drag&drop — объектов много</title>
+  </head>
+  <body>
+    <div
+      style="border: solid red 1px; width: 220px; height: 120px"
+      ondrop="divDrop(event)"
+      ondragover="divDragOver(event)"
+    ></div>
+
+    <br />
+
+    <div
+      style="border: solid blue 1px; width: 220px; height: 120px"
+      ondrop="divDrop(event)"
+      ondragover="divDragOver(event)"
+    ></div>
+
+    <br /><br />
+
+    <img
+      id="BALL1"
+      width="50"
+      src="Examples/ball3.png"
+      ondragstart="ballDragStart(event)"
+      ondragend="ballDragEnd(event)"
+    />
+    <img
+      id="BALL2"
+      width="70"
+      src="Examples/ball3.png"
+      ondragstart="ballDragStart(event)"
+      ondragend="ballDragEnd(event)"
+    />
+    <img
+      id="BALL3"
+      width="100"
+      src="Examples/ball3.png"
+      ondragstart="ballDragStart(event)"
+      ondragend="ballDragEnd(event)"
+    />
+
+    <script>
+      // какой мяч сейчас перетаскивается
+      let draggedBall = null;
+
+      function ballDragStart(eo) {
+        // началось перетаскивание мячика
+        eo = eo || window.event;
+        console.log("starting drag id=" + eo.target.id);
+        draggedBall = eo.target;
+      }
+
+      function ballDragEnd(eo) {
+        // закончилось перетаскивание мячика (неважно куда он уронен)
+        eo = eo || window.event;
+        console.log("drag finished");
+        draggedBall = null;
+      }
+
+      function divDragOver(eo) {
+        eo = eo || window.event;
+        // по-умолчанию ронять элементы в div запрещено, отменяем:
+        eo.preventDefault();
+      }
+
+      function divDrop(eo) {
+        // мячик уронен
+        eo = eo || window.event;
+        eo.preventDefault();
+        if (draggedBall) eo.currentTarget.appendChild(draggedBall);
+      }
+    </script>
+  </body>
+</html>

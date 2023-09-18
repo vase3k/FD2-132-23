@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.35 Touch-события</title>
+  </head>
+  <body>
+    <h3>Изменение размера экрана</h3>
+
+    <span id="size">экран: </span>
+
+    <br /><br />
+    <input type="text" />
+
+    <script>
+      try {
+        // определение поддержки touch-событий
+        if ("ontouchstart" in window) {
+        }
+        console.log("ненадёжно");
+        // ненадёжно!
+        if (
+          "ontouchstart" in window ||
+          (window.DocumentTouch && document instanceof DocumentTouch)
+        )
+          console.log("несколько лучше");
+        // несколько лучше
+        if (Modernizr.touchevents) console.log("ненадёжно!");
+        // ненадёжно!
+      } catch (ex) {
+        console.error("возникло исключение!");
+        console.error("тип исключения: " + ex.name);
+        console.error("текст исключения: " + ex.message);
+      }
+
+      function showScreenSize() {
+        document.getElementById("size").innerHTML = `экран:<br>
+        innerWidth=${window.innerWidth}<br>
+        innerHeight=${window.innerHeight}<br>`;
+      }
+
+      window.onresize = showScreenSize;
+
+      showScreenSize();
+    </script>
+
+    <h3>Пример перетаскивания</h3>
+  </body>
+</html>

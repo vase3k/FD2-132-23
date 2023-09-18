@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.28b Пример валидации формы (надёжный вариант)</title>
+  </head>
+  <body>
+    <form name="INFO" action="http://fe.it-academy.by/TestForm.php" novalidate>
+      Введите ФИО: <input type="text" name="FIO" /><br />
+      Введите возраст: <input type="text" name="AGE" /><br />
+      Согласитесь с правилами сайта:
+      <input type="checkbox" name="AGREE" /><br />
+      Выберите дизайн:<br />
+      <select name="DESIGN">
+        <option value="1">минималистичный</option>
+        <option value="2">вычурный</option>
+        <option value="3">нормальный</option></select
+      ><br />
+      Выберите язык:<br />
+      <input id="LANG11" type="radio" name="LANG" value="11" />русский<br />
+      <input type="radio" name="LANG" value="22" />английский<br />
+      <input type="radio" name="LANG" value="33" />немецкий<br />
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <input type="submit" value="готово" />
+    </form>
+
+    <script>
+      const formTag = document.forms.INFO;
+      formTag.addEventListener("submit", validateInfoForm, false);
+
+      function validateInfoForm(eo) {
+        eo = eo || window.event;
+        try {
+          const formTag = document.forms.INFO;
+
+          const fioField = formTag.elements.FIO;
+          const fioValue = fioField.value; // строковое значение
+
+          const ageField = formTag.elements.AGE;
+          const ageValue = parseInt(ageField.value.trim()); // текст -> число
+
+          const agreeField = formTag.elements.AGREE;
+          const agreeValue = agreeField.checked; // логическое значение
+
+          const designField = formTag.elements.DESIGN;
+          const designValue = designField.value; // строковое значение
+
+          const langField = formTag.elements.LANG;
+          const langValue = langField.value; // строковое значение
+
+          if (fioValue.length > 30) {
+            alert("Введите пожалуйста ФИО не длиннее 30 символов!");
+            fioField.focus(); // фокусируем элемент и прокручиваем к нему
+            eo.preventDefault(); // форма не будет отправлена на сервер
+            return;
+          }
+
+          if (isNaN(ageValue)) {
+            alert("Введите пожалуйста в поле возраста корректную цифру!");
+            ageField.focus();
+            eo.preventDefault(); // форма не будет отправлена на сервер
+            return;
+          }
+
+          if (ageValue < 16) {
+            alert("Возраст должен быть не менее 16 лет!");
+            ageField.focus();
+            eo.preventDefault(); // форма не будет отправлена на сервер
+            return;
+          }
+
+          if (ageValue == 222) {
+            alert("Возраст не может быть таким!");
+            ageField.focuspokus(); // случайная ошибка!
+            eo.preventDefault();
+            return;
+          }
+
+          if (!agreeValue) {
+            alert("Вы не согласились с правилами сайта!");
+            agreeField.focus();
+            eo.preventDefault(); // форма не будет отправлена на сервер
+            return;
+          }
+
+          if (designValue == 2) {
+            alert("Вы выбрали вычурный дизайн, подумайте ещё!");
+            designField.focus();
+            eo.preventDefault(); // форма не будет отправлена на сервер
+            return;
+          }
+
+          if (langValue == "") {
+            alert("Вы не выбрали язык!");
+            document.getElementById("LANG11").scrollIntoView();
+            eo.preventDefault(); // форма не будет отправлена на сервер
+            return;
+          }
+          if (langValue == 33) {
+            alert("Вы выбрали немецкий язык, подумайте ещё!");
+            document.getElementById("LANG11").scrollIntoView();
+            eo.preventDefault(); // форма не будет отправлена на сервер
+            return;
+          }
+
+          // валидация успешная - форма будет отправлена на сервер
+        } catch (ex) {
+          console.log(ex);
+          alert(
+            "Извините, что-то пошло не так, неожиданный сбой! Пересмотрите заполнение формы, возможно, это всё из-за вас!"
+          );
+          eo.preventDefault(); // что-то пошло не так - считаем что валидация не прошла
+        }
+      }
+    </script>
+  </body>
+</html>

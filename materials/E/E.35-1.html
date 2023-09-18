@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.35 Touch-события</title>
+  </head>
+  <body>
+    <h3>Пример перетаскивания</h3>
+
+    <div
+      id="IBall"
+      style="
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        left: 10%;
+        top: 10%;
+        background: url('http://fe.it-academy.by/Examples/ball6.png');
+      "
+    ></div>
+
+    <script>
+      "use strict";
+
+      const imgElem = document.getElementById("IBall");
+      imgElem.ontouchstart = ballTouchStart;
+      imgElem.ontouchmove = ballTouchMove;
+      imgElem.ontouchend = ballTouchEnd;
+
+      let touchShiftX = 0;
+      let touchShiftY = 0;
+
+      // обработчик вызывается, когда палец касается мяча
+      function ballTouchStart(eo) {
+        eo.preventDefault();
+
+        const touchInfo = eo.targetTouches[0];
+        // запоминаем разницу между координатами пальца и координатами мяча
+        touchShiftX = touchInfo.pageX - imgElem.offsetLeft;
+        touchShiftY = touchInfo.pageY - imgElem.offsetTop;
+
+        // мяч двигать не надо
+      }
+
+      // обработчик вызывается, когда палец уходит с мяча
+      function ballTouchEnd(eo) {
+        eo.preventDefault();
+
+        // мяч двигать не надо
+      }
+
+      // обработчик вызывается, когда палец, прикасаясь к мячу, движется
+      function ballTouchMove(eo) {
+        eo.preventDefault();
+
+        // двигаем мяч
+        // его новые координаты есть координаты касания минус запомненная разница
+        const touchInfo = eo.targetTouches[0];
+        imgElem.style.left = touchInfo.pageX - touchShiftX + "px";
+        imgElem.style.top = touchInfo.pageY - touchShiftY + "px";
+      }
+    </script>
+  </body>
+</html>

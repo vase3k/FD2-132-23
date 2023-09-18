@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.65e Элементы с атрибутами, обработка делегирована контейнеру</title>
+  </head>
+  <body>
+    <div
+      id="IField"
+      style="
+        width: 200px;
+        height: 200px;
+        background-color: yellow;
+        padding: 10px;
+      "
+    >
+      <input type="button" value="синий" data-color="blue" />
+      <input type="button" value="красный" data-color="red" />
+      <input type="button" value="зелёный" data-color="green" /><br />
+      <input type="button" value="большой" data-size="300" />
+      <input type="button" value="маленький" data-size="100" /><br />
+      <input
+        type="button"
+        value="средний жёлтый"
+        data-size="200"
+        data-color="yellow"
+      />
+    </div>
+
+    <script>
+      const field = document.getElementById("IField");
+      field.addEventListener("click", uniClick, false);
+
+      function uniClick(eo) {
+        eo = eo || window.event;
+        const elem = eo.target;
+
+        const color = elem.getAttribute("data-color");
+        if (color) field.style.backgroundColor = color;
+
+        const size = elem.getAttribute("data-size");
+        if (size) field.style.height = size + "px";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.30b Drag&drop — подсветка целей</title>
+  </head>
+  <body>
+    <div
+      style="border: solid red 1px; width: 120px; height: 120px"
+      ondrop="divDrop(event)"
+      ondragover="divDragOver(event)"
+      ondragenter="divDragEnter(event)"
+      ondragleave="divDragLeave(event)"
+    ></div>
+
+    <br />
+
+    <div
+      style="border: solid blue 1px; width: 120px; height: 120px"
+      ondrop="divDrop(event)"
+      ondragover="divDragOver(event)"
+      ondragenter="divDragEnter(event)"
+      ondragleave="divDragLeave(event)"
+    ></div>
+
+    <br /><br />
+
+    <img id="BALL" src="Examples/ball3.png" />
+
+    <script>
+      function divDragEnter(eo) {
+        // мяч вошёл в область div
+        eo = eo || window.event;
+        eo.preventDefault();
+        eo.currentTarget.style.borderStyle = "dashed";
+      }
+
+      function divDragLeave(eo) {
+        // мяч вышёл из области div
+        eo = eo || window.event;
+        eo.preventDefault();
+        eo.currentTarget.style.borderStyle = "solid";
+      }
+
+      function divDragOver(eo) {
+        eo = eo || window.event;
+        // по-умолчанию ронять элементы в div запрещено, отменяем:
+        eo.preventDefault();
+      }
+
+      function divDrop(eo) {
+        // мячик уронен
+        eo = eo || window.event;
+        eo.preventDefault();
+        const dragElem = document.getElementById("BALL");
+        eo.currentTarget.appendChild(dragElem);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.65d Разнородные элементы, обработка делегирована контейнеру</title>
+  </head>
+  <body>
+    <div
+      id="IField"
+      style="
+        position: relative;
+        border: solid red 1px;
+        width: 310px;
+        height: 350px;
+      "
+    ></div>
+
+    <script>
+      const field = document.getElementById("IField");
+      field.addEventListener("click", clickAny, false);
+
+      for (let b = 0; b < 5; b++) {
+        const ball = document.createElement("img");
+        ball.src = "http://fe.it-academy.by/Examples/ball3.png";
+        ball.style.position = "absolute";
+        ball.style.left = 0;
+        ball.style.top = 50 * b + "px";
+        field.appendChild(ball);
+      }
+
+      for (let b = 0; b < 5; b++) {
+        const button = document.createElement("input");
+        button.type = "button";
+        button.value = "кнопка " + b;
+        button.style.position = "absolute";
+        button.style.left = "150px";
+        button.style.top = 50 * b + "px";
+        field.appendChild(button);
+      }
+
+      for (let s = 0; s < 5; s++) {
+        const span = document.createElement("span");
+        span.style.position = "absolute";
+        span.style.left = "250px";
+        span.style.top = 50 * s + "px";
+        span.innerHTML = "текст " + s;
+        span.setAttribute("data-qqq", s);
+        field.appendChild(span);
+      }
+
+      function clickAny(eo) {
+        eo = eo || window.event;
+        const elem = eo.target;
+
+        if (elem.tagName == "IMG") {
+          // кликнут IMG, т.е. мяч, уберём его
+          elem.parentNode.removeChild(elem);
+        } else if (elem.tagName == "INPUT") {
+          // кликнута кнопка, покажем сообщение
+          alert("нажата кнопка с подписью " + elem.value);
+        } else if (elem.tagName == "SPAN") {
+          // кликнут текст, покажем сообщение
+          const qqq = elem.getAttribute("data-qqq");
+          alert("кликнут текст с номером " + qqq);
+        }
+      }
+    </script>
+  </body>
+</html>

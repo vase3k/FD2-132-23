@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.55d Ожидание готовности DOM — лучшее решение</title>
+  </head>
+  <body>
+    <div id="D2" style="border: solid red 1px">элемент 2...</div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", documentReady, false);
+      function documentReady() {
+        document.getElementById("D1").innerHTML = "элемент 1 изменён!";
+        document.getElementById("S2").innerHTML = "изменён!";
+      }
+
+      document.getElementById("D2").innerHTML =
+        'элемент 2 внутри <span id="S2">...</span>';
+    </script>
+
+    <div id="D1" style="border: solid red 1px">элемент 1...</div>
+  </body>
+</html>

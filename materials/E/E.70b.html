@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      E.70b Взаимозависимость классов — уменьшаем через пользовательские события
+    </title>
+  </head>
+  <body>
+    <input type="button" value="сменить погоду" onclick="weather.change()" />
+    <br /><br />
+    <img id="IWeather" />
+    <br />
+    <hr />
+    <br />
+    <img id="ICat" width="200" />
+
+    <script>
+      function Weather() {
+        const self = this;
+
+        self.num = 1; // погода: 1=солнце 2=дождь
+
+        self.change = function () {
+          self.num = 3 - self.num; // меняем на противоположную
+
+          self.update();
+
+          // создаём объект события "погода изменилась"
+          const myEvent = new Event("weather");
+          // в объекте события будет свойство с № погоды
+          myEvent.weathernum = self.num;
+          // сообщаем об этом ВСЕМ заинтересованным
+          document.dispatchEvent(myEvent);
+        };
+
+        self.update = function () {
+          const weatherElem = document.getElementById("IWeather");
+          weatherElem.src =
+            "Examples/weather/" +
+            (self.num == 1 ? "weather_sun.jpg" : "weather_rain.jpg");
+        };
+      }
+
+      const weather = new Weather();
+      weather.update();
+
+      function Cat() {
+        const self = this;
+
+        self.state = -1; // состояние: 11=загар 12=зонтик
+
+        self.checkWeather = function (eo) {
+          console.log("Кот узнал о погоде: " + eo.weathernum);
+          self.state = eo.weathernum + 10;
+          self.update();
+        };
+
+        self.update = function () {
+          const catElem = document.getElementById("ICat");
+          catElem.src =
+            "Examples/weather/" +
+            (self.state == 11 ? "cat_sun.jpg" : "cat_rain.jpg");
+        };
+      }
+
+      const cat = new Cat();
+      // checkWeather ожидает номер погоды в свойстве weathernum
+      // аргумента; передадим, пусть думает что это объект события
+      cat.checkWeather({ weathernum: weather.num });
+      document.addEventListener("weather", cat.checkWeather, false);
+    </script>
+  </body>
+</html>

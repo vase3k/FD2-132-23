@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.40 Отладка touch-событий и обнаружение жестов</title>
+    <style>
+      #IWindow /* окошко, в боевой версии растянется на всё окно браузера */ {
+        margin-left: 450px;
+        width: 200px;
+        height: 300px;
+        position: relative;
+        background-color: rgb(200, 200, 255);
+      }
+
+      #IPages /* контейнер для всех страниц */ {
+        position: absolute;
+      }
+
+      div.SPage /* одна из страниц */ {
+        /*border: solid red 1px;*/
+        overflow: auto; /* чтобы была прокрутка, у каждой страницы своя  */
+        position: absolute;
+      }
+
+      div.SPageContent {
+        margin: 0.2em 0.3em 0 0.3em;
+      }
+
+      div.SPageContent img {
+        display: block;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="IWindow">
+      <div id="IPages">
+        <div class="SPage">
+          <div class="SPageContent">
+            <img src="http://fe.it-academy.by/Examples/Hilu3.jpg" />
+            <p>
+              Австралийский келпи (Australian Kelpie) — порода собак. Относится
+              к пастушьим собакам. Выведена в Австралии.
+            </p>
+            <p>
+              Келпи обладают генетически обусловленными качествами, которые
+              отличают их от других собак. Наиболее интересным, является то, что
+              они обладают очень широким углом обзора, который максимально
+              позволяет визуально контролировать объект наблюдения и длительно
+              концентрировать на нем свое внимание. Обладая такими уникальными
+              особенностями и качествами, келпи приносят неоценимую пользу,
+              работая в животноводческих хозяйствах.
+            </p>
+            <p>
+              Современный келпи не только пастух, но и обладает великолепными
+              спортивными качествами, участвуя и побеждая в спортивных
+              соревнованиях по аджилити, дог-фризби, питч энд гоу и фристайлу
+              (танцы с собаками).
+            </p>
+            <p>
+              Келпи считается суперзвездой австралийского собаководства и одной
+              из главных пород пятого континента.
+            </p>
+          </div>
+        </div>
+
+        <div class="SPage">
+          <div class="SPageContent">
+            <img src="http://fe.it-academy.by/Examples/Peacock3.jpg" />
+            <p>
+              Павлин снискал известность в искусстве, легендах, литературе и
+              религии на протяжении более 3000 лет.
+            </p>
+          </div>
+        </div>
+
+        <div class="SPage">
+          <div class="SPageContent">
+            <img src="http://fe.it-academy.by/Examples/pelican2.jpg" />
+            <p>
+              Пеликаны — обитатели морских мелководий, неглубоких пресных и
+              солёных озёр, устьев крупных рек. Ходят они неуклюже, но хорошо
+              летают и плавают, могут подолгу парить. С воды поднимаются после
+              разбега. В полёте из-за длинного тяжёлого клюва держат шею буквой
+              S, как цапли и марабу. Из-за лёгкого скелета и
+              воздушно-пузырьковой прослойки под кожей нырять они не могут,
+              поэтому основной корм, рыбу, добывают непосредственно у
+              поверхности воды. Только американские виды способны нырять, падая
+              в воду с высоты.
+            </p>
+            <p>
+              Питаются в основном рыбой, которую вылавливают, опуская голову в
+              воду и подхватывая рыбу, поднявшуюся на поверхность, клювом.
+              Устраивают коллективные охоты — выстроившись полукругом, пеликаны
+              принимаются хлопать по воде крыльями и клювами и вытесняют
+              напуганную рыбу на мелководье. Иногда в совместных охотах
+              принимают участие бакланы, чайки, поганки, крачки. Поймав рыбу,
+              пеликан через клюв отцеживает воду из горлового мешка (до 5
+              литров) и проглатывает добычу. В день он съедает более килограмма
+              рыбы. Известны случаи, когда пеликаны съедали других птиц.
+            </p>
+          </div>
+        </div>
+
+        <div class="SPage">
+          <div class="SPageContent">
+            <img src="http://fe.it-academy.by/Examples/Retriever3.jpg" />
+            <p>
+              Золотистый ретривер — выносливая и энергичная собака, обладает
+              хорошей памятью и чутьём, которое позволяет ей прекрасно работать
+              как на суше, так и на воде, где она способна отыскать подбитую
+              дичь. Изначально золотистые ретриверы были выведены для работы на
+              охоте (подача дичи). В настоящее время золотистые ретриверы с
+              успехом освоили и многие другие профессии. Они работают на
+              таможнях, ищут наркотики и взрывчатку, участвуют в спасательных
+              операциях.
+            </p>
+            <p>
+              По характеру золотистые ретриверы очень добрые, умные, ласковые,
+              игривые и спокойные собаки, редко лают, и поэтому не годятся в
+              качестве сторожевой собаки. Золотистые ретриверы не склонны к
+              доминированию, хорошо уживаются с детьми. В последнее время во
+              многих странах золотистые ретриверы, прошедшие специальную
+              подготовку, стали применяться в качестве лечебных собак,
+              скрашивающих жизнь малышей в приютах и интернатах для детей с
+              нарушениями психики. В качестве собак-терапевтов используются
+              различные породы, но золотистые ретриверы с их уникальной
+              восприимчивостью, мягкой и оптимистичной натурой особенно пригодны
+              для этих целей. Если в семье есть пожилые люди или маленькие дети,
+              в качестве компаньона можно рекомендовать именно золотистого
+              ретривера.
+            </p>
+            <p>
+              Также они хорошо относятся и к другим животным. Очень любят
+              плавать.
+            </p>
+            <p>
+              Золотистые ретриверы — очень деликатные и интеллигентные собаки,
+              для которых совершенно не типично агрессивное поведение. На них
+              можно даже не повышать голос, настолько они хотят выполнить любое
+              желание своего хозяина.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var PagerInfoH = {
+        WindowElem: null, // само окошко, в котором отображается активная страница
+        WindowWidth: -1, // ширина окошка, в котором отображается активная страница
+        WindowHeight: -1, // высота окошка, в котором отображается активная страница
+        PagesElem: null, // контейнер для всех страниц
+        PagesA: [], // все страницы
+        PagesTransformPostfix: "", // строка, которая дописывается к transform контейнера
+        CurrPageI: -1, // активная (отображаемая в окошке) страница
+        MoveState: 0, // 0 - нет жеста, 1 - начался непонятно какой, 2 - идёт наш жест (свайп)
+        MoveStart: null, // координаты начала жеста
+        MouseDebug: false, // разрешена ли отладка мышью вместо тачскрина
+      };
+
+      // инициализация:
+      // располагает страницы подряд в контейнере страниц
+      // подключает обработчики событий
+      function Pager_Init(MouseDebug, PagesTransformPostfix) {
+        PagerInfoH.WindowElem = document.getElementById("IWindow");
+        PagerInfoH.WindowWidth = PagerInfoH.WindowElem.offsetWidth;
+        PagerInfoH.WindowHeight = PagerInfoH.WindowElem.offsetHeight;
+
+        PagerInfoH.MouseDebug = MouseDebug;
+
+        PagerInfoH.PagesElem = document.getElementById("IPages");
+        PagerInfoH.PagesTransformPostfix = PagesTransformPostfix;
+        PagerInfoH.PagesA =
+          PagerInfoH.PagesElem.getElementsByClassName("SPage");
+
+        for (var P = 0; P < PagerInfoH.PagesA.length; P++) {
+          var PageElem = PagerInfoH.PagesA[P];
+
+          PageElem.style.width = PagerInfoH.WindowWidth + "px";
+          PageElem.style.height = PagerInfoH.WindowHeight + "px";
+          // все страницы должны быть расположены в контейнере рядышком
+          PageElem.style.left = P * PagerInfoH.WindowWidth + "px";
+          PageElem.style.top = 0;
+        }
+
+        PagerInfoH.PagesElem.style.left = 0;
+        PagerInfoH.PagesElem.style.top = 0;
+
+        if (PagerInfoH.MouseDebug) {
+          PagerInfoH.PagesElem.addEventListener(
+            "mousedown",
+            Pager_MouseDown,
+            false
+          );
+          PagerInfoH.PagesElem.addEventListener(
+            "mouseup",
+            Pager_MouseUp,
+            false
+          );
+        } else {
+          PagerInfoH.PagesElem.addEventListener(
+            "touchstart",
+            Pager_TouchStart,
+            false
+          );
+          PagerInfoH.PagesElem.addEventListener(
+            "touchend",
+            Pager_TouchEnd,
+            false
+          );
+        }
+      }
+
+      // отключает страницы - снимает обработчики событий
+      function Pager_Destroy() {
+        PagerInfoH.PagesElem.removeEventListener(
+          "mousedown",
+          Pager_MouseDown,
+          false
+        );
+        PagerInfoH.PagesElem.removeEventListener(
+          "mouseup",
+          Pager_MouseUp,
+          false
+        );
+        PagerInfoH.PagesElem.removeEventListener(
+          "mousemove",
+          Pager_MouseMove,
+          false
+        );
+
+        PagerInfoH.PagesElem.removeEventListener(
+          "touchstart",
+          Pager_TouchStart,
+          false
+        );
+        PagerInfoH.PagesElem.removeEventListener(
+          "touchend",
+          Pager_TouchEnd,
+          false
+        );
+        PagerInfoH.PagesElem.removeEventListener(
+          "touchmove",
+          Pager_TouchMove,
+          false
+        );
+      }
+
+      // обновляет позиционирование страниц
+      // с учётом возможного смещения страниц жестом
+      function Pager_UpdatePages(ShiftX, SlowFlag) {
+        // чтобы в окошко попала нужная страница, контейнер страниц сдвигаем влево
+        PagerInfoH.PagesElem.style.transitionDuration = SlowFlag
+          ? "0.5s"
+          : "0s"; // если надо медленно
+        var PagesX = -PagerInfoH.CurrPageI * PagerInfoH.WindowWidth + ShiftX;
+        PagerInfoH.PagesElem.style.transform =
+          "translateX(" + PagesX + "px) " + PagerInfoH.PagesTransformPostfix;
+      }
+
+      // вызывается и из mousedown, и из touchstart
+      function Pager_AnyStart(E, X, Y) {
+        // возможно, начался свайп
+        // запомним координаты и начнём слушать движение
+        PagerInfoH.MoveStart = { x: X, y: Y };
+        PagerInfoH.MoveState = 1; // начался жест (пока непонятно какой)
+        if (PagerInfoH.MouseDebug)
+          PagerInfoH.PagesElem.addEventListener(
+            "mousemove",
+            Pager_MouseMove,
+            false
+          );
+        else
+          PagerInfoH.PagesElem.addEventListener(
+            "touchmove",
+            Pager_TouchMove,
+            false
+          );
+      }
+
+      // вызывается и из mousemove, и из touchmove
+      function Pager_AnyMove(E, MoveX, MoveY) {
+        // если PagerInfoH.MoveState=1 - надо проверить, куда сместилось
+        // касание относительно MoveStart
+        if (PagerInfoH.MoveState == 1) {
+          var HorzShift = Math.abs(MoveX - PagerInfoH.MoveStart.x);
+          var VertShift = Math.abs(MoveY - PagerInfoH.MoveStart.y);
+          if (HorzShift > VertShift) {
+            // по горизонтали касание сместилось больше чем по вертикали -
+            // значит это наш жест
+            // если в ту сторону можно сместиться:
+            // переводим состояние в 2, начинаем смещать контейнер,
+            // и не пропускаем событие выше
+            // если нельзя:
+            // переводим состояние в 0, снимаем обработчики перемещения
+            var NewPageI = PagerInfoH.CurrPageI;
+            if (MoveX > PagerInfoH.MoveStart.x) NewPageI--;
+            else NewPageI++;
+            if (NewPageI < 0 || NewPageI >= PagerInfoH.PagesA.length) {
+              // нельзя туда
+              PagerInfoH.MoveState = 0; // нет жеста
+              PagerInfoH.PagesElem.removeEventListener(
+                "mousemove",
+                Pager_MouseMove,
+                false
+              );
+              PagerInfoH.PagesElem.removeEventListener(
+                "touchmove",
+                Pager_TouchMove,
+                false
+              );
+            } else PagerInfoH.MoveState = 2; // идёт наш жест (свайп), и туда можно
+            // остальные действия сделаются дальше в ветке if state==2
+          } else if (VertShift > HorzShift) {
+            //  по вертикали больше чем по горизонтали - не наш жест,
+            // переводим состояние в 0, снимаем обработчик mousemove
+            PagerInfoH.MoveState = 0; // нет жеста
+            PagerInfoH.PagesElem.removeEventListener(
+              "mousemove",
+              Pager_MouseMove,
+              false
+            );
+            PagerInfoH.PagesElem.removeEventListener(
+              "touchmove",
+              Pager_TouchMove,
+              false
+            );
+          } else {
+            // касание не сдвинуто или сдвинуто ровно по диагонали
+            // ситуация неясная, ничего не делаем
+          }
+        }
+
+        // если PagerInfoH.MoveState=2 - надо сместить контейнер
+        // и не пропускаем событие выше
+        if (PagerInfoH.MoveState == 2) {
+          Pager_UpdatePages(MoveX - PagerInfoH.MoveStart.x, false);
+          E.preventDefault();
+        }
+      }
+
+      // вызывается и из mouseup, и из touchend
+      function Pager_AnyEnd(E, X) {
+        if (PagerInfoH.MoveState == 2) {
+          // касание уже убрано, жест окончен, но надо дотянуть контейнер до конца страницы
+          // рассчитаем новую активную страницу
+          var ShiftX = X - PagerInfoH.MoveStart.x;
+          if (ShiftX > 0) PagerInfoH.CurrPageI--;
+          else PagerInfoH.CurrPageI++;
+          // спозиционируемся точно на активную страницу, но медленно
+          Pager_UpdatePages(0, true);
+        }
+
+        // жест по-любому закончен, наш или не наш
+        PagerInfoH.PagesElem.removeEventListener(
+          "mousemove",
+          Pager_MouseMove,
+          false
+        );
+        PagerInfoH.PagesElem.removeEventListener(
+          "touchmove",
+          Pager_TouchMove,
+          false
+        );
+        PagerInfoH.MoveState = 0; // нет жеста
+      }
+
+      function Pager_MouseDown(E) {
+        Pager_AnyStart(E, E.pageX, E.pageY);
+      }
+
+      function Pager_TouchStart(E) {
+        // если это не первое касание, проигнорируем
+        if (E.touches.length == 1)
+          Pager_AnyStart(E, E.touches[0].pageX, E.touches[0].pageY);
+      }
+
+      function Pager_MouseMove(E) {
+        // вызываем универсальную функцию для любого перемещения - и мыши, и пальца
+        Pager_AnyMove(E, E.pageX, E.pageY);
+      }
+
+      function Pager_TouchMove(E) {
+        // даже если касаний несколько - работаем только с самым первым
+        // вызываем универсальную функцию для любого перемещения - и мыши, и пальца
+        Pager_AnyMove(E, E.touches[0].pageX, E.touches[0].pageY);
+      }
+
+      function Pager_MouseUp(E) {
+        Pager_AnyEnd(E, E.pageX);
+      }
+
+      function Pager_TouchEnd(E) {
+        // если отпущено непоследнее касание - игнорируем
+        if (!E.touches.length) Pager_AnyEnd(E, E.changedTouches[0].pageX);
+      }
+    </script>
+
+    <script>
+      Pager_Init(true, "");
+      PagerInfoH.CurrPageI = 2;
+      Pager_UpdatePages(0, false);
+    </script>
+  </body>
+</html>

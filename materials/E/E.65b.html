@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.65b Много элементов, обработчики — ссылка на одну функцию</title>
+  </head>
+  <body>
+    Мячиков: <input type="text" id="BC" value="10" />
+    <input type="button" value="Добавить" onclick="add()" />
+    <div
+      id="IField"
+      style="
+        position: relative;
+        border: solid red 1px;
+        width: 340px;
+        height: 350px;
+      "
+    ></div>
+
+    <script>
+      function add() {
+        const field = document.getElementById("IField");
+        const ballsCount = document.getElementById("BC").value;
+        for (let b = 0; b < ballsCount; b++) {
+          const ball = document.createElement("img");
+          ball.src = "http://fe.it-academy.by/Examples/ball3.png";
+          ball.style.position = "absolute";
+          ball.style.left = Math.floor(Math.random() * 250) + "px";
+          ball.style.top = Math.floor(Math.random() * 250) + "px";
+          ball.addEventListener("click", removeMe, false);
+          field.appendChild(ball);
+        }
+      }
+
+      function removeMe(eo) {
+        eo = eo || window.event;
+
+        // какой мяч кликнут?
+        let ball = eo.target;
+        // можно было и let ball=this;
+
+        // важно вручную удалять все обработчики
+        ball.removeEventListener("click", removeMe, false);
+        // удаляем сам мяч
+        ball.parentNode.removeChild(ball);
+      }
+    </script>
+  </body>
+</html>

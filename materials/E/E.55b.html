@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.55b Ожидание готовности DOM — проблема №2</title>
+  </head>
+  <body>
+    <div id="D2" style="border: solid red 1px">элемент 2...</div>
+
+    <script>
+      document.getElementById("S2").innerHTML = "изменён!";
+
+      document.getElementById("D2").innerHTML =
+        'элемент 2 внутри <span id="S2">...</span>';
+    </script>
+  </body>
+</html>

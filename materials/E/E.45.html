@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.45 Эмуляция тачскрином mouse-событий</title>
+  </head>
+  <body>
+    <h3>Тест эмуляции тачскрином mouse-событий</h3>
+
+    <div id="ILog" style="white-space: pre; font-size: 10px"></div>
+
+    <div style="position: fixed; left: 11em; top: 40px">
+      <input
+        type="button"
+        onclick="document.getElementById('ILog').innerHTML=''"
+        value="Очистить"
+      />&nbsp;&nbsp;&nbsp; <input type="checkbox" id="IEnableLogMove" />лог move
+    </div>
+
+    <textarea
+      id="IPlot"
+      style="
+        width: 400px;
+        height: 266px;
+        position: fixed;
+        left: 13em;
+        top: 70px;
+        background: url('http://fe.it-academy.by/Examples/fountain.jpg');
+      "
+    ></textarea>
+
+    <script>
+      var LogEl = document.getElementById("ILog");
+
+      var ImgEl = document.getElementById("IPlot");
+      ImgEl.ontouchstart = PlotTouchStart;
+      ImgEl.ontouchmove = PlotTouchMove;
+      ImgEl.ontouchend = PlotTouchEnd;
+      ImgEl.onmousedown = PlotMouseDown;
+      ImgEl.onmouseup = PlotMouseUp;
+      ImgEl.onclick = PlotMouseClick;
+      ImgEl.onmousemove = PlotMouseMove; 
+      ImgEl.onmouseover = PlotMouseOver;
+      ImgEl.onmouseout = PlotMouseOut;
+      ImgEl.onfocus = PlotFocus;
+      ImgEl.onblur = PlotBlur;
+
+      // массив касаний преобразует в строку для вывода в лог
+      function ComposeTouchesList(TouchesA) {
+        var S = "";
+        for (var T = 0; T < TouchesA.length; T++) {
+          var TouchH = TouchesA[T];
+          S +=
+            "  id=" +
+            TouchH.identifier +
+            " X=" +
+            TouchH.screenX +
+            " Y=" +
+            TouchH.screenY +
+            "<br>";
+        }
+        return S;
+      }
+
+      // обработчик вызывается, когда палец касается картинки
+      function PlotTouchStart(Ev) {
+        LogEl.innerHTML += "<b style='color: blue'>событие touchstart</b><br>";
+        LogEl.innerHTML +=
+          " targetTouches: " + Ev.targetTouches.length + "<br>";
+        LogEl.innerHTML += ComposeTouchesList(Ev.targetTouches);
+        LogEl.innerHTML +=
+          " changedTouches: " + Ev.changedTouches.length + "<br>";
+        LogEl.innerHTML += ComposeTouchesList(Ev.changedTouches);
+      }
+
+      // обработчик вызывается, когда палец отнимается от картинки
+      function PlotTouchEnd(Ev) {
+        LogEl.innerHTML += "<b style='color: red'>событие touchend</b><br>";
+        LogEl.innerHTML +=
+          " targetTouches: " + Ev.targetTouches.length + "<br>";
+        LogEl.innerHTML += ComposeTouchesList(Ev.targetTouches);
+        LogEl.innerHTML +=
+          " changedTouches: " + Ev.changedTouches.length + "<br>";
+        LogEl.innerHTML += ComposeTouchesList(Ev.changedTouches);
+      }
+
+      // обработчик вызывается, когда палец, не оторвавшись от картинки, движется
+      function PlotTouchMove(Ev) {
+        if (document.getElementById("IEnableLogMove").checked) {
+          LogEl.innerHTML +=
+            "<b style='color: green'>событие touchmove</b><br>";
+          LogEl.innerHTML +=
+            " targetTouches: " + Ev.targetTouches.length + "<br>";
+          LogEl.innerHTML += ComposeTouchesList(Ev.targetTouches);
+        }
+      }
+
+      // обработчик вызывается при нажатии кнопки мыши над картинкой
+      function PlotMouseDown(Ev) {
+        LogEl.innerHTML +=
+          "<b style='color: magenta'>событие mousedown</b> X=" +
+          Ev.screenX +
+          " Y=" +
+          Ev.screenY +
+          "<br>";
+      }
+
+      // обработчик вызывается при отпускании кнопки мыши над картинкой
+      function PlotMouseUp(Ev) {
+        LogEl.innerHTML +=
+          "<b style='color: magenta'>событие mouseup</b> X=" +
+          Ev.screenX +
+          " Y=" +
+          Ev.screenY +
+          "<br>";
+      }
+
+      // обработчик вызывается при клике по картинке
+      function PlotMouseClick(Ev) {
+        LogEl.innerHTML +=
+          "<b style='color: magenta'>событие click</b> X=" +
+          Ev.screenX +
+          " Y=" +
+          Ev.screenY +
+          "<br>";
+      }
+
+      // обработчик вызывается при движении мыши над картинкой (независимо от нажатия)
+      function PlotMouseMove(Ev) {
+        if (document.getElementById("IEnableLogMove").checked)
+          LogEl.innerHTML +=
+            "<b style='color: magenta'>событие mousemove</b> X=" +
+            Ev.screenX +
+            " Y=" +
+            Ev.screenY +
+            "<br>";
+      }
+
+      // обработчик вызывается при входе мыши в область картинки
+      function PlotMouseOver(Ev) {
+        LogEl.innerHTML +=
+          "<b style='color: magenta'>событие mouseover</b><br>";
+      }
+
+      // обработчик вызывается при выходе мыши из области картинки
+      function PlotMouseOut(Ev) {
+        LogEl.innerHTML += "<b style='color: magenta'>событие mouseout</b><br>";
+      }
+
+      // обработчик вызывается при получении картинкой фокуса
+      function PlotFocus(Ev) {
+        LogEl.innerHTML += "<b style='color: magenta'>событие focus</b><br>";
+      }
+
+      // обработчик вызывается при потере картинкой фокуса
+      function PlotBlur(Ev) {
+        LogEl.innerHTML += "<b style='color: magenta'>событие blur</b><br>";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E.60c Передача параметров обработчику — особенности let</title>
+  </head>
+  <body>
+    <div id="BUTTONS">
+      <input type="button" />
+      <input type="button" />
+      <input type="button" />
+    </div>
+
+    <script>
+      const buttons = document.querySelectorAll("#BUTTONS input");
+      for (let b = 0; b < buttons.length; b++) {
+        let elem = buttons[b];
+        elem.value = "кнопка " + b;
+        elem.onclick = function () {
+          alert("сообщение " + b);
+        };
+        // переменная цикла for, объявленная через let,
+        // в каждой итерации цикла пересоздаётся!
+        // все три обработчика берут РАЗНЫЕ b
+        // из ОДНОЙ области видимости
+      }
+    </script>
+  </body>
+</html>
