@@ -22,6 +22,7 @@
 
         self.change = function () {
           self.num = 3 - self.num; // меняем на противоположную
+          console.log(self.num);
           self.update();
           cat.checkWeather(); // приходится явно оповещать кота
         };

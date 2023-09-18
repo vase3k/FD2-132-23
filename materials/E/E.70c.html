@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      E.70c Взаимозависимость классов — устраняем через собственный механизм
+      подписки на события (паттерн Observer)
+    </title>
+  </head>
+  <body>
+    <input type="button" value="сменить погоду" onclick="weather.change()" />
+    <br /><br />
+    <img id="IWeather" />
+    <br />
+    <hr />
+    <br />
+    <img id="ICat" width="200" />
+
+    <script>
+      function Weather() {
+        const self = this;
+
+        let num = 1; // погода: 1=солнце 2=дождь; приватная!
+
+        // кому интересно изменение погоды?
+        const listeners = []; // здесь список функций, которые надо вызвать
+        self.addListener = function (func) {
+          listeners.push(func);
+          // и сразу вызываем функцию, передаём погоду и что ещё надо
+          func(num);
+        };
+
+        self.change = function () {
+          num = 3 - num; // меняем на противоположную
+
+          self.update();
+
+          for (let f = 0; f < listeners.length; f++) {
+            const func = listeners[f]; // func - это функция-слушатель
+            func(num); // вызываем её, передаём погоду и что ещё надо
+          }
+        };
+
+        self.update = function () {
+          const weatherElem = document.getElementById("IWeather");
+          weatherElem.src =
+            "Examples/weather/" +
+            (num == 1 ? "weather_sun.jpg" : "weather_rain.jpg");
+        };
+      }
+
+      const weather = new Weather();
+      weather.update();
+
+      function Cat() {
+        const self = this;
+
+        let state = -1; // состояние: 11=загар 12=зонтик; приватная!
+
+        self.checkWeather = function (weatherNum) {
+          // здесь this не будет указывать на объект кота
+          // т.к. функция вызывается не в виде объект.метод()
+          console.log("Кот узнал, что новая погода: " + weatherNum);
+          state = weatherNum + 10;
+          self.update();
+        };
+
+        self.update = function () {
+          const catElem = document.getElementById("ICat");
+          catElem.src =
+            "Examples/weather/" +
+            (state == 11 ? "cat_sun.jpg" : "cat_rain.jpg");
+        };
+      }
+
+      const cat = new Cat();
+      weather.addListener(cat.checkWeather);
+    </script>
+  </body>
+</html>

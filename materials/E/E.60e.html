@@ -18,6 +18,7 @@
         let elem = buttons[b];
         elem.value = "кнопка " + b;
         elem.setAttribute("data-nnn", b);
+        console.log(buttons[b].dataset);
         elem.onclick = function () {
           alert("сообщение " + this.getAttribute("data-nnn"));
         };
