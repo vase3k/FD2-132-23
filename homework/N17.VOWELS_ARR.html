@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VOWELS</title>
+    <style>
+      input {
+        display: flex;
+        flex-direction: row;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="text1" placeholder="forEach"><span id="result1"></span>
+    <input type="text" id="text2" placeholder="filter"><span id="result2"></span>
+    <input type="text" id="text3" placeholder="reduce"><span id="result3"></span>
+
+    </p>
+    <script>
+      const countA = (text) => {
+        const glas = ["а", "о", "у", "и", "ы", "э", "е", "ё", "ю", "я"];
+        const splited = text.split("");
+        let acc = 0;
+        splited.forEach((element) => {
+          glas.includes(element) && (acc += 1);
+        });
+        return `${text} содержит ${acc} глассных`;
+      };
+
+      const countB = (text) => {
+        const glas = ["а", "о", "у", "и", "ы", "э", "е", "ё", "ю", "я"];
+        let splited = text.split("");
+        let acc = 0;
+        splited.filter((x) => {
+          return glas.includes(x) && (acc += 1);
+        });
+        return `${text} содержит ${acc} глассных`;
+      };
+
+      const countc = (text) => {
+        const glas = ["а", "о", "у", "и", "ы", "э", "е", "ё", "ю", "я"];
+        let splited = text.split("");
+        splited.unshift("");
+        let acc = 0;
+        splited.reduce((r, v, i) => {
+          if (glas.includes(v)) {
+            acc += 1;
+          }
+        });
+        return `${text} содержит ${acc} глассных`;
+      };
+
+      document.getElementById('text1')
+      .addEventListener('input', event => document.getElementById('result1')
+      .innerText = countA(event.target.value));
+
+      document.getElementById('text2')
+      .addEventListener('input', event => document.getElementById('result2')
+      .innerText = countB(event.target.value));
+
+      document.getElementById('text3')
+      .addEventListener('input', event => document.getElementById('result3')
+      .innerText = countB(event.target.value));
+
+      const text = prompt("введите какую нибуть фигню", "аааф")
+      alert (`for each ${countA(text)}\nfilter ${countB(text)}\nreduce ${countc(text)}`)
+    </script>
+  </body>
+</html>
