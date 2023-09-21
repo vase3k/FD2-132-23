@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>N.23 Домашнее задание DYN_FORM</title>
+    <style>
+      form {
+        display: grid;
+        justify-items: end;
+      }
+
+      div {
+        max-width: fit-content;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="button" value="build form" id="buildform" />
+    <div id="container"></div>
+
+    <script>
+      const formDef1 = [
+        { label: "Название сайта:", kind: "longtext", name: "sitename" },
+        { label: "URL сайта:", kind: "longtext", name: "siteurl" },
+        { label: "Посетителей в сутки:", kind: "number", name: "visitors" },
+        { label: "E-mail для связи:", kind: "shorttext", name: "email" },
+        {
+          label: "Рубрика каталога:",
+          kind: "combo",
+          name: "division",
+          variants: [
+            { text: "здоровье", value: 1 },
+            { text: "домашний уют", value: 2 },
+            { text: "бытовая техника", value: 3 },
+          ],
+        },
+        {
+          label: "Размещение:",
+          kind: "radio",
+          name: "payment",
+          variants: [
+            { text: "бесплатное", value: 1 },
+            { text: "платное", value: 2 },
+            { text: "VIP", value: 3 },
+          ],
+        },
+        { label: "Разрешить отзывы:", kind: "check", name: "votes" },
+        { label: "Описание сайта:", kind: "memo", name: "description" },
+        { caption: "Опубликовать", kind: "submit" },
+      ];
+
+      const formDef2 = [
+        { label: "Фамилия:", kind: "longtext", name: "lastname" },
+        { label: "Имя:", kind: "longtext", name: "firstname" },
+        { label: "Отчество:", kind: "longtext", name: "secondname" },
+        { label: "Возраст:", kind: "number", name: "age" },
+        { caption: "Зарегистрироваться", kind: "submit" },
+      ];
+
+      const buildForm = (formDef1) => {
+        const form1 = document.createElement("form");
+        form1.setAttribute("action", "https://fe.it-academy.by/TestForm.php");
+        document.getElementById("container").appendChild(form1);
+
+        for (array in formDef1) {
+          const createTag = () => {
+            switch (formDef1[array]["kind"]) {
+              case "longtext":
+              case "number":
+              case "shorttext":
+              case "radio":
+              case "check":
+                return "input";
+              case "combo":
+                return "select";
+              case "memo":
+                return "textarea";
+              case "submit":
+                return "input";
+            }
+          };
+
+          const createValueSubmit = () =>
+            formDef1[array]["caption"] && formDef1[array]["caption"];
+
+          const createAttType = () => {
+            switch (formDef1[array]["kind"]) {
+              case "longtext":
+                return "text";
+              case "number":
+                return "number";
+              case "shorttext":
+                return "email";
+              case "radio":
+                return "radio";
+              case "check":
+                return "checkbox";
+              case "submit":
+                return "submit";
+            }
+          };
+
+          const createVariantsCombo = () => {
+            if (formDef1[array]["variants"]) {
+              return formDef1[array]["kind"] === "combo" && "option";
+            }
+          };
+
+          const createVariantsRadio = () => {
+            if (formDef1[array]["variants"]) {
+              return formDef1[array]["kind"] === "radio" && "radio";
+            }
+          };
+
+          const creteAttName = () => formDef1[array]["name"];
+
+          const createText = () => formDef1[array]["label"];
+
+          const createLabel = () => formDef1[array]["label"] && "label";
+
+          const elem = document.createElement(createTag());
+          createAttType() != "radio" &&
+            elem.setAttribute("type", createAttType());
+          creteAttName() && elem.setAttribute("name", creteAttName());
+          createValueSubmit() &&
+            elem.setAttribute("value", createValueSubmit());
+          const label = createLabel() && document.createElement(createLabel());
+          createText() &&
+            label.appendChild(document.createTextNode(createText()));
+          const input = createLabel()
+            ? form1.appendChild(label).appendChild(elem)
+            : form1.appendChild(elem);
+          if (createVariantsCombo())
+            for (let array2 in formDef1[array]["variants"]) {
+              const option1 = input.appendChild(
+                document.createElement(createVariantsCombo())
+              );
+              option1.setAttribute(
+                "value",
+                formDef1[array]["variants"][array2].value
+              );
+              option1.innerText = formDef1[array]["variants"][array2].text;
+            }
+          if (createAttType() === "radio") {
+            const label3 = form1[array].parentNode;
+            form1[array].parentNode.removeChild(
+              form1[array].parentNode.lastChild
+            );
+            for (let array2 in formDef1[array]["variants"]) {
+              const elem1 = document.createElement(createTag());
+              elem1.setAttribute("type", formDef1[array]["kind"]);
+              elem1.setAttribute("name", formDef1[array]["name"]);
+              elem1.setAttribute(
+                "value",
+                formDef1[array]["variants"][array2].value
+              );
+              const textnode2 = document.createTextNode(
+                formDef1[array]["variants"][array2].text
+              );
+              label3.appendChild(elem1);
+              label3.appendChild(textnode2);
+            }
+          }
+        } // end of array cycle
+      };
+      document.getElementById("buildform").addEventListener(
+        "click",
+        () => {
+          buildForm(formDef1), buildForm(formDef2);
+        },
+        true
+      );
+    </script>
+  </body>
+</html>
