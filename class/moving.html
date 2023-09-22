@@ -20,40 +20,52 @@
         const div = document.getElementById('sqr');
         let x = 0;
         let y = 0;
+        let timer1;
 
         window.addEventListener('keydown',(e) => {
             switch (e.keyCode) {
                 case 38: console.log(e.keyCode, 'top')
-                y -= 10
-                console.log(y);
-                div.style.top = y + 'px';
-                if (y <= 10) {
-                    y += 10;
-                }
+                clearInterval(timer1);
+                let timer1 = setInterval(
+                    () => {
+                    y--;
+                    console.log(y);
+                    div.style.top = y + 'px';
+                    if (y <= 10) {clearInterval(timer1)};
+                }, 50)
                 ;break;
                 case 39: console.log(e.keyCode, 'right')
-                x += 10;
-                console.log(x);
-                div.style.left = x + 'px';
-                if(x >= 100) {
-                    x -= 10;
-                };
+                clearInterval(timer1);
+                timer1 = setInterval(
+                    () => {
+
+                    x++;
+                    console.log(x);
+                    div.style.right = x + 'px';
+                    if (x >= 100) {clearInterval(timer1)};
+                }, 50)
                 ;break;
                 case 37: console.log(e.keyCode, 'left')
-                x -= 10;
-                console.log(x);
-                div.style.left = x + 'px';
-                if(x <= 10) {
-                    x+=10;
-                };
+                clearInterval(timer1);
+                timer1 = setInterval(
+                    () => {
+                    
+                    x--;
+                    console.log(x);
+                    div.style.left = x + 'px';
+                    if (x <= 10) {clearInterval(timer1)};
+                }, 50)
                 ;break;
                 case 40: console.log(e.keyCode, 'bottom')
-                y += 10;
-                console.log(y);
-                div.style.top = y + "px";
-                if(y>= 100) {
-                    y-=10;
-                }
+                clearInterval(timer1);
+                timer1 = setInterval(
+                    () => {
+                    
+                    y++;
+                    console.log(y);
+                    div.style.bottom = y + 'px';
+                    if (y >= 100) {clearInterval(timer1)};
+                }, 50)
                 ;break;
             }
         });
