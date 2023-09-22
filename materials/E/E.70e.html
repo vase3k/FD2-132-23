@@ -4,19 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      E.70b Взаимозависимость классов — уменьшаем через пользовательские события
+      E.70e Взаимозависимость классов — устраняем через использование
+      EventEmitter
     </title>
   </head>
   <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/EventEmitter/5.2.2/EventEmitter.min.js"></script>
+
     <input type="button" value="сменить погоду" onclick="weather.change()" />
     <br /><br />
     <img id="IWeather" />
     <br />
     <hr />
     <br />
-    <img id="ICat" width="200" />
+    <img id="ICat" width="190" />
 
     <script>
+      // поток событий с информацией о погоде
+      const weatherEvents = new EventEmitter();
+
       function Weather() {
         const self = this;
 
@@ -27,12 +33,9 @@
 
           self.update();
 
-          // создаём объект события "погода изменилась"
-          const myEvent = new Event("weather");
-          // в объекте события будет свойство с № погоды
-          myEvent.weathernum = self.num;
-          // сообщаем об этом ВСЕМ заинтересованным
-          document.dispatchEvent(myEvent);
+          // широковещательное событие EventWeatherChanged
+          // с информацией о погоде
+          weatherEvents.emit("EventWeatherChanged", { weathernum: self.num });
         };
 
         self.update = function () {
@@ -51,7 +54,7 @@
         self.state = -1; // состояние: 11=загар 12=зонтик
 
         self.checkWeather = function (eo) {
-          console.log("Кот узнал о погоде: " + eo.weathernum);
+          console.log("Кот узнал, что новая погода: " + eo.weathernum);
           self.state = eo.weathernum + 10;
           self.update();
         };
@@ -67,7 +70,7 @@
       // checkWeather ожидает номер погоды в свойстве weathernum
       // аргумента; передадим, пусть думает что это объект события
       cat.checkWeather({ weathernum: weather.num });
-      document.addEventListener("weather", cat.checkWeather, false);
+      weatherEvents.addListener("EventWeatherChanged", cat.checkWeather);
     </script>
   </body>
 </html>
