@@ -8,6 +8,7 @@
       form {
         display: grid;
         justify-items: end;
+        margin-bottom: 20px;
       }
 
       div {
@@ -59,112 +60,114 @@
         { caption: "Зарегистрироваться", kind: "submit" },
       ];
 
-      const buildForm = (formDef1) => {
+      const buildForm = (arrayWithData) => {
+        //create form inside div container
         const form1 = document.createElement("form");
         form1.setAttribute("action", "https://fe.it-academy.by/TestForm.php");
         document.getElementById("container").appendChild(form1);
 
-        for (array in formDef1) {
-          const createTag = () => {
-            switch (formDef1[array]["kind"]) {
-              case "longtext":
-              case "number":
-              case "shorttext":
-              case "radio":
-              case "check":
-                return "input";
-              case "combo":
-                return "select";
-              case "memo":
-                return "textarea";
-              case "submit":
-                return "input";
-            }
-          };
+        const tags = {
+          longtext: "input",
+          number: "input",
+          shorttext: "input",
+          combo: "select",
+          radio: "input",
+          check: "input",
+          memo: "textarea",
+          submit: "input",
+        };
 
-          const createValueSubmit = () =>
-            formDef1[array]["caption"] && formDef1[array]["caption"];
+        const types = {
+          longtext: 'text',
+          number: 'number',
+          shorttext: 'email',
+          combo : 'option',
+          radio : 'radio',
+          check : 'checkbox',
+          submit : 'submit',
+        };
 
-          const createAttType = () => {
-            switch (formDef1[array]["kind"]) {
-              case "longtext":
-                return "text";
-              case "number":
-                return "number";
-              case "shorttext":
-                return "email";
-              case "radio":
-                return "radio";
-              case "check":
-                return "checkbox";
-              case "submit":
-                return "submit";
-            }
-          };
+        for (arrayInsideData of arrayWithData) {
 
-          const createVariantsCombo = () => {
-            if (formDef1[array]["variants"]) {
-              return formDef1[array]["kind"] === "combo" && "option";
-            }
-          };
+          const selectTag = (object) => {
+            for (let key in object) {
+              if (key === 'kind') if (tags[object[key]]) return tags[object[key]] 
+          }};
 
-          const createVariantsRadio = () => {
-            if (formDef1[array]["variants"]) {
-              return formDef1[array]["kind"] === "radio" && "radio";
-            }
-          };
+          const selectType = (object) => {
+            for (let key in object) {
+             if (types[object[key]]) return types[object[key]];
+          }}; 
+          // создаем combo и options
+          if (arrayInsideData.kind === 'combo' && 'variants' in arrayInsideData) {
+            const tag = selectTag(arrayInsideData);
+            const elem = document.createElement(tag)
+            elem.setAttribute('name',arrayInsideData.name)
 
-          const creteAttName = () => formDef1[array]["name"];
+            for (variants of arrayInsideData.variants) {
+              const labelText = variants.text;
+              const value = variants.value; 
+              const tag = selectType(arrayInsideData);
+              const elemOption = document.createElement(tag);
+              elemOption.setAttribute('value',value);
+              elemOption.innerText = labelText;
+              elem.appendChild(elemOption)
+            };
 
-          const createText = () => formDef1[array]["label"];
-
-          const createLabel = () => formDef1[array]["label"] && "label";
-
-          const elem = document.createElement(createTag());
-          createAttType() != "radio" &&
-            elem.setAttribute("type", createAttType());
-          creteAttName() && elem.setAttribute("name", creteAttName());
-          createValueSubmit() &&
-            elem.setAttribute("value", createValueSubmit());
-          const label = createLabel() && document.createElement(createLabel());
-          createText() &&
-            label.appendChild(document.createTextNode(createText()));
-          const input = createLabel()
-            ? form1.appendChild(label).appendChild(elem)
-            : form1.appendChild(elem);
-          if (createVariantsCombo())
-            for (let array2 in formDef1[array]["variants"]) {
-              const option1 = input.appendChild(
-                document.createElement(createVariantsCombo())
-              );
-              option1.setAttribute(
-                "value",
-                formDef1[array]["variants"][array2].value
-              );
-              option1.innerText = formDef1[array]["variants"][array2].text;
-            }
-          if (createAttType() === "radio") {
-            const label3 = form1[array].parentNode;
-            form1[array].parentNode.removeChild(
-              form1[array].parentNode.lastChild
-            );
-            for (let array2 in formDef1[array]["variants"]) {
-              const elem1 = document.createElement(createTag());
-              elem1.setAttribute("type", formDef1[array]["kind"]);
-              elem1.setAttribute("name", formDef1[array]["name"]);
-              elem1.setAttribute(
-                "value",
-                formDef1[array]["variants"][array2].value
-              );
-              const textnode2 = document.createTextNode(
-                formDef1[array]["variants"][array2].text
-              );
-              label3.appendChild(elem1);
-              label3.appendChild(textnode2);
-            }
+            const label = document.createElement('label');
+            const labelValue = document.createTextNode(arrayInsideData.label);
+            label.appendChild(labelValue);
+            label.appendChild(elem)
+            form1.appendChild(label)
           }
-        } // end of array cycle
-      };
+
+          else if (arrayInsideData.kind === 'radio' && 'variants' in arrayInsideData) {
+
+            const label = document.createElement('label');
+            const labelValue = document.createTextNode(arrayInsideData.label);
+            label.appendChild(labelValue);
+            
+
+            for (variants of arrayInsideData.variants) {
+              const tag = selectTag(arrayInsideData);
+              const type = selectType(arrayInsideData);
+              const elem = document.createElement(tag)
+              const elemText = document.createTextNode(variants.text)
+              elem.setAttribute('name',arrayInsideData.name)
+              elem.setAttribute('value',variants.value)
+              elem.setAttribute('type',type)
+              label.appendChild(elem);
+              label.appendChild(elemText);
+            };
+
+            form1.appendChild(label);
+          }
+
+          else if (arrayInsideData.kind === 'submit' && 'caption' in arrayInsideData) {
+            const tag = selectTag(arrayInsideData);
+            const type = selectType(arrayInsideData);
+            const value = arrayInsideData.caption;
+            const elem = document.createElement(tag);
+            elem.setAttribute('type', type);
+            elem.setAttribute('value', value);
+            form1.appendChild(elem);
+          }
+
+          else {
+            const elem = document.createElement(selectTag(arrayInsideData));
+            const label = document.createElement('label');
+            const type = selectType(arrayInsideData);
+            const labelText = document.createTextNode(arrayInsideData.label);
+            elem.setAttribute('name',arrayInsideData.name);
+            type != undefined && elem.setAttribute('type',type);
+            label.appendChild(labelText);
+            label.appendChild(elem);
+            form1.appendChild(label);
+          }
+
+        } // end of arrayInsideData cycle
+      }; // end of buildForm function
+
       document.getElementById("buildform").addEventListener(
         "click",
         () => {
