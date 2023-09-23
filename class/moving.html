@@ -5,67 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8 sep 2023</title>
     <style>
-        div {
+        #sqr {
             width: 100px;
             height: 100px;
             background-color: red;
             position: absolute;
         }
+        #container {
+            width: 500px;
+            height: 500px;
+            border: 2px solid blue;
+            position: relative;
+        }
     </style>
 </head>
 <body>
-    <div id="sqr"></div>
+    <input type="range" max="500" min="100" oninput='changeWidth()'>Enter width<br>
+    <input type="range" max="500" min="100" oninput='changeHeight()'>Enter heigth<br>
+    <input id="speed" type="range" max="50" min="1">Enter Speed<br>
+    <div id="container">
+        <div id="sqr"></div>
+    </div>
+
+    
     <script>
 
         const div = document.getElementById('sqr');
         let x = 0;
         let y = 0;
         let timer1;
+        const height1 = () => document.getElementById('container').offsetHeight - 4 -100;
+        const width1 = () => document.getElementById('container').offsetWidth - 4 -100;
 
+        const changeWidth = () => document.getElementById('container').style.width = event.target.value + 'px';
+        const changeHeight = () => document.getElementById('container').style.height = event.target.value + 'px';
+        const changeSpeed = () => document.getElementById('speed').value
+            
         window.addEventListener('keydown',(e) => {
             switch (e.keyCode) {
                 case 38: console.log(e.keyCode, 'top')
-                clearInterval(timer1);
-                let timer1 = setInterval(
+                 timer1 = setInterval(
                     () => {
+                    console.log(y)
                     y--;
-                    console.log(y);
                     div.style.top = y + 'px';
-                    if (y <= 10) {clearInterval(timer1)};
-                }, 50)
+                    if (y <= 0) {clearInterval(timer1)};
+                }, changeSpeed())
                 ;break;
                 case 39: console.log(e.keyCode, 'right')
-                clearInterval(timer1);
                 timer1 = setInterval(
                     () => {
-
-                    x++;
-                    console.log(x);
-                    div.style.right = x + 'px';
-                    if (x >= 100) {clearInterval(timer1)};
-                }, 50)
+                        console.log(x);
+                        x++;
+                        div.style.left = x + 'px';
+                        if (x >= width1()) {clearInterval(timer1)};
+                    }, changeSpeed())
                 ;break;
                 case 37: console.log(e.keyCode, 'left')
-                clearInterval(timer1);
                 timer1 = setInterval(
                     () => {
-                    
-                    x--;
-                    console.log(x);
-                    div.style.left = x + 'px';
-                    if (x <= 10) {clearInterval(timer1)};
-                }, 50)
+                        console.log(x);
+                        x--;
+                        div.style.left = x + 'px';
+                        if (x <= 0) {clearInterval(timer1)};
+                    }, changeSpeed())
                 ;break;
                 case 40: console.log(e.keyCode, 'bottom')
-                clearInterval(timer1);
                 timer1 = setInterval(
                     () => {
-                    
+                    console.log(y)
                     y++;
-                    console.log(y);
-                    div.style.bottom = y + 'px';
-                    if (y >= 100) {clearInterval(timer1)};
-                }, 50)
+                    div.style.top = y + 'px';
+                    if (y >= height1()) {clearInterval(timer1)};
+                }, changeSpeed())
                 ;break;
             }
         });
