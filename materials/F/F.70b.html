@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.70b Применение таймера в интерфейсах — решение с таймером</title>
+</head>
+<body>
+    <input id='IPhrase' type='text' onkeyup='keyPressed()'>
+
+<script>
+
+    let translateDelayTimer=0; // таймера нет
+
+    function startTimer() { // (ре)старт таймера
+        stopTimer();
+        translateDelayTimer=setTimeout(translatePhrase,500);
+    }
+
+    function stopTimer() { // стоп таймера
+        if ( translateDelayTimer ) {
+            clearTimeout(translateDelayTimer);
+            translateDelayTimer=0;
+        }
+    }
+
+    function keyPressed() {
+        startTimer();
+    }
+
+    function translatePhrase() {
+        stopTimer(); // важно чтоб очистить translateDelayTimer
+        // запускаем длительную операцию по обработке фразы
+        const phrase=document.getElementById('IPhrase').value;
+        console.log('перевожу фразу: '+phrase);
+    }
+
+</script>
+</body>
+</html>

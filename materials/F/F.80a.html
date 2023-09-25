@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.80a Проверка на поддержку свойств и методов</title>
+</head>
+<body>
+    <script>
+    function getSelectedText() { 
+        let sel='';
+        if ( document.selection )
+          sel=document.selection.createRange().text;
+        else if ( window.getSelection )
+          sel=window.getSelection().toString();
+        else if ( document.getSelection )
+          sel=document.getSelection();
+        return sel;
+    } 
+    </script>
+</body>
+</html>

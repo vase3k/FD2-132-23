@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.63 Неравномерность частоты срабатываний таймера</title>
+</head>
+<body>
+    <input type='button' value='Пуск!' onclick='start()'>
+<input type='button' value='Привет' onclick='alert("Привет!")'>
+
+<script>
+
+    let counter1=0;
+
+    function start() {
+        setInterval(tick1,20);
+        setInterval(tick2,1000); // в 50 раз медленнее
+    }
+
+    function tick1() {
+        counter1++;
+    }
+
+    function tick2() {
+        console.log('за секунду быстрый таймер сработал: '+counter1+' раз');
+        counter1=0;
+    }
+
+</script>
+</body>
+</html>

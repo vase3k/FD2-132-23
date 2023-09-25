@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.50d Таймер — потеря this (решение)</title>
+</head>
+<body>
+    <script>
+
+        class Clock {
+    
+            constructor() {
+    
+                this.timeName="Минское время";
+    
+                setInterval( () => {
+                    const currTime=new Date();
+                    console.log(this.timeName+" "+currTime);
+                } ,1000);
+                
+            }
+    
+        }
+    
+        const clock=new Clock;
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.98c Оптимизация в V8 — проблема eval решена</title>
+</head>
+<body>
+    <input type=button value='Старт!' onclick='start()'>
+
+    <script>
+    
+        "use strict";
+    
+        function start() {
+            console.time("aaa");
+            const s=calc();
+            console.log( eval("5+5") );
+            console.timeEnd("aaa");
+            console.log(s);
+        }
+    
+        // даже просто НАЛИЧИЕ try/catch, try/finally, get/set, debugger, with, eval,
+        // setInterval("код",длительность), setTimeout("код",длительность), new Function("код"),
+        // любых манипуляций с arguments кроме arguments[iii] и xxx.apply(yyy,arguments)
+        // заставляет движок V8 (JavaScript в Chrome) ВСЮ функцию запускать
+        // в неоптимизированном, "безопасном" режиме
+    
+        function calc() {
+            let s=0;
+            for ( let i=0; i<10000; i++ )
+                for ( let j=0; j<10000; j++ )
+                    s+=i+j;
+            return s;
+        }
+    
+    </script>  
+</body>
+</html>

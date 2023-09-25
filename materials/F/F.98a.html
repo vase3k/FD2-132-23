@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.98a Оптимизация в V8 — проблем нет</title>
+</head>
+<body>
+    <input type=button value='Старт!' onclick='start()'>
+
+<script>
+
+    "use strict"
+
+    function start() {
+        console.time("aaa");
+        const s=calc();
+        console.timeEnd("aaa");
+        console.log(s);
+    }
+
+    function calc() {
+        let s=0;
+        for ( let i=0; i<10000; i++ )
+            for ( let j=0; j<10000; j++ )
+                s+=i+j;
+        return s;
+    }
+
+</script>
+</body>
+</html>

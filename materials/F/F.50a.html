@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.50a Таймер</title>
+</head>
+<body>
+    <span id='TTT'></span>
+
+<script>
+
+    setInterval(updateTime,1000);
+
+    function updateTime() {
+        const currTime=new Date();
+        const currTimeStr=formatDateTime(currTime);
+        document.getElementById('TTT').innerHTML=
+            'Текущие дата и время - '+currTimeStr;
+    }
+
+    // форматирует дату-время в формате дд.мм.гггг чч:мм:сс
+    function formatDateTime(dt) {
+        const year=dt.getFullYear();
+        const month=dt.getMonth()+1;
+        const day=dt.getDate();
+        const hours=dt.getHours();
+        const minutes=dt.getMinutes();
+        const seconds=dt.getSeconds();
+        return str0l(day,2) + '.' + str0l(month,2) + '.' + year + ' '
+            + str0l(hours,2) + ':' + str0l(minutes,2) + ':' + str0l(seconds,2);
+    }
+
+    // дополняет строку val слева нулями до длины Len
+    function str0l(val,len) {
+        let strVal=val.toString();
+        while ( strVal.length < len )
+            strVal='0'+strVal;
+        return strVal;
+    }
+
+</script>
+</body>
+</html>

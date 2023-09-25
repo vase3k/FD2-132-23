@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.95a Отладка — измерение времени</title>
+</head>
+<body>
+    <script>
+
+        console.time('FFF');
+    
+        let s=0;
+        for ( let i=0; i<1000000; i++ )
+            s+=Math.random();
+    
+        console.timeEnd('FFF');
+    
+    </script>
+</body>
+</html>

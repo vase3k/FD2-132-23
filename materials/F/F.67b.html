@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.67b Пересчёт координат по таймеру</title>
+</head>
+<body>
+    <input type='button' value='Пуск!' onclick='start()'>
+<div style='background: url("Examples/frog.png");
+    width: 311px; height: 50px; position: relative'>
+    <div id='Frog1' style='position: absolute;
+        left: 0; top: 10px; width: 10px; height: 10px;
+        background-color: red'></div>
+    <div id='Frog2' style='position: absolute;
+        left: 0; top: 30px; width: 10px; height: 10px;
+        background-color: green'></div>
+</div>
+
+<script>
+
+    let pos1, pos2;
+    let timer1, timer2;
+    let startTime;
+
+    function start() {
+        pos1=0;
+        pos2=0;
+        startTime=new Date();
+        timer1=setInterval(tick1,100);
+        timer2=setInterval(tick2,1000);
+    }
+
+    function tick1() {
+        // скорость - 10 пикселей в секунду
+        const pos1=((new Date)-startTime)/1000*10;
+        document.getElementById('Frog1').style.left=
+            pos1+"px";
+        if ( pos1>=300 ) {
+            clearInterval(timer1);
+            console.log('красная лягушка: '
+                +(new Date()-startTime));
+        }
+    }
+
+    function tick2() {
+        // скорость - 10 пикселей в секунду
+        const pos2=((new Date)-startTime)/1000*10;
+        document.getElementById('Frog2').style.left=
+            pos2+"px";
+        if ( pos2>=300 ) {
+            clearInterval(timer2);
+            console.log('зелёная лягушка: '
+                +(new Date()-startTime));
+        }
+    }
+
+</script>
+</body>
+</html>

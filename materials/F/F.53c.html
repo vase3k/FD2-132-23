@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.53c Срабатывания встык — решение с setTimeout</title>
+</head>
+<body>
+    Задержка:
+<input id='IDelay' type='text' value=9500000 style='width: 70px'><br/>
+<input type='button' value='Пуск!' onclick='start()'>
+
+<script>
+
+    let counter;
+
+    function start() {
+        counter=0;
+        setTimeout(tick,1000);
+    }
+
+    function tick() {
+        counter++;
+        console.log('Тик '+counter);
+
+        // делаем сложную долгую работу
+        let r=0;
+        for ( let i=0; i<document.getElementById('IDelay').value; i++ )
+            r+=Math.random();
+        console.log(r);
+
+        setTimeout(tick,1000);
+    }
+
+
+</script>
+</body>
+</html>

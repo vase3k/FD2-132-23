@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.57a Проблема забывания таймера — типичная ошибка</title>
+</head>
+<body>
+    <input type=button value='тест!' onclick='countdown()'>
+
+<script>
+
+    let counter;
+    let timer;
+
+    function countdown() {
+        console.log('Внимааание!');
+        counter=10;
+        timer=setInterval(nextTick,1000);
+    }
+
+    function nextTick() {
+        counter--;
+        console.log( 'счёт: ' + counter );
+        if ( !counter ) {
+            console.log('Бумс!');
+            clearInterval(timer);
+        }
+    }
+
+</script>
+</body>
+</html>

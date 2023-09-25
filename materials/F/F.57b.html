@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.57b Проблема забывания таймера — правильная реализация</title>
+</head>
+<body>
+    <input type=button value='тест!' onclick='countdown()'>
+
+<script>
+
+    let counter;
+    let timer=0; // таймера нет
+
+    function countdown() {
+        if ( timer ) { // таймер уже есть?
+            clearInterval(timer); // остановим
+            timer=0; // теперь таймера нет
+        }
+        console.log('Внимааание!');
+        counter=10;
+        timer=setInterval(nextTick,1000); // таймер есть
+    }
+
+    function nextTick() {
+        counter--;
+        console.log( 'счёт: ' + counter );
+        if ( !counter )
+        {
+            console.log('Бумс!');
+            clearInterval(timer); // остановим
+            timer=0; // теперь таймера нет
+        }
+    }
+
+</script>
+</body>
+</html>

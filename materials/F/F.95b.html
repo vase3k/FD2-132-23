@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.95b Отладка — оператор debugger</title>
+</head>
+<body>
+    <input type=button onclick='func()' value='старт!'>
+
+<script>
+
+    let a=3;
+
+    function func() {
+
+        let b=4;
+
+        function func2() {
+
+            let c=5;
+
+            debugger;
+
+            let d=6;
+            let e=7;
+        }
+
+        func2();
+
+        console.log('OK!');
+    }
+
+</script>
+</body>
+</html>

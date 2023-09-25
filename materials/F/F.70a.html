@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.70a Применение таймера в интерфейсах — проблема</title>
+</head>
+<body>
+    <input id='IPhrase' type='text' onkeyup='translatePhrase()'>
+
+<script>
+
+    function translatePhrase() {
+        // запускаем длительную операцию по обработке фразы
+        const phrase=document.getElementById('IPhrase').value;
+        console.log('перевожу фразу: '+phrase);
+    }
+
+</script>
+</body>
+</html>
