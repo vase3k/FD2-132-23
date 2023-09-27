@@ -11,7 +11,7 @@
   <style>
     form {
       display: grid;
-      justify-items: end;
+      justify-items: start;
       margin-bottom: 20px;
     }
 
@@ -214,41 +214,159 @@
             eo.preventDefault();
             return;
           }
+          if (sitenameValue.length < 10) {
+            if (!sitename.nextSibling) {
+              const parent = sitename.parentNode;
+              const notice = document.createElement('span');
+              const noticeText = document.createTextNode(`text is ${sitenameValue.length}`);
+              notice.innerText = `text is ${sitenameValue.length} out of 10`;
+              parent.appendChild(notice);
+            }
+            sitename.nextSibling.innerText = `text is ${sitenameValue.length} out of 10`;
+            sitename.focus();
+            eo.preventDefault();
+          }
+
+          if (sitenameValue.length >= 10) {
+            if (sitename.nextSibling) {
+              sitename.nextSibling.innerText = 'ok';
+            }
+          }
           if (siteurlValue === '') {
             siteurl.focus();
             eo.preventDefault();
             return;
           }
+          if (siteurlValue.length <= 10) {
+            if (!siteurl.nextSibling) {
+              const parent = siteurl.parentNode;
+              const notice = document.createElement('span');
+              const noticeText = document.createTextNode(`text is ${siteurlValue.length}`);
+              notice.innerText = `text is ${siteurlValue.length} out of 10`;
+              parent.appendChild(notice);
+            }
+            siteurl.nextSibling.innerText = `text is ${siteurlValue.length} out of 10`;
+            siteurl.focus();
+            eo.preventDefault();
+          }
+          if (siteurlValue.length >= 10) {
+            if (siteurl.nextSibling) {
+              siteurl.nextSibling.innerText = 'ok';
+            }
+          }
+
           if (launchDateValue === '') {
             launchDate.focus();
             eo.preventDefault();
             return;
           }
+
+          if (launchDateValue < formatDateTime()) {
+            if (!launchDate.nextSibling) {
+              const parent = launchDate.parentNode;
+              const notice = document.createElement('span');
+              const noticeText = document.createTextNode(`date ${launchDateValue} in the past`);
+              notice.innerText = `date ${launchDateValue} in the past`;
+              parent.appendChild(notice);
+            }
+            launchDate.nextSibling.innerText = `date ${launchDateValue} in the past`;
+            launchDate.focus();
+            eo.preventDefault();
+          }
+
+          if (launchDateValue >= formatDateTime()) {
+            if (launchDate.nextSibling) {
+              launchDate.nextSibling.innerText = `дата в порядке`
+            }
+          }
+
+          function formatDateTime() {
+            const currentTime = new Date();
+            const year = currentTime.getFullYear();
+            const month = currentTime.getMonth() + 1;
+            const day = currentTime.getDate();
+            function str0l(val, len) {
+              let strVal = val.toString();
+              while (strVal.length < len) strVal = "0" + strVal;
+              return strVal;
+            }
+            return (`${year}-${str0l(month, 2)}-${str0l(day, 2)}`);
+          }
+
+
           if (visitorsValue === '') {
             visitors.focus();
             eo.preventDefault();
             return;
+          }
+          if (visitorsValue < 20) {
+            if (!visitors.nextSibling) {
+              const parent = visitors.parentNode;
+              const notice = document.createElement('span');
+              const noticeText = document.createTextNode(`text is ${visitorsValue}`);
+              notice.innerText = `${visitorsValue} visitors is not enough`;
+              parent.appendChild(notice);
+            }
+            visitors.nextSibling.innerText = `${visitorsValue} visitors is not enough`;
+            visitors.focus();
+            eo.preventDefault();
           }
           if (emailValue === '') {
             email.focus();
             eo.preventDefault();
             return;
           }
+
           if (divisionValue === '0') {
+            if (!division.nextSibling) {
+              const parent = division.parentNode;
+              const notice = document.createElement('span');
+              notice.innerText = `вы нечего не выбрали`;
+              parent.appendChild(notice);
+            }
             division.focus();
             eo.preventDefault();
-            return;
           }
+
+          if (divisionValue != '0') {
+            if (division.nextSibling) {
+              division.nextSibling.innerText = `ok`;
+            }
+          }
+
           if (paymentValue === '') {
+            if (form1[6].parentNode.lastChild.nodeName != 'SPAN') {
+              parent = form1[6].parentNode;
+              const notice = document.createElement('span');
+              notice.innerText = `   вы нечего не выбрали`;
+              parent.appendChild(notice);
+            }
             payment[0].scrollIntoView();
             eo.preventDefault();
             return;
           }
+
+          if (paymentValue != '') {
+            form1[6].parentNode.lastChild.innerText = `   ok`;
+          }
+
           if (votesValue === false) {
+            if (!votes.nextSibling) {
+              const parent = votes.parentNode;
+              const notice = document.createElement('span');
+              notice.innerText = `вы забыли нажать`;
+              parent.appendChild(notice);
+            }
             votes.focus();
             eo.preventDefault();
             return;
           }
+          if (votesValue === true) {
+            if (votes.nextSibling) {
+              votes.nextSibling.innerText = `ok`;
+            }
+          }
+
           if (descriptionValue === '') {
             description.focus();
             eo.preventDefault();
@@ -257,11 +375,13 @@
 
         } catch (ex) {
           console.log(ex)
-          alert('чито то то пошло не так как задумано')
+          alert('пересмотрите форму')
           eo.preventDefault();
         }; //end of cath 
 
       };//end of validation function
+
+
 
     </script>
   </body>
