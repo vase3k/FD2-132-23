@@ -1,105 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DRINKS_HASH_CLASS</title>
-    <style>
-      input {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 50px;
-        width: 100%;
-        margin-bottom: 10px;
-        line-height: 50px;
-        font-size: 30px;
-        background-color: beige;
-      }
-      .container {
-        max-width: 500px;
-      }
-      input:active {
-        position: relative;
-        top: 1px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <input
-        type="button"
-        value="ввод информации о напитке"
-        id=""
-        onclick="drinkStorage.addValue()"
-      />
-      <input
-        type="button"
-        value="получение информации о напитке"
-        id=""
-        onclick="drinkStorage.getValue()"
-      />
-      <input
-        type="button"
-        value="удаление информации о напитке"
-        id=""
-        onclick="drinkStorage.deleteValue()"
-      />
-      <input
-        type="button"
-        value="перечень всех напитков"
-        id=""
-        onclick="drinkStorage.getKeys()"
-      />
-    </div>
 
-    <script>
-      class HashStorageClass {
-        constructor(key, value) {
-          this.key = key;
-          this.value = value;
-          this.private = {};
-        }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DRINKS_HASH_CLASS</title>
+  <style>
+    input {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 100%;
+      margin-bottom: 10px;
+      line-height: 50px;
+      font-size: 30px;
+      background-color: beige;
+    }
 
-        addValue = (key, value) => {
-          key = prompt("введите имя напитка");
-          const percent = confirm("есть ли в нём алкаголь") ? "da" : "net";
-          const recipe = prompt("рецепт приготовления");
-          this.private[key] = { percent: percent, recipe: recipe };
-          return console.log(this.private);
-        };
+    .container {
+      max-width: 500px;
+    }
 
-        getValue = (key) => {
-          key = prompt("какой напиток найти?");
-          key in this.private
-            ? console.log(this.private[key])
-            : console.log(`${key} not found`);
-        };
+    input:active {
+      position: relative;
+      top: 1px;
+    }
+  </style>
+</head>
 
-        deleteValue = (key) => {
-          key = prompt("какой напиток удалить?");
-          if (key in this.private) {
-            delete this.private[key];
-            return !(key in this.private) && alert(`${key} удалён`);
-          }
-          return key in this.private || alert(`${key} не найден`);
-        };
+<body>
+  <div class="container">
+    <input type="button" value="ввод информации о напитке" id="addValue" />
+    <input type="button" value="получение информации о напитке" id="getValue" />
+    <input type="button" value="удаление информации о напитке" id="deleteValue" />
+    <input type="button" value="перечень всех напитков" id="getKeys" />
+  </div>
 
-        getKeys = () => {
-          const keys = [];
-          for (let x in this.private) {
-            keys.push(x);
-          }
-          let acc = "";
-          for (let x in keys) {
-            acc += `напиток ${parseInt(x) + 1} ${keys[x]} \n`;
-          }
-          return alert(acc);
-        };
+  <script>
+    class HashStorageClass {
+      constructor() {
+        this.private = {};
       }
 
-      const drinkStorage = new HashStorageClass();
-    </script>
-  </body>
+      addValue = (key, value) => {
+        this.private[key] = value;
+      };
+
+      getValue = (key) => {
+        return this.private[key];
+      };
+
+      deleteValue = (key) => {
+        if (key in this.private) {
+          delete this.private[key];
+          return true;
+        } else return false
+
+      };
+
+      getKeys = () => {
+        return Object.keys(this.private);
+      };
+    }
+
+    const drinkStorage = new HashStorageClass();
+
+    const addValue = (key, value) => {
+      key = prompt("введите имя напитка");
+      const percent = confirm("есть ли в нём алкаголь") ? "da" : "net";
+      const recipe = prompt("рецепт приготовления");
+      value = { "percent": percent, "recipe": recipe }
+      drinkStorage.addValue(key, value)
+    };
+
+    const add = document.getElementById('addValue');
+    add.addEventListener('click', addValue, true);
+
+    const getValue = (key) => {
+      key = prompt("какой напиток найти?");
+      drinkStorage.getValue(key) ? console.log(drinkStorage.getValue(key)) : console.log(`${key} not found`);
+    };
+
+    const get = document.getElementById('getValue');
+    get.addEventListener('click', getValue, true);
+
+    const deleteValue = (key) => {
+      key = prompt("какой напиток удалить?");
+      drinkStorage.deleteValue(key) ? alert(`${key} удалён`) : alert(`${key} не найден`);
+    };
+
+    const del = document.getElementById('deleteValue');
+    del.addEventListener('click', deleteValue, true);
+
+    const getKeys = document.getElementById('getKeys');
+    getKeys.addEventListener('click', () => alert(drinkStorage.getKeys()),true);
+
+
+  </script>
+</body>
+
 </html>
