@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.20b Равномерное движение с отталкиванием в двух измерениях</title>
+</head>
+
+<body>
+    <input type='button' value='Пуск!' onclick='start()'>
+    <br /><br />
+    <div style='width: 400px; height: 300px;
+    border: solid blue 1px; position: relative'>
+        <img src='Examples/ball2.png' id='IBall' style='position: absolute'>
+    </div>
+
+    <script>
+
+        let ballH = {
+            posX: 30,
+            posY: 30,
+            speedX: 2,
+            speedY: 1,
+            width: 50,
+            height: 50,
+
+            update: function () {
+                const ballElem =
+                    document.getElementById('IBall');
+                ballElem.style.left = this.posX + "px";
+                ballElem.style.top = this.posY + "px";
+            }
+        }
+
+        let areaH = {
+            width: 400,
+            height: 300
+        }
+
+        function start() {
+            // плавное движение - от 25 кадр/сек
+            setInterval(tick, 40);
+        }
+
+        function tick() {
+
+            ballH.posX += ballH.speedX;
+            // вылетел ли мяч правее стены?
+            if (ballH.posX + ballH.width > areaH.width) {
+                ballH.speedX = -ballH.speedX;
+                ballH.posX = areaH.width - ballH.width;
+            }
+            // вылетел ли мяч левее стены?
+            if (ballH.posX < 0) {
+                ballH.speedX = -ballH.speedX;
+                ballH.posX = 0;
+            }
+
+            ballH.posY += ballH.speedY;
+            // вылетел ли мяч ниже пола?
+            if (ballH.posY + ballH.height > areaH.height) {
+                ballH.speedY = -ballH.speedY;
+                ballH.posY = areaH.height - ballH.height;
+            }
+            // вылетел ли мяч выше потолка?
+            if (ballH.posY < 0) {
+                ballH.speedY = -ballH.speedY;
+                ballH.posY = 0;
+            }
+
+            ballH.update();
+        }
+
+        ballH.update();
+
+    </script>
+</body>
+
+</html>

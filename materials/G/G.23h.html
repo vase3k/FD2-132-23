@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.23h CSS-анимации — программная настройка анимации — проблема</title>
+</head>
+
+<body>
+    <style>
+        div.SBlock {
+            width: 150px;
+            height: 150px;
+            background-color: green;
+            /* изначально анимация НЕ задана */
+        }
+    </style>
+
+    <input type=button value='создать и анимировать цвет' onclick='anim()'><br /><br />
+
+    <div id=ICont style='width: 200px; height: 200px; border: solid red 1px'></div>
+
+    <script>
+
+        function anim() {
+            const blockElem = document.createElement('div');
+            blockElem.className = 'SBlock'; // зелёный
+            blockElem.style.transitionDuration = '1s'; // задаём анимацию
+            blockElem.style.backgroundColor = 'yellow'; // до жёлтого
+            document.getElementById('ICont').appendChild(blockElem);
+        }
+
+    </script>
+</body>
+
+</html>

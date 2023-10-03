@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.10c Canvas — поворот вокруг заданной точки</title>
+</head>
+
+<body>
+    <input type='button' value='вращение вокруг 0,0' onclick='rotate1()'><br />
+    <canvas id='CVS1' width=300 height=250 style='border: solid blue 1px'></canvas>
+    <br />
+    <input type='button' value='вращение вокруг центра картинки' onclick='rotate2()'><br />
+    <canvas id='CVS2' width=300 height=250 style='border: solid blue 1px'></canvas>
+
+    <script>
+
+        let canvas1 = null;
+        let context1 = null;
+        let angle1 = 0;
+
+        let canvas2 = null;
+        let context2 = null;
+        let angle2 = 0;
+
+        const imgX = 50;
+        const imgY = 50;
+        const imgWidth = 200;
+        const imgHeight = 144;
+
+        const img = new Image;
+        img.onload = start;
+        img.src = 'Examples/Hilu200.jpg';
+
+        function start() {
+            canvas1 = document.getElementById('CVS1');
+            context1 = canvas1.getContext('2d');
+            reDraw1();
+
+            canvas2 = document.getElementById('CVS2');
+            context2 = canvas2.getContext('2d');
+            reDraw2();
+        }
+
+        function reDraw1() {
+            context1.resetTransform();
+            context1.fillStyle = '#FFFFFF';
+            context1.fillRect(0, 0, canvas1.width, canvas1.height);
+
+            context1.save();
+            context1.rotate(angle1);
+            context1.drawImage(img, imgX, imgY);
+            context1.restore();
+        }
+
+        function reDraw2() {
+            context2.resetTransform();
+            context2.fillStyle = '#FFFFFF';
+            context2.fillRect(0, 0, canvas2.width, canvas2.height);
+
+            // вокруг этой точки хотим повернуть
+            const rotateX = imgX + imgWidth / 2;
+            const rotateY = imgY + imgHeight / 2;
+
+            context2.save();
+            // делаем началом координат точку поворота
+            context2.translate(rotateX, rotateY);
+            // поворачиваем вокруг неё
+            context2.rotate(angle2);
+
+            // возвращаем обратно начало координат
+            context2.translate(-rotateX, -rotateY);
+            // выводим картинку в нужных координатах
+            context2.drawImage(img, imgX, imgY);
+
+            context2.restore();
+        }
+
+        function rotate1() {
+            angle1 += 0.1;
+            reDraw1();
+        }
+
+        function rotate2() {
+            angle2 += 0.1;
+            reDraw2();
+        }
+
+    </script>
+</body>
+
+</html>

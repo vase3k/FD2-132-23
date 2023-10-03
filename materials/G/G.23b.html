@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.23b CSS-анимации — демо простых анимаций</title>
+</head>
+
+<body>
+    <style>
+        #BALL {
+            position: absolute;
+            left: 50px;
+            top: 250px;
+            width: 200px;
+            height: 200px;
+            background-color: green;
+
+            transition-duration: 3s;
+            transition-timing-function: linear;
+        }
+    </style>
+
+    <input type=button value='вправо' onclick='toRight()'>
+    <input type=button value='красный' onclick='toRed()'>
+    <input type=button value='по часовой' onclick='rotate()'>
+
+    <br /><br />
+    <div id=CONTAINER>
+        <div id=BALL></div>
+    </div>
+
+    <script>
+
+        "use strict";
+
+        var ballElem = document.getElementById('BALL');
+
+        ballElem.addEventListener('transitionend',
+            ballAnimEnd, false);
+
+        function toRight() {
+            ballElem.style.left = "350px";
+        }
+
+        function toRed() {
+            ballElem.style.backgroundColor = "red";
+        }
+
+        function rotate() {
+            ballElem.style.transform = 'rotate(135deg)';
+        }
+
+        function ballAnimEnd(eo) {
+            console.log('анимация окончена');
+            console.log(eo);
+        }
+
+    </script>
+</body>
+
+</html>

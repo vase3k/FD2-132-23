@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.20e Потеря энергии при отталкивании, при движении</title>
+</head>
+
+<body>
+    <input type='button' value='Пуск!' onclick='start()'>
+    <br /><br />
+    <div style='width: 400px; height: 300px;
+    border: solid blue 1px; position: relative'>
+        <img src='Examples/ball2.png' id='IBall' style='position: absolute'>
+    </div>
+
+    <script>
+
+        let ballH = {
+            posX: 20,
+            posY: 10,
+            speedX: 3.5,
+            speedY: 0,
+            accelX: 0,
+            accelY: 0.5,
+            // во сколько раз теряется скорость
+            frictK: 0.999, // при каждом смещении
+            // во сколько раз теряется скорость
+            elastK: 0.8, // при отталкивании
+            width: 50,
+            height: 50,
+
+            update: function () {
+                const ballElem = document.getElementById('IBall');
+                ballElem.style.left = Math.round(this.posX) + "px";
+                ballElem.style.top = Math.round(this.posY) + "px";
+            }
+        }
+
+        let areaH = {
+            width: 400,
+            height: 300
+        }
+
+        function start() {
+            // плавное движение - от 25 кадр/сек
+            setInterval(tick, 40);
+        }
+
+        function tick() {
+
+            ballH.speedX *= ballH.frictK;
+            ballH.speedX += ballH.accelX;
+            ballH.posX += ballH.speedX;
+
+            // вылетел ли мяч правее стены?
+            if (ballH.posX + ballH.width > areaH.width) {
+                ballH.speedX = -ballH.speedX * ballH.elastK;
+                ballH.posX = areaH.width - ballH.width;
+            }
+            // вылетел ли мяч левее стены?
+            if (ballH.posX < 0) {
+                ballH.speedX = -ballH.speedX * ballH.elastK;
+                ballH.posX = 0;
+            }
+
+            ballH.speedY *= ballH.frictK;
+            ballH.speedY += ballH.accelY;
+            ballH.posY += ballH.speedY;
+
+            // вылетел ли мяч ниже пола?
+            if (ballH.posY + ballH.height > areaH.height) {
+                ballH.speedY = -ballH.speedY * ballH.elastK;
+                ballH.posY = areaH.height - ballH.height;
+            }
+
+            ballH.update();
+        }
+
+        ballH.update();
+
+    </script>
+</body>
+
+</html>

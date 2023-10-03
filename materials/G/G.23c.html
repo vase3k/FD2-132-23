@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.23c CSS-анимации — анимация height от явного значения до явного</title>
+</head>
+
+<body>
+    <style>
+        div.SText {
+            width: 150px;
+            transition-duration: 1s;
+            transition-timing-function: linear;
+            overflow: hidden;
+            height: 100px;
+            /* высота задана явно */
+        }
+    </style>
+
+    <input type=button value='анимация' onclick='anim()'><br /><br />
+
+    <div class='SText' style='background-color: #FF8080'>
+        однажды в студёную зимнюю пору
+    </div>
+    <div class='SText' style='background-color: #8080FF' id=IText>
+        я из лесу вышел, был сильный мороз; гляжу - поднимается медленно в гору
+    </div>
+    <div class='SText' style='background-color: #80FF80'>
+        лошадка, везущая хворосту воз
+    </div>
+
+    <script>
+
+        function anim() {
+            const textElem = document.getElementById('IText');
+            textElem.style.height = "0px"; // работает
+        }
+
+    </script>
+</body>
+
+</html>
