@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.33 Домашнее задание CLOCK_DOM</title>
+</head>
+
+<body>
+    <input type="text" id="radius"><span>диаметр циферблата</span> <br>
+    <input type="button" name="btn_create" id="createClock" value="создать часы">
+
+    <script>
+
+        let radiusValue;
+
+        const getRadius = document.getElementById('radius');
+        getRadius.addEventListener('input', event => {
+            radiusValue = parseInt(event.target.value);
+        });
+
+        const createClock = (radius) => {
+            const startTime = new Date();
+            const radiusMunutes = radius / 8
+            const container = document.createElement('div');
+            container.style.position = 'relative';
+            document.body.appendChild(container);
+            const clockBody = document.createElement('div');
+            clockBody.style.position = 'absolute';
+            clockBody.style.backgroundColor = '#fcca66';
+            clockBody.style.width = radius + 'px';
+            clockBody.style.height = radius + 'px';
+            clockBody.style.borderRadius = '50' + '%';
+            container.appendChild(clockBody);
+
+            for (let angleValue = 30; angleValue <= 360; angleValue += 30) {
+
+                const minuteBody = document.createElement('div');
+                minuteBody.style.position = 'absolute';
+                minuteBody.style.backgroundColor = '#48b382';
+                minuteBody.style.width = radiusMunutes + 'px';
+                minuteBody.style.height = radiusMunutes + 'px';
+                minuteBody.style.borderRadius = '50' + '%';
+                minuteBody.style.lineHeight = `${radiusMunutes}px`;
+                minuteBody.style.textAlign = 'center'
+                minuteBody.style.fontSize = `${radiusMunutes / 1.4}px`
+                minuteBody.innerText = `${angleValue / 30}`;
+                clockBody.appendChild(minuteBody);
+
+                const radius = radiusValue / 2;
+                const angle = angleValue / 180 * Math.PI;
+
+                const clockBodyCenterX = clockBody.offsetLeft + clockBody.offsetWidth / 2;
+                const clockBodyCenterY = clockBody.offsetTop + clockBody.offsetHeight / 2;
+
+                const minuteBodyCenterX = clockBodyCenterX + (radius - radiusMunutes / 1.3) * Math.sin(angle);
+                const minuteBodyCenterY = clockBodyCenterY - (radius - radiusMunutes / 1.3) * Math.cos(angle);
+
+                minuteBody.style.left =
+                    Math.round(minuteBodyCenterX - minuteBody.offsetWidth / 2) + "px";
+                minuteBody.style.top =
+                    Math.round(minuteBodyCenterY - minuteBody.offsetHeight / 2) + "px";
+
+            } // end of x cycle
+
+            const timeContainer = document.createElement('div');
+            timeContainer.style.cssText = `
+            font-size : ${radiusMunutes / 1.5}px; 
+            font-family : monospace;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            top: ${radius / 3}px`;
+
+            setInterval(() => {
+                const timePassed = new Date((new Date) - startTime - (3600000 * 3));
+
+                let hours = startTime.getHours() + timePassed.getHours();
+                let minutes = startTime.getMinutes() + timePassed.getMinutes();
+                let seconds = startTime.getSeconds() + timePassed.getSeconds();
+
+                function str0l(val, len) {
+                    let strVal = val.toString();
+                    while (strVal.length < len)
+                        strVal = '0' + strVal;
+                    return strVal;
+                }
+
+                if (seconds >= 60) seconds -= 60;
+                if (minutes >= 60) minutes -= 60;
+                if (hours >= 24) minutes -= 24;
+
+                secondsArrowBody.style.rotate = `${seconds * 6 + 180}deg`;
+                minutesArrowBody.style.rotate = `${minutes * 6 + 180}deg`;
+                hoursArrowBody.style.rotate = `${hours * 30 + 180}deg`;
+
+                timeContainer.innerText = `${str0l(hours, 2)}:${str0l(minutes, 2)}:${str0l(seconds, 2)}`;
+                console.log(`${str0l(hours, 2)}:${str0l(minutes, 2)}:${str0l(seconds, 2)} прошло ${timePassed.getSeconds()} секунд`)
+
+            }, 1000);
+
+            clockBody.appendChild(timeContainer);
+
+            const secondsArrowBody = document.createElement('div');
+            const minutesArrowBody = document.createElement('div');
+            const hoursArrowBody = document.createElement('div');
+            secondsArrowBody.style.cssText = `
+            position : absolute;
+            width : 100%;
+            height : 100%;`
+            minutesArrowBody.style.cssText = `
+            position : absolute;
+            width : 100%;
+            height : 100%;`
+            hoursArrowBody.style.cssText = `
+            position : absolute;
+            width : 100%;
+            height : 100%;`
+            const secondsArrow = document.createElement('div');
+            secondsArrow.style.cssText = `
+            position : absolute;
+            left : ${radius / 2 - radiusValue / 50 / 2}px;
+            top : ${radius / 2 - radiusValue / 50 / 2}px;`
+            const secondsArrow_left = document.createElement('div');
+            secondsArrow_left.style.cssText = `
+            border-radius: 50% 50% 0 0;
+            background-color: black;
+            width: ${radiusValue / 50}px;
+            height: ${radiusValue / 50}px;`
+            const secondsArrow_center = document.createElement('div');
+            secondsArrow_center.style.cssText = `
+            background-color: black;
+            width: ${radiusValue / 50}px;
+            height: ${radiusValue / 3.5}px;`
+            const secondsArrow_right = document.createElement('div');
+            secondsArrow_right.style.cssText = `
+            border-radius: 0 0 50% 50%;
+            background-color: black;
+            width: ${radiusValue / 50}px;
+            height: ${radiusValue / 50}px;`
+
+            secondsArrow.appendChild(secondsArrow_left);
+            secondsArrow.appendChild(secondsArrow_center);
+            secondsArrow.appendChild(secondsArrow_right);
+
+            const minutesArrow = secondsArrow.cloneNode();
+            minutesArrow.appendChild(secondsArrow_left.cloneNode());
+            minutesArrow.appendChild(secondsArrow_center.cloneNode());
+            minutesArrow.appendChild(secondsArrow_right.cloneNode());
+
+            const hoursArrow = secondsArrow.cloneNode();
+            hoursArrow.appendChild(secondsArrow_left.cloneNode());
+            hoursArrow.appendChild(secondsArrow_center.cloneNode());
+            hoursArrow.appendChild(secondsArrow_right.cloneNode());
+
+            secondsArrowBody.appendChild(secondsArrow);
+            minutesArrowBody.appendChild(minutesArrow);
+            hoursArrowBody.appendChild(hoursArrow);
+
+            clockBody.appendChild(secondsArrowBody);
+            clockBody.appendChild(minutesArrowBody);
+            clockBody.appendChild(hoursArrowBody);
+
+        } // end of createClock function
+
+        const makeClock = document.getElementById('createClock');
+        makeClock.addEventListener('click', (event) => {
+            if (radiusValue < 200 || radiusValue > 800) {
+                event.preventDefault();
+            } else {
+                document.body.innerHTML = '';
+                createClock(radiusValue);
+            }
+        }
+        );
+
+
+    </script>
+</body>
+
+</html>
