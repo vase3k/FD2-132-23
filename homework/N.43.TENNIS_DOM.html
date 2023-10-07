@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.43 Домашнее задание TENNIS_DOM</title>
+    <style>
+        .wrapper {
+            margin: 0 auto;
+            width: 750px;
+            height: 500px;
+        }
+
+        .container__main {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            height: 42px;
+            font-size: 40px;
+        }
+
+        .button__start {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            background-color: gray;
+            border: 0px;
+            font-size: 32px;
+        }
+
+        .button__start:active {
+            top: 1px;
+        }
+
+        #mainArea {
+            position: relative;
+            background-color: bisque;
+            width: 750px;
+            height: 510px;
+        }
+
+        #greenRacket {
+            width: 20px;
+            height: 150px;
+            background-color: green;
+            position: absolute;
+            left: 0;
+        }
+
+        #blueRacket {
+            width: 20px;
+            height: 150px;
+            background-color: blue;
+            position: absolute;
+            right: 0;
+        }
+
+        #ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container__main">
+            <input id="btnStart" class="button__start" type="button" value="Старт!">
+            <div id="score">0 : 0</div>
+        </div>
+        <div id="mainArea">
+            <div id="greenRacket"></div>
+            <div id="blueRacket"></div>
+            <div id="ball"></div>
+        </div>
+    </div>
+
+    <script>
+        const ball = document.getElementById('ball');
+        const greenRacket = document.getElementById('greenRacket');
+        const blueRacket = document.getElementById('blueRacket');
+        const score = document.getElementById('score');
+        const mainArea = document.getElementById('mainArea');
+        const btnStart = document.getElementById('btnStart');
+        const mainAreaWidth = mainArea.offsetWidth;
+        const mainAreaHeight = mainArea.offsetHeight;
+        const greenRacketWidth = greenRacket.offsetWidth;
+        const greenRacketHeight = greenRacket.offsetHeight;
+        const blueRacketWidth = blueRacket.offsetWidth;
+        const blueRacketHeight = blueRacket.offsetHeight;
+        const ballHeight = ball.offsetHeight;
+        const ballWidth = ball.offsetWidth;
+        greenRacket.style.top = mainAreaHeight / 2 - greenRacketHeight / 2 + 'px';
+        blueRacket.style.top = mainAreaHeight / 2 - blueRacketHeight / 2 + 'px';
+        const greenRacketOffSetTop = greenRacket.offsetTop;
+        const blueRacketOffSetTop = blueRacket.offsetTop;
+
+        let yGreen = greenRacketOffSetTop;
+        let yBlue = blueRacketOffSetTop;
+        let scoreCountGreen = 0;
+        let scoreCountBlue = 0;
+
+        window.addEventListener('keydown', (event) => {
+            switch (event.keyCode) {
+                case 90:
+                    yGreen += 10;
+                    greenRacket.style.top = yGreen + 'px';
+                    if (greenRacket.offsetTop >= mainAreaHeight - greenRacketHeight) yGreen = 350;
+                    break;
+                case 65:
+                    yGreen -= 10;
+                    greenRacket.style.top = yGreen + 'px';
+                    if (greenRacket.offsetTop <= 0) yGreen = 10;
+                    break;
+                case 191:
+                    yBlue += 10;
+                    blueRacket.style.top = yBlue + 'px';
+                    if (blueRacket.offsetTop >= mainAreaHeight - blueRacketHeight) yBlue = 350;
+                    break;
+                case 222:
+                    yBlue -= 10;
+                    blueRacket.style.top = yBlue + 'px';
+                    if (blueRacket.offsetTop <= 0) yBlue = 10;
+                    break;
+            }
+        });
+
+        const updateScore = () => {
+            score.innerText = `${scoreCountGreen}:${scoreCountBlue}`;
+        }
+
+        function randomDiap(n, m) {
+            return Math.floor(
+                Math.random() * (m - n + 1)
+            ) + n;
+        }
+
+        const rand = () => Math.random() < 0.5 ? randomDiap(2, 3) : randomDiap(-2, -3);
+
+        let ballH = {
+            posX: mainAreaWidth / 2 - ballWidth / 2,
+            posY: mainAreaHeight / 2 - ballHeight / 2,
+            speedX: rand(),
+            speedY: rand() / 2,
+
+            update() {
+                ball.style.left = `${this.posX}px`;
+                ball.style.top = `${this.posY}px`;
+            },
+        }
+
+        let timer1 = null;
+
+        function tick() {
+
+            let scoreConditionGreen = (ball.offsetTop) < greenRacket.offsetTop ||
+                (ball.offsetTop) > (greenRacket.offsetTop + greenRacketHeight) ? true : false;
+            let scoreConditionBlue = (ball.offsetTop) < blueRacket.offsetTop ||
+                (ball.offsetTop) > (blueRacket.offsetTop + blueRacketHeight) ? true : false;
+
+            ballH.posX += ballH.speedX;
+            // вылетел ли мяч правее стены?
+            if (scoreConditionBlue) {
+                if (ballH.posX + ballWidth > mainAreaWidth) {
+                    ballH.speedX = -ballH.speedX;
+                    ballH.posX = mainAreaWidth - ballWidth;
+                    scoreCountGreen++;
+                    updateScore();
+                };
+            } else if (ballH.posX + ballWidth > mainAreaWidth - blueRacketWidth) {
+                ballH.speedX = -ballH.speedX;
+                ballH.posX = mainAreaWidth - ballWidth - blueRacketWidth;
+            }
+
+            // вылетел ли мяч левее стены?
+            if (scoreConditionGreen) {
+                if (ballH.posX < 0) {
+                    ballH.speedX = -ballH.speedX;
+                    ballH.posX = 0;
+                    scoreCountBlue++;
+                    updateScore();
+                }
+            } else if (ballH.posX < 0 + greenRacketWidth) {
+                ballH.speedX = -ballH.speedX;
+                ballH.posX = 0 + greenRacketWidth;
+            }
+
+            ballH.posY += ballH.speedY;
+            // вылетел ли мяч ниже пола?
+            if (ballH.posY + ballHeight > mainAreaHeight) {
+                ballH.speedY = -ballH.speedY;
+                ballH.posY = mainAreaHeight - ballHeight;
+            }
+            // вылетел ли мяч выше потолка?
+            if (ballH.posY < 0) {
+                ballH.speedY = -ballH.speedY;
+                ballH.posY = 0;
+            }
+
+            ballH.update();
+            timer1 = requestAnimationFrame(tick);
+        }
+
+        ballH.update();
+
+        btnStart.addEventListener('click', () => {
+            if (timer1 === null) {
+                timer1 = requestAnimationFrame(tick);
+            } else {
+                cancelAnimationFrame(timer1);
+                timer1 = null;
+            }
+        });
+
+    </script>
+</body>
+
+</html>
