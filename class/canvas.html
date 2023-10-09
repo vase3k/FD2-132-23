@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas</title>
+    <style>
+        canvas {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id='CVA' width='200' height='100'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVA');
+        var context = cvs.getContext('2d');
+        context.fillStyle = 'red';
+        context.fillRect(0, 0, cvs.width, cvs.height);
+    </script>
+    <canvas id='CVB' width='200' height='100'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVB');
+        var context = cvs.getContext('2d');
+
+        context.strokeRect(1, 1, 40, 40);
+
+        context.strokeRect(50.5, 1.5, 40, 40);
+
+        context.fillRect(100, 1, 40, 40);
+    </script>
+    <canvas id='CVC' width='200' height='100'>
+        Обновите браузер</canvas>
+    <script>
+        var cvs = document.getElementById('CVC');
+        var context = cvs.getContext('2d');
+        context.strokeStyle = 'blue';
+        context.fillStyle = 'rgb(255,0,0)';
+        context.strokeRect(1, 1, 40, 40);
+        context.fillRect(50, 1, 40, 40);
+    </script>
+    <canvas id='CVD' width='200' height='400'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVD');
+        var context = cvs.getContext('2d');
+        context.strokeStyle = 'blue';
+        context.fillStyle = 'red';
+
+        context.beginPath();
+        context.moveTo(10, 10);
+        context.lineTo(50, 20);
+        context.lineTo(80, 10);
+        context.stroke();
+
+        context.beginPath();
+        context.moveTo(10, 40);
+        context.lineTo(50, 70);
+        context.lineTo(100, 30);
+        context.closePath();
+        context.stroke();
+
+        context.beginPath();
+        context.moveTo(10, 90);
+        context.lineTo(50, 120);
+        context.lineTo(100, 80);
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(10, 150);
+        context.lineTo(200, 200);
+        context.lineTo(180, 150);
+        context.lineTo(20, 190);
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(100, 250);
+        context.lineTo(140, 340);
+        context.lineTo(40, 280);
+        context.lineTo(160, 280);
+        context.lineTo(60, 340);
+        context.fill();
+    </script>
+    <canvas id='CVE' width='230' height='400'>
+        Обновите браузер</canvas>
+    <script>
+        var cvs = document.getElementById('CVE');
+        var context = cvs.getContext('2d');
+
+        context.strokeStyle = 'blue';
+        context.beginPath();
+        context.arc(50, 20, 100, 0, Math.PI / 2, false);
+        context.stroke();
+
+        context.strokeStyle = 'red';
+        context.beginPath();
+        context.arc(100, 180, 50, 0, Math.PI * 2, false);
+        context.stroke();
+
+        context.strokeStyle = 'grey';
+        context.beginPath();
+        context.moveTo(250, 300);
+        context.lineTo(30, 230);
+        context.stroke();
+
+        context.strokeStyle = 'red';
+        context.beginPath();
+        context.moveTo(50, 350);
+        context.arcTo(250, 300, 30, 230, 30);
+        context.stroke();
+    </script>
+    <canvas id='CVF' width='280' height='280'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVF');
+        var context = cvs.getContext('2d');
+
+        context.strokeStyle = 'red';
+        context.beginPath();
+        context.moveTo(50, 20);
+        context.quadraticCurveTo(150, -50, 200, 150);
+        context.stroke();
+
+        context.strokeStyle = 'green';
+        context.beginPath();
+        context.moveTo(50, 120);
+        context.bezierCurveTo(150, 0, -150, 450, 250, 200);
+        context.stroke();
+    </script>
+    <canvas id='CVG' width='280' height='400'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVG');
+        var context = cvs.getContext('2d');
+
+        context.strokeStyle = 'red';
+        context.lineWidth = 20;
+
+        context.beginPath();
+        context.moveTo(15, 10);
+        context.lineTo(150, 30);
+        context.stroke();
+
+        context.lineCap = 'round';
+        context.beginPath();
+        context.moveTo(15, 110);
+        context.lineTo(150, 130);
+        context.stroke();
+
+        context.lineCap = 'square';
+        context.beginPath();
+        context.moveTo(15, 210);
+        context.lineTo(150, 230);
+        context.stroke();
+
+        context.strokeStyle = 'black';
+        context.lineWidth = 1;
+
+        /* те же линии, но чёрные и тонкие */
+        context.beginPath();
+        context.moveTo(15, 10);
+        context.lineTo(150, 30);
+        context.moveTo(15, 110);
+        context.lineTo(150, 130);
+        context.moveTo(15, 210);
+        context.lineTo(150, 230);
+        context.stroke();
+    </script>
+    <canvas id='CVH' width='280' height='400'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVH');
+        var context = cvs.getContext('2d');
+
+        context.strokeStyle = 'red';
+        context.lineWidth = 20;
+
+        context.beginPath();
+        context.moveTo(45, 10);
+        context.lineTo(25, 50);
+        context.lineTo(150, 30);
+        context.stroke();
+
+        context.lineJoin = 'round';
+        context.beginPath();
+        context.moveTo(45, 110);
+        context.lineTo(25, 150);
+        context.lineTo(150, 130);
+        context.stroke();
+
+        context.lineJoin = 'bevel';
+        context.beginPath();
+        context.moveTo(45, 210);
+        context.lineTo(25, 250);
+        context.lineTo(150, 230);
+        context.stroke();
+
+        context.strokeStyle = 'black';
+        context.lineWidth = 1;
+
+        /* те же линии, но чёрные и тонкие */
+        context.beginPath();
+        context.moveTo(45, 10);
+        context.lineTo(25, 50);
+        context.lineTo(150, 30);
+        context.moveTo(45, 110);
+        context.lineTo(25, 150);
+        context.lineTo(150, 130);
+        context.moveTo(45, 210);
+        context.lineTo(25, 250);
+        context.lineTo(150, 230);
+        context.stroke();
+    </script>
+    <canvas id='CVI' width='240' height='300'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVI');
+        var context = cvs.getContext('2d');
+
+        var grad = context.createLinearGradient(0, 0, 100, 100);
+        grad.addColorStop(0, 'red');
+        grad.addColorStop(0.5, 'rgba(0,0,255,0.8)');
+        grad.addColorStop(1, 'green');
+        context.fillStyle = grad;
+
+        context.fillRect(10, 0, 230, 50);
+        context.fillRect(10, 60, 80, 100);
+
+        var grad2 = context.createRadialGradient(100, 230, 20, 100, 230, 50);
+        grad2.addColorStop(0, 'red');
+        grad2.addColorStop(0.5, 'rgba(0,0,255,0.8)');
+        grad2.addColorStop(1, 'green');
+        context.fillStyle = grad2;
+
+        context.fillRect(50, 200, 150, 300);
+    </script>
+    <canvas id='CVJ' width='220' height='400'>
+        Обновите браузер</canvas>
+    <script>
+
+        var cvs = document.getElementById('CVJ');
+        var context = cvs.getContext('2d');
+
+        /* найдём предыдущий канвас, который с градиентами */
+        var ctx2 = document.getElementById('CVI');
+        context.drawImage(ctx2, 10, 0, 100, 280, 120, 270, 80, 120);
+
+        var img = new Image();
+        img.onload = drawCVJ;
+        img.src = 'http://fe.it-academy.by/Examples/Hilu200.jpg';
+
+        function drawCVJ() {
+            var cvs = document.getElementById('CVJ');
+            var context = cvs.getContext('2d');
+
+            /* картинка загружена, можно из неё копировать изображение */
+            context.drawImage(img, 10, 10);
+            context.globalAlpha = 0.7;
+            context.drawImage(img, 10, 160, 100, 50);
+            context.drawImage(img, 15, 20, 50, 50, 10, 220, 50, 50);
+            context.drawImage(img, 15, 20, 50, 50, 10, 280, 30, 60);
+        }
+    </script>
+    <canvas id='CVK' width='280' height='350'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var imgk = new Image();
+        imgk.onload = drawCVK;
+        imgk.src = 'https://avatars.mds.yandex.net/i?id=3381706d89563f8a3e945975da428ffe4fb353fa-10117685-images-thumbs&n=13';
+
+        function drawCVK() {
+            var cvs = document.getElementById('CVK');
+            var context = cvs.getContext('2d');
+
+            var patt = context.createPattern(imgk, 'repeat');
+
+            context.fillStyle = patt;
+            context.fillRect(20, 20, 70, 50);
+
+            context.strokeStyle = patt;
+            context.lineWidth = 20;
+            context.beginPath();
+            context.moveTo(20, 100);
+            context.lineTo(100, 170);
+            context.lineTo(130, 70);
+            context.stroke();
+        }
+    </script>
+    <canvas id='CVL' width='320' height='200'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVL');
+        var context = cvs.getContext('2d');
+
+        context.fillStyle = 'red';
+        context.font = 'italic bold 28px Arial';
+        context.fillText('однажды в студёную', 10, 30);
+
+        context.strokeStyle = 'blue';
+        context.lineWidth = 3;
+        context.font = 'normal 45px Arial';
+        context.strokeText('зимнюю пору', 20, 90);
+    </script>
+    <canvas id='CVM' width='330' height='300'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVM');
+        var context = cvs.getContext('2d');
+
+        context.fillStyle = 'red';
+        context.font = 'normal 27px Arial';
+
+        context.textAlign = 'left';
+        context.fillText('к леву', 150, 30);
+        context.textAlign = 'center';
+        context.fillText('к центру', 150, 60);
+        context.textAlign = 'right';
+        context.fillText('к праву', 150, 90);
+
+        context.textAlign = 'left';
+        context.textBaseline = 'top';
+        context.fillText('Й к верху', 10, 200);
+        context.textBaseline = 'middle';
+        context.fillText('к центру', 80, 200);
+        context.textBaseline = 'bottom';
+        context.fillText('к низу', 140, 200);
+        context.textBaseline = 'alphabetic';
+        context.fillText('к базе у', 220, 200);
+
+        context.lineStyle = 'black';
+        context.beginPath();
+        context.moveTo(150, 10);
+        context.lineTo(150, 100);
+        context.moveTo(10, 200);
+        context.lineTo(320, 200);
+        context.stroke();
+    </script>
+    <canvas id='CVN' width='340' height='300'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVN');
+        var context = cvs.getContext('2d');
+
+        context.fillStyle = 'black';
+        context.font = 'normal 27px Arial';
+        context.shadowColor = 'rgb(50,50,50)';
+        context.shadowOffsetX = 2;
+        context.shadowOffsetY = 3;
+        context.shadowBlur = 3;
+        context.fillText('Через тернии к звёздам!', 10, 30);
+
+        context.fillStyle = 'red';
+        context.shadowColor = 'magenta';
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 0;
+        context.shadowBlur = 10;
+        context.fillRect(30, 80, 100, 50);
+
+    </script>
+    <canvas id='CVO' width='180' height='180'>
+        Обновите браузер
+    </canvas>
+    <hr>
+    <img id='ImgO'><br>
+    <a href='' id='HrefO' target=_blank>
+        это изображение в отдельном окне</a>
+    <script>
+        var cvs = document.getElementById('CVO');
+        var context = cvs.getContext('2d');
+
+        context.beginPath();
+        context.arc(100, 80, 80, 0, 2 * Math.PI);
+        context.clip();
+
+        context.fillStyle = 'red';
+        context.font = 'italic bold 28px Arial';
+        context.fillText('однажды в студёную', 10, 70);
+
+        context.strokeStyle = 'blue';
+        context.lineWidth = 3;
+        context.font = 'normal 45px Arial';
+        context.strokeText('зимнюю пору', 20, 130);
+
+        let DU = cvs.toDataURL();
+        document.getElementById('ImgO').src = DU;
+        document.getElementById('HrefO').href = DU;
+    </script>
+    <canvas id='CVP' width='200' height='400'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var cvs = document.getElementById('CVP');
+        var context = cvs.getContext('2d');
+
+        function drawGreen() {
+            context.save();
+            context.strokeStyle = 'green';
+            context.beginPath();
+            context.moveTo(10, 40);
+            context.lineTo(50, 70);
+            context.stroke();
+            context.restore();
+        }
+
+        function drawBlue() {
+            context.save();
+            context.strokeStyle = 'blue';
+
+            drawGreen();
+
+            context.beginPath();
+            context.moveTo(10, 90);
+            context.lineTo(50, 120);
+            context.stroke();
+            context.restore();
+        }
+
+        context.strokeStyle = 'red';
+        context.lineWidth = 5;
+
+        drawBlue();
+
+        context.beginPath();
+        context.moveTo(10, 140);
+        context.lineTo(50, 170);
+        context.stroke();
+    </script>
+    <canvas id='CVQ' width='200' height='350'>Обновите браузер</canvas>
+    <script>
+        var cvs = document.getElementById('CVQ');
+        var context = cvs.getContext('2d');
+        context.fillStyle = 'blue';
+        context.fillRect(10, 10, 80, 60);
+
+        var ID = context.getImageData(10, 10, 80, 60);
+        for (var Y = 5; Y < 25; Y++)
+            for (var X = 5; X < 25; X++) {
+                var I = (Y * 80 + X) * 4; /* 80 - ширина ImageData */
+                ID.data[I + 1] = 255; /* green */
+            }
+        context.putImageData(ID, 10, 100);
+
+        var ID2 = context.createImageData(50, 30);
+        for (var N = 0; N < 100; N++) {
+            var X = Math.floor(Math.random() * 50);
+            var Y = Math.floor(Math.random() * 30);
+            var I = (Y * 50 + X) * 4; /* 50 - ширина ImageData */
+            ID2.data[I] = 255; /* red */
+            ID2.data[I + 3] = 255; /* alpha */
+        }
+        context.putImageData(ID2, 10, 200);
+    </script>
+    <canvas id='CVR' width='310' height='375'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var img3 = new Image();
+        img3.onload = drawCVR;
+        img3.src = 'http://fe.it-academy.by/Examples/Hilu200.jpg';
+
+        function drawCVR() {
+            var cvs = document.getElementById('CVR');
+            var context = cvs.getContext('2d');
+
+            context.shadowOffsetX = 7;
+            context.shadowOffsetY = 10;
+            context.shadowColor = 'gray';
+
+            context.drawImage(img3, 10, 10);
+
+            context.translate(0, 240);
+            context.rotate(-0.6);
+
+            context.drawImage(img3, 10, 10);
+        }
+    </script>
+    <canvas id='CVS' width='200' height='700'>
+        Обновите браузер
+    </canvas>
+    <script>
+        var img2 = new Image();
+        img2.onload = drawCVS;
+        img2.src = 'https://avatars.mds.yandex.net/i?id=3381706d89563f8a3e945975da428ffe4fb353fa-10117685-images-thumbs&n=13';
+
+        function drawCVS() {
+            var cvs = document.getElementById('CVS');
+            var context = cvs.getContext('2d');
+
+            var patt = context.createPattern(img2, 'repeat');
+
+            context.fillStyle = patt;
+
+            context.beginPath(); /* в момент рисования поворота ещё нет */
+            context.moveTo(60, 24);
+            context.lineTo(160, 24);
+            context.lineTo(160, 120);
+            context.lineTo(60, 120);
+            context.lineTo(60, 24);
+            context.save();
+            context.rotate(0.5);
+            context.fill(); /* в момент заливки поворот действует */
+            context.restore();
+
+            /* трансформируется И заливка И фигура */
+            context.save();
+            context.rotate(0.5);
+            context.beginPath(); /* в момент рисования поворот действует */
+            context.moveTo(200, 160);
+            context.lineTo(300, 160);
+            context.lineTo(300, 260);
+            context.lineTo(200, 260);
+            context.lineTo(200, 160);
+            context.fill(); /* в момент заливки поворот действует */
+            context.restore();
+
+            /* трансформируется только фигура */
+            context.save();
+            context.rotate(0.5);
+            context.beginPath(); /* в момент рисования поворот действует */
+            context.moveTo(350, 420);
+            context.lineTo(450, 420);
+            context.lineTo(450, 520);
+            context.lineTo(350, 520);
+            context.lineTo(350, 420);
+            context.restore();
+            context.fill(); /* в момент заливки поворота уже нет */
+        }
+    </script>
+    <canvas id='CVT' width='290' height='400'>
+        Обновите браузер</canvas>
+    <script>
+        var cvs = document.getElementById('CVT');
+        var context = cvs.getContext('2d');
+
+        function drawCVT(oper, shiftx, shifty) {
+            context.globalCompositeOperation = 'source-over';
+            context.fillStyle = 'red';
+            context.fillRect(5 + shiftx, 5 + shifty, 60, 60);
+            context.globalCompositeOperation = oper;
+            context.fillStyle = 'green';
+            context.beginPath();
+            context.arc(55 + shiftx, 55 + shifty, 30, 0, Math.PI * 2, false);
+            context.fill();
+        }
+
+        drawCVT('source-over', 0, 0);
+        drawCVT('source-atop', 100, 0);
+
+        drawCVT('destination-over', 0, 100);
+        drawCVT('destination-out', 100, 100);
+        drawCVT('xor', 200, 100);
+
+        drawCVT('lighter', 0, 200);
+        drawCVT('darken', 100, 200);
+    </script>
+    Разработ
+</body>
+
+</html>
