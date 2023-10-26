@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  #canvas1 {
+    border: 1px solid black;
+    border-radius: 20px 20px 0 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #8cb1e8;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #modal {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: antiquewhite;
+    padding: 30px;
+    border-radius: 20px;
+    font-size: large;
+  }
+  #btnSubmit {
+    font-size: x-large;
+    max-width: fit-content;
+    align-self: center;
+  }
+  #name {
+    font-size: x-large;
+    border: 1px solid aliceblue;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  #points {
+    text-align: center;
+  }
+  
+ #bird,
+ #landskape,
+ #clouds,
+ #sky,
+ #pipeBody,
+ #pipeTop,
+ #pipeBottom,
+ #sun,
+ #Three,
+ #explosionOnImpact {
+    display: none;
+  }
+  
