@@ -475,7 +475,7 @@ window.addEventListener('DOMContentLoaded', () => {
         game.update(deltaTime);
         if (game.gameOver) {
             timer += deltaTime;
-            if (timer > 1500) {
+            if (timer > 900) {
                 cancelAnimationFrame(animationId);
                 return;
             }
